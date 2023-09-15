@@ -64,3 +64,8 @@ Vector3D Vector3D::CrossProduct(const Vector3D& Vector) const
     return Vector3D(resultX, resultY, resultZ, W);
 }
 
+Vector3D Vector3D::Zero()
+{
+    return Vector3D();
+}
+

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Public/Math/Vector3D.h"
+#include "Public/Particle/Particle.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,5 +23,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		//Salut hugo
+	Particle p1;
+	Particle p2;
+	
 };

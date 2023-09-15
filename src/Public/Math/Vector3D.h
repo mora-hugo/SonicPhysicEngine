@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <string>
 #include <utility>
 #include <glm/glm.hpp>
 class Vector3D
@@ -132,6 +133,11 @@ public:
      */
     Vector3D CrossProduct(const Vector3D& Vector) const;
 
+
+    static Vector3D Zero();
+
+    
+ 
     /**
      * \brief Convert to a glm::vec2.
      * 
@@ -158,6 +164,11 @@ public:
     operator glm::vec3() const
     {
         return this->toVec3();
+    }
+
+    operator std::string() const
+    {
+     return "("+std::to_string(X)+","+std::to_string(Y)+","+std::to_string(Z)+","+std::to_string(W)+")";
     }
     
     Vector3D operator-(const Vector3D& Vector) const {
