@@ -9,13 +9,17 @@ public:
 
     void Draw() const;
 
-    void Update();
+    void Update(clock_t f);
 
     void SetRadius(const float radius);
 
     void SetColor(const ofColor color);
     
 
+    void SetFrameLength(clock_t f);
+
+    clock_t getFrameLength();
+    
     Vector3D GetPosition() const;
 
     Vector3D GetVelocity() const;
@@ -25,19 +29,23 @@ public:
     float GetRadius() const;
 
     double GetMass() const;
+
+    double getReverseMass() const;
+
+    void UpdateVelocity();
+
+    void UpdatePosition();
     
 protected:
-    void ApplyPhysics();
-
-    
+    void ApplyPhysics();    
 
 private:
-
+    clock_t FrameLength;
     Vector3D position;
     Vector3D velocity;
     Vector3D acceleration;
-    double mass = 0;
-    float radius = 0;
+    double mass = 5;
+    float radius = 30;
     ofColor color = ofColor::white;
     
 };

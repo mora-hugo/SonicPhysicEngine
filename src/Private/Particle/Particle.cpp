@@ -1,5 +1,6 @@
 ﻿#include "../../Public/Math/Vector3D.h"
 #include "../../Public/Particle/Particle.h"
+#include "time.h"
 
 #include "ofGraphics.h"
 
@@ -16,9 +17,9 @@ void Particle::Draw() const
     ofSpherePrimitive::draw();
 }
 
-void Particle::Update()
+void Particle::Update(clock_t f)
 {
-    
+    SetFrameLength(f);
     std::cout << std::string(position) << std::endl;
     this->ApplyPhysics();
     setPosition(position);
@@ -32,6 +33,16 @@ void Particle::SetRadius(const float radius)
 void Particle::SetColor(const ofColor color)
 {
     this->color = color;
+}
+
+void Particle::SetFrameLength(clock_t f)
+{
+    FrameLength = f;
+}
+
+clock_t Particle::getFrameLength()
+{
+    return FrameLength;
 }
 
 
@@ -60,10 +71,33 @@ double Particle::GetMass() const
     return this->mass;
 }
 
+double Particle::getReverseMass() const
+{
+    return 1/mass;
+}
+
+void Particle::UpdateVelocity()
+{
+    velocity = velocity + acceleration * FrameLength;
+    //velocité instant k+1 = velocité instant k + longueur d'une frame * accélération
+}
+
+void Particle::UpdatePosition()
+{
+    position = position + velocity * FrameLength;
+    //position instant k+1 = position instant k + longueur d'une frame * vélocité instant k+1
+}
+
 void Particle::ApplyPhysics()
 {
-    // Physics source : bob
+    UpdateVelocity();
+    UpdatePosition();
+    
+    /*
+     * Ce qui était fait avant
+     // Physics source : bob
     position = position + velocity;
 
     velocity = velocity.Add(Vector3D(0,mass/100,0));
+    */
 }
