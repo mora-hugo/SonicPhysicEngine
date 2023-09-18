@@ -1,31 +1,29 @@
 #include "ofApp.h"
 #include "time.h"
+#include "Public/Particle/ParticleFireball.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     LastFrameTime = clock();
+    Particle * myParticle = particleSystem.AddParticle(new Particle(5,Vector3D(50,600),Vector3D(0.2,-1), Vector3D(0,0.00098), 30));
+    myParticle->SetColor(ofColor::green);
+    particleSystem.AddParticle(new ParticleFireball(50,Vector3D(50,200),Vector3D(0.3,-0.4), Vector3D(0,0.00098), 20));
     
-    p1 = Particle(5,Vector3D(50,50),Vector3D(1,0), Vector3D(0,0.00098), 30);
-    p2 = Particle(10,Vector3D(20,20),Vector3D(1,0),Vector3D(0,0.00098),10);
-    
-    p1.SetColor(ofColor::aqua);
-    p2.SetColor(ofColor::red);
+    particleSystem.Setup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     FrameLength = clock() - LastFrameTime;
     
-    p1.Update(FrameLength);
-    p2.Update(FrameLength);
+    particleSystem.Update(FrameLength);
     
     LastFrameTime = clock();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    p1.Draw();
-    p2.Draw();
+    particleSystem.Draw();
 
 }
 

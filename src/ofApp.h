@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "Public/Math/Vector3D.h"
 #include "Public/Particle/Particle.h"
+#include "Public/Particle/ParticleSystem/ParticleSystem.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,8 +24,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	Particle p1;
-	Particle p2;
+	ParticleSystem particleSystem;
 	clock_t FrameLength;
 	clock_t LastFrameTime;
 	

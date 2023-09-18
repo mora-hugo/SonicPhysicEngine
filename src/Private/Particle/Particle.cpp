@@ -8,6 +8,12 @@ Particle::Particle(const double& mass, const Vector3D& position, const Vector3D&
     position(position),velocity(velocity), acceleration(acceleration), mass(mass), radius(radius)
 {
     ofSpherePrimitive::setRadius(radius);
+
+}
+
+void Particle::Setup()
+{
+    
 }
 
 
@@ -20,9 +26,13 @@ void Particle::Draw() const
 void Particle::Update(clock_t f)
 {
     SetFrameLength(f);
-    std::cout << std::string(position) << std::endl;
     this->ApplyPhysics();
     setPosition(position);
+}
+
+void Particle::OnAnimationFinished()
+{
+    
 }
 
 void Particle::SetRadius(const float radius)
