@@ -31,7 +31,7 @@ void AnimationSystem::AbortAnimation()
     OnAnimationFinished();
 }
 
-void AnimationSystem::Update(clock_t f)
+void AnimationSystem::Update(double f)
 {
     LifetimeRemaining-=f;
     if(LifetimeRemaining<=0)

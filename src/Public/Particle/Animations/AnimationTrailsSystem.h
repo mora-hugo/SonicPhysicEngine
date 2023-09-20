@@ -1,5 +1,5 @@
 #pragma once
-#include "AnimationsSystem.h"
+#include "AnimationSystem.h"
 #include "../ParticleSystem/ParticleSystem.h"
 
 class AnimationTrailsSystem : public AnimationSystem
