@@ -17,7 +17,7 @@ public:
 
     virtual void AbortAnimation();
 
-    virtual void Update(clock_t f);
+    virtual void Update(double f);
 
     virtual void Draw() const;
 

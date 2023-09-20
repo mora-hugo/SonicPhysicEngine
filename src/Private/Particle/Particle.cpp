@@ -88,16 +88,14 @@ double Particle::getReverseMass() const
 
 void Particle::UpdateVelocity()
 {
-    Vector3D temp = acceleration * (FrameLength*1000);
-    velocity = velocity + temp;
-    //velocité instant k+1 = velocité instant k + longueur d'une frame * accélération
+    velocity = velocity + acceleration.Multiply(FrameLength*1000);
+    //velocité instant k+1 = velocité instant k + longueur d'une frame (en ms) * accélération
 }
 
 void Particle::UpdatePosition()
 {
-    Vector3D temp = velocity * (FrameLength*1000);
-    position = position + temp;
-    //position instant k+1 = position instant k + longueur d'une frame * vélocité instant k+1
+    position = position + velocity.Multiply(FrameLength*1000);
+    //position instant k+1 = position instant k + longueur d'une frame (en ms) * vélocité instant k+1
 }
 
 void Particle::ApplyPhysics()

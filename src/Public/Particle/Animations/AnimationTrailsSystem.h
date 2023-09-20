@@ -17,7 +17,7 @@ public:
 
     void Draw() const override;
     
-    void Update(clock_t f) override;
+    void Update(double f) override;
 
     ofColor GetRandomColor() const;
     
