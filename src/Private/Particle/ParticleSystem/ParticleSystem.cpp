@@ -21,9 +21,16 @@ void ParticleSystem::Setup()
 
 void ParticleSystem::Update(double f)
 {
-    for(Particle * particle: particles)
+    for(unsigned int i = 0; i < particles.size(); i++)
     {
-        particle->Update(f);
+        if(particles[i]->GetIsFinished())
+        {
+            /*
+            delete particles[i];
+            particles.erase(particles.begin() + i);
+            */
+        }
+        particles[i]->Update(f);
     }
 }
 

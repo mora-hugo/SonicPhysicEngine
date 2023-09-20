@@ -33,7 +33,9 @@ void AnimationSystem::AbortAnimation()
 
 void AnimationSystem::Update(double f)
 {
+    if(!bIsPlaying || bIsInPause) return;
     LifetimeRemaining-=f;
+    //std::cout << "Class AnimationSystem : Update lifetime = " << LifetimeRemaining << std::endl;
     if(LifetimeRemaining<=0)
         OnAnimationFinished();
 }
@@ -43,6 +45,7 @@ void AnimationSystem::OnAnimationFinished()
     bIsPlaying = false;
     bIsInPause = false;
     Owner->OnAnimationFinished();
+    
 };
 
 bool AnimationSystem::IsInPause() const

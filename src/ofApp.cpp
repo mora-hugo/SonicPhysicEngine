@@ -34,7 +34,7 @@ void ofApp::setup(){
 
     bHide = false;
 
-    ring.load("ring.wav");
+    //ring.load("ring.wav");
 }
 
 //--------------------------------------------------------------
@@ -56,7 +56,7 @@ void ofApp::ringButtonPressed(){
 void ofApp::update(){
 
     //ofGetLastFrameTime();
-    printf ("%lf Seconds.\n", ofGetLastFrameTime());
+    //printf ("%lf Seconds.\n", ofGetLastFrameTime());
     FrameTime = ofGetLastFrameTime();
     
     particleSystem.Update(FrameTime);
@@ -88,15 +88,16 @@ void ofApp::draw(){
 
     if(launchFireBall)
     {
-        particleSystem.AddParticle(new ParticleFireball(20,Vector3D(50,600),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
+         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
+         p->Setup();
     }
 
     if(launchFromBall)
     {
-        particleSystem.AddParticle(new ParticleFireball(20,Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
+         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
+         p->Setup();
     }
 
-    particleSystem.Setup();
 	
     // auto draw?
     // should the gui control hiding?
@@ -119,11 +120,13 @@ void ofApp::keyPressed(int key){
         gui.loadFromFile("settings.xml");
     }
     else if(key == 'b'){
-        particleSystem.AddParticle(new ParticleFireball(50,Vector3D(50,200),Vector3D(0.3,-0.4), Vector3D(0,0.00098), 20));
+         Particle * p = particleSystem.AddParticle(new ParticleFireball(50,1,Vector3D(50,200),Vector3D(0.3,-0.4), Vector3D(0,0.00098), 20));
+         p->Setup();
     }
     else if(key == 't')
     {
-        particleSystem.AddParticle(new ParticleFireball(20,Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,0.00098), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1,Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,0.00098), 20));
+        p->Setup();
     }
     else if(key == ' '){
         color = ofColor(255);

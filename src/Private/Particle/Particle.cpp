@@ -4,8 +4,8 @@
 
 #include "ofGraphics.h"
 
-Particle::Particle(const double& mass, const Vector3D& position, const Vector3D& velocity, const Vector3D& acceleration, const float radius) :
-    position(position),velocity(velocity), acceleration(acceleration), mass(mass), radius(radius)
+Particle::Particle(const double& mass, const float lifetime, const Vector3D& position, const Vector3D& velocity, const Vector3D& acceleration, const float radius) :
+    position(position),velocity(velocity), acceleration(acceleration), mass(mass), radius(radius), lifeTime(lifetime), lifeTimeRemaining(lifeTime)
 {
     ofSpherePrimitive::setRadius(radius);
 
@@ -26,13 +26,26 @@ void Particle::Draw() const
 void Particle::Update(double f)
 {
     SetFrameLength(f);
+    lifeTimeRemaining-=f;
+    if(lifeTimeRemaining <= 0)
+        SetIsFinished(true);
     this->ApplyPhysics();
     setPosition(position);
 }
 
 void Particle::OnAnimationFinished()
 {
-    
+    //DeleteObject(this);
+}
+
+void Particle::SetIsFinished(const bool isFinished)
+{
+    bIsFinished = isFinished;
+}
+
+bool Particle::GetIsFinished()
+{
+    return bIsFinished;
 }
 
 void Particle::SetRadius(const float radius)
@@ -53,6 +66,11 @@ void Particle::SetFrameLength(double f)
 clock_t Particle::getFrameLength()
 {
     return FrameLength;
+}
+
+float Particle::GetLifetime() const
+{
+    return lifeTime;
 }
 
 

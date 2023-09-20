@@ -2,8 +2,8 @@
 
 
 
-ParticleFireball::ParticleFireball(const double& mass, const Vector3D& position, const Vector3D& velocity,
-                                   const Vector3D& acceleration, const float radius) : Particle(mass,position,velocity,acceleration,radius), ATS(this,1000)
+ParticleFireball::ParticleFireball(const double& mass, const float lifetime, const Vector3D& position, const Vector3D& velocity,
+                                   const Vector3D& acceleration, const float radius) : Particle(mass,lifetime, position,velocity,acceleration,radius), ATS(this,6)
 {
     
 }
@@ -16,14 +16,22 @@ void ParticleFireball::Setup()
 
 void ParticleFireball::Update(double f)
 {
-    ATS.Update(f);
     Particle::Update(f);
+    ATS.Update(f);
     
 }
 
 void ParticleFireball::Draw() const
 {
-    ATS.Draw();
     Particle::Draw();
+    ATS.Draw();
+}
+
+void ParticleFireball::OnAnimationFinished()
+{
+    Particle::OnAnimationFinished();
+    std::cout << "test" << std::endl;
+    SetIsFinished(true);
+
 }
 

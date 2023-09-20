@@ -6,7 +6,7 @@ class Particle : protected ofSpherePrimitive
 {
 public:
 
-    Particle(const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const Vector3D &acceleration = Vector3D::Zero(), const float radius = 10);
+    Particle(const double &mass = 1, const float lifetime = 10, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const Vector3D &acceleration = Vector3D::Zero(), const float radius = 10);
 
     virtual void Setup();
     
@@ -27,12 +27,17 @@ private:
     double mass = 5;
     float radius = 30;
     ofColor color = ofColor::white;
+    bool bIsFinished = false;
+    float lifeTime = 0;
+    float lifeTimeRemaining = 0;
 
 
 
 public:
     // Getters and Setters
 
+    void SetIsFinished(const bool isFinished);
+    
     void SetRadius(const float radius);
 
     void SetColor(const ofColor color);
@@ -40,6 +45,10 @@ public:
     void SetFrameLength(double f);
 
     clock_t getFrameLength();
+
+    float GetLifetime() const;
+    
+    bool GetIsFinished();
     
     Vector3D GetPosition() const;
 
