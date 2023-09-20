@@ -86,18 +86,20 @@ void ofApp::draw(){
         ofDrawCircle(center, radius );
     }
 
+    //Clic sur le GUI
     if(launchFireBall)
     {
-         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
-         p->Setup();
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        p->Setup();
     }
 
     if(launchFromBall)
     {
-         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,9.8), 20));
-         p->Setup();
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        p->Setup();
     }
 
+    //particleSystem.Setup();
 	
     // auto draw?
     // should the gui control hiding?
@@ -119,13 +121,14 @@ void ofApp::keyPressed(int key){
     else if(key == 'l'){
         gui.loadFromFile("settings.xml");
     }
+    //Touches
     else if(key == 'b'){
-         Particle * p = particleSystem.AddParticle(new ParticleFireball(50,1,Vector3D(50,200),Vector3D(0.3,-0.4), Vector3D(0,0.00098), 20));
-         p->Setup();
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        p->Setup();
     }
     else if(key == 't')
     {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1,Vector3D(center->x,center->y),Vector3D(0.4,-1), Vector3D(0,0.00098), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
     }
     else if(key == ' '){
