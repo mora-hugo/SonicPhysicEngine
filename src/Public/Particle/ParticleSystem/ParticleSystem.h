@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../Particle.h"
 
 class ParticleSystem
@@ -8,7 +8,7 @@ public:
 
     void Setup();
     
-    void Update(clock_t f);
+    void Update(double f);
 
     void Draw() const;
     

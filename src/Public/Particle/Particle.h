@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "of3dPrimitives.h"
 #include "../../Public/Math/Vector3D.h"
 
@@ -12,7 +12,7 @@ public:
     
     virtual void Draw() const;
 
-    virtual void Update(clock_t f);
+    virtual void Update(double f);
 
     virtual void OnAnimationFinished();
     
@@ -20,7 +20,7 @@ protected:
     void ApplyPhysics();    
 
 private:
-    clock_t FrameLength = 0;
+    double FrameLength = 0;
     Vector3D position = Vector3D::Zero();
     Vector3D velocity = Vector3D::Zero();
     Vector3D acceleration = Vector3D::Zero();
@@ -37,7 +37,7 @@ public:
 
     void SetColor(const ofColor color);
     
-    void SetFrameLength(clock_t f);
+    void SetFrameLength(double f);
 
     clock_t getFrameLength();
     

@@ -1,4 +1,4 @@
-﻿#include "../../Public/Math/Vector3D.h"
+#include "../../Public/Math/Vector3D.h"
 Vector3D::Vector3D(const double X, const double Y, const double Z, const double W) : X(X), Y(Y), Z(Z), W(W)
 {
     
@@ -6,7 +6,7 @@ Vector3D::Vector3D(const double X, const double Y, const double Z, const double 
 
 Vector3D Vector3D::Add(const Vector3D& Vector) const
 {
-    return Vector3D(X+Vector.GetX(),Y+Vector.GetY(),Z*Vector.GetZ(),W);
+    return Vector3D(X+Vector.GetX(),Y+Vector.GetY(),Z+Vector.GetZ(),W);
 }
 
 Vector3D Vector3D::Sub(const Vector3D& Vector) const
@@ -21,7 +21,7 @@ Vector3D Vector3D::Multiply(const double Scalar) const
 
 Vector3D Vector3D::Divide(const double Scalar) const
 {
-    assert(Scalar == 0,"Division by zero is impossible");
+    //assert(Scalar == 0,"Division by zero is impossible");
     return Multiply(1/Scalar);
 }
 

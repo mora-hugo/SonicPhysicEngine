@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 #include "Public/Math/Vector3D.h"
 #include "Public/Particle/Particle.h"
 #include "Public/Particle/ParticleSystem/ParticleSystem.h"
@@ -11,6 +12,9 @@ public:
 	void setup();
 	void update();
 	void draw();
+
+	// an exit for the listener
+	void exit();
 
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -24,8 +28,28 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	void circleResolutionChanged(int & circleResolution);
+	void ringButtonPressed();
+
+	bool bHide;
+
+	ofxFloatSlider radius;
+	ofxColorSlider color;
+	ofxVec2Slider center;
+	ofxIntSlider circleResolution;
+	ofxToggle filled;
+	ofxButton twoCircles;
+	ofxButton ringButton;
+	ofxLabel screenSize;
+	ofxButton launchFireBall;
+	ofxButton launchFromBall;
+
+	ofxPanel gui;
+
+	ofSoundPlayer ring;
+
 	ParticleSystem particleSystem;
-	clock_t FrameLength;
-	clock_t LastFrameTime;
+	
+	double FrameTime;
 	
 };

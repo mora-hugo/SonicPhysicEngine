@@ -1,4 +1,4 @@
-﻿#include "../../../Public/Particle/Animations/AnimationTrailsSystem.h"
+#include "../../../Public/Particle/Animations/AnimationTrailsSystem.h"
 
 void AnimationTrailsSystem::StartAnimation()
 {

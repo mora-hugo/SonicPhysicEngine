@@ -1,4 +1,4 @@
-﻿#include "../../Public/Particle/ParticleFireball.h"
+#include "../../Public/Particle/ParticleFireball.h"
 
 
 
@@ -14,7 +14,7 @@ void ParticleFireball::Setup()
     ATS.StartAnimation();
 }
 
-void ParticleFireball::Update(clock_t f)
+void ParticleFireball::Update(double f)
 {
     ATS.Update(f);
     Particle::Update(f);

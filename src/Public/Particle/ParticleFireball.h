@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Particle.h"
 #include "Animations/AnimationTrailsSystem.h"
 
@@ -10,7 +10,7 @@ public:
 
     void Setup() override;
 
-    void Update(clock_t f) override;
+    void Update(double f) override;
 
     void Draw() const override;
 

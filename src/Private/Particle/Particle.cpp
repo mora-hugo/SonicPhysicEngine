@@ -1,4 +1,4 @@
-﻿#include "../../Public/Math/Vector3D.h"
+#include "../../Public/Math/Vector3D.h"
 #include "../../Public/Particle/Particle.h"
 #include "time.h"
 
@@ -23,7 +23,7 @@ void Particle::Draw() const
     ofSpherePrimitive::draw();
 }
 
-void Particle::Update(clock_t f)
+void Particle::Update(double f)
 {
     SetFrameLength(f);
     this->ApplyPhysics();
@@ -45,7 +45,7 @@ void Particle::SetColor(const ofColor color)
     this->color = color;
 }
 
-void Particle::SetFrameLength(clock_t f)
+void Particle::SetFrameLength(double f)
 {
     FrameLength = f;
 }
@@ -88,13 +88,15 @@ double Particle::getReverseMass() const
 
 void Particle::UpdateVelocity()
 {
-    velocity = velocity + acceleration * FrameLength;
+    Vector3D temp = acceleration * (FrameLength*1000);
+    velocity = velocity + temp;
     //velocité instant k+1 = velocité instant k + longueur d'une frame * accélération
 }
 
 void Particle::UpdatePosition()
 {
-    position = position + velocity * FrameLength;
+    Vector3D temp = velocity * (FrameLength*1000);
+    position = position + temp;
     //position instant k+1 = position instant k + longueur d'une frame * vélocité instant k+1
 }
 

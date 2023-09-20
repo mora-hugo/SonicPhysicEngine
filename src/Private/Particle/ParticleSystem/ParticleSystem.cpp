@@ -1,4 +1,4 @@
-﻿#include "../../../Public/Particle/ParticleSystem/ParticleSystem.h"
+#include "../../../Public/Particle/ParticleSystem/ParticleSystem.h"
 
 
 ParticleSystem::~ParticleSystem()
@@ -19,7 +19,7 @@ void ParticleSystem::Setup()
     }
 }
 
-void ParticleSystem::Update(clock_t f)
+void ParticleSystem::Update(double f)
 {
     for(Particle * particle: particles)
     {
