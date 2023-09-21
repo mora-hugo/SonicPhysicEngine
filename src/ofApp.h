@@ -30,6 +30,7 @@ public:
 
 	void circleResolutionChanged(int & circleResolution);
 	void ringButtonPressed();
+	void FireballVolumeChanged(float & fireballVolume);
 
 	bool bHide;
 
@@ -42,6 +43,7 @@ public:
 	ofxButton ringButton;
 	ofxLabel screenSize;
 	ofxButton launchFireBall;
+	ofxFloatSlider fireballVolume;
 	ofxButton launchFromBall;
 
 	ofxPanel gui;
@@ -51,5 +53,7 @@ public:
 	ParticleSystem particleSystem;
 	
 	double FrameTime;
+
+	ofSoundPlayer FireballSound;
 	
 };

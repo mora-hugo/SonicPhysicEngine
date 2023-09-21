@@ -17,6 +17,7 @@ void ofApp::setup(){
     // we add this listener before setting up so the initial circle resolution is correct
     circleResolution.addListener(this, &ofApp::circleResolutionChanged);
     ringButton.addListener(this, &ofApp::ringButtonPressed);
+    fireballVolume.addListener(this, &ofApp::FireballVolumeChanged);
 
     //here we are setting up all the buttons  
     gui.setup(); // most of the time you don't need a name
@@ -28,11 +29,13 @@ void ofApp::setup(){
     gui.add(twoCircles.setup("two circles"));
     gui.add(ringButton.setup("ring"));
     gui.add(launchFireBall.setup("FireBall"));
+    gui.add(fireballVolume.setup("Fireball Volume", 1.0f, 0.1f, 1.0f));
     gui.add(launchFromBall.setup("Projectile"));
     gui.add(screenSize.setup("screen size", ofToString(ofGetWidth())+"x"+ofToString(ofGetHeight())));
     
 
     bHide = false;
+    FireballSound.load("fireball_sound.wav");
 
     //ring.load("ring.wav");
 }
@@ -50,6 +53,11 @@ void ofApp::circleResolutionChanged(int &circleResolution){
 //--------------------------------------------------------------
 void ofApp::ringButtonPressed(){
     ring.play();
+}
+
+void ofApp::FireballVolumeChanged(float &fireballVolume)
+{
+    FireballSound.setVolume(fireballVolume);
 }
 
 //--------------------------------------------------------------
@@ -91,6 +99,7 @@ void ofApp::draw(){
     {
         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
+        FireballSound.play();
     }
 
     if(launchFromBall)
@@ -130,6 +139,7 @@ void ofApp::keyPressed(int key){
     {
         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
+        FireballSound.play();
     }
     else if(key == ' '){
         color = ofColor(255);

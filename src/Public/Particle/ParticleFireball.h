@@ -17,6 +17,7 @@ public:
     void OnAnimationFinished() override;
 
     
+    
 
 private:
     AnimationTrailsSystem ATS;
