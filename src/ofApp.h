@@ -29,7 +29,7 @@ public:
 	void gotMessage(ofMessage msg);
 
 	void circleResolutionChanged(int & circleResolution);
-	void ringButtonPressed();
+	//void ringButtonPressed();
 	void FireballVolumeChanged(float & fireballVolume);
 
 	bool bHide;
@@ -38,17 +38,21 @@ public:
 	ofxColorSlider color;
 	ofxVec2Slider center;
 	ofxIntSlider circleResolution;
-	ofxToggle filled;
+	//ofxToggle filled;
 	ofxButton twoCircles;
 	ofxButton ringButton;
 	ofxLabel screenSize;
+	ofxButton launchBall;
 	ofxButton launchFireBall;
 	ofxFloatSlider fireballVolume;
-	ofxButton launchFromBall;
+	ofxButton launchthirdBall;
+	ofxButton launchFourthBall;
 
 	ofxPanel gui;
 
-	ofSoundPlayer ring;
+	float TargetPositionX;
+	float TargetPositionY;
+	//ofSoundPlayer ring;
 
 	ParticleSystem particleSystem;
 	
