@@ -44,7 +44,7 @@ public:
     
     void SetFrameLength(double f);
 
-    clock_t getFrameLength();
+    double getFrameLength();
 
     float GetLifetime() const;
     
@@ -60,9 +60,10 @@ public:
 
     double GetMass() const;
 
-    double getReverseMass() const;
+    double GetReverseMass() const;
 
     void UpdateVelocity();
 
     void UpdatePosition();
+    
 };

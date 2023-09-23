@@ -33,10 +33,9 @@ void ofApp::setup(){
     gui.add(launchFromBall.setup("Projectile"));
     gui.add(screenSize.setup("screen size", ofToString(ofGetWidth())+"x"+ofToString(ofGetHeight())));
     
-
     bHide = false;
     FireballSound.load("fireball_sound.wav");
-
+    
     //ring.load("ring.wav");
 }
 
@@ -86,6 +85,8 @@ void ofApp::draw(){
         ofNoFill();
     }
 
+    
+
     ofSetColor(color);
     if(twoCircles){
         ofDrawCircle(center->x-radius*.5, center->y, radius );
@@ -97,15 +98,16 @@ void ofApp::draw(){
     //Clic sur le GUI
     if(launchFireBall)
     {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
         FireballSound.play();
     }
 
     if(launchFromBall)
     {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
+        FireballSound.play();
     }
 
     //particleSystem.Setup();
@@ -132,12 +134,13 @@ void ofApp::keyPressed(int key){
     }
     //Touches
     else if(key == 'b'){
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
+        FireballSound.play();
     }
     else if(key == 't')
     {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(50,600),Vector3D(75,-100), Vector3D(0,9.8), 20));
+        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(75,-100), Vector3D(0,9.8), 20));
         p->Setup();
         FireballSound.play();
     }

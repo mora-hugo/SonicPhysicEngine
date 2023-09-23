@@ -63,7 +63,7 @@ void Particle::SetFrameLength(double f)
     FrameLength = f;
 }
 
-clock_t Particle::getFrameLength()
+double Particle::getFrameLength()
 {
     return FrameLength;
 }
@@ -99,21 +99,25 @@ double Particle::GetMass() const
     return this->mass;
 }
 
-double Particle::getReverseMass() const
+double Particle::GetReverseMass() const
 {
     return 1/mass;
 }
 
 void Particle::UpdateVelocity()
 {
-    velocity = velocity + acceleration.Multiply(FrameLength);
     //velocité instant k+1 = velocité instant k + longueur d'une frame (en secondes) * accélération
+   // velocity = velocity + acceleration.Multiply(FrameLength);
+
+    //coefficient de frottement
+    //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
+    velocity = velocity.Multiply(pow(0.97, FrameLength)) + acceleration.Multiply(FrameLength);
 }
 
 void Particle::UpdatePosition()
 {
-    position = position + velocity.Multiply(FrameLength);
     //position instant k+1 = position instant k + longueur d'une frame (en secondes) * vélocité instant k+1
+    position = position + velocity.Multiply(FrameLength);
 }
 
 void Particle::ApplyPhysics()

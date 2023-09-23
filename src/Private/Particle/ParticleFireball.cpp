@@ -30,7 +30,7 @@ void ParticleFireball::Draw() const
 void ParticleFireball::OnAnimationFinished()
 {
     Particle::OnAnimationFinished();
-    std::cout << "test" << std::endl;
+    //std::cout << "test" << std::endl;
     SetIsFinished(true);
 
 }
