@@ -30,7 +30,7 @@ public:
 
 	void circleResolutionChanged(int & circleResolution);
 	//void ringButtonPressed();
-	void FireballVolumeChanged(float & fireballVolume);
+	void ProjectileVolumeChanged(float & ProjectileVolume);
 
 	bool bHide;
 
@@ -42,9 +42,9 @@ public:
 	ofxButton twoCircles;
 	ofxButton ringButton;
 	ofxLabel screenSize;
+	ofxFloatSlider ProjectileVolume;
 	ofxButton launchBall;
 	ofxButton launchFireBall;
-	ofxFloatSlider fireballVolume;
 	ofxButton launchthirdBall;
 	ofxButton launchFourthBall;
 
@@ -59,5 +59,7 @@ public:
 	double FrameTime;
 
 	ofSoundPlayer FireballSound;
-	
+	ofSoundPlayer FireworkSound;
+	ofSoundPlayer LaserSound;
+	float Volume = 0.5f;
 };

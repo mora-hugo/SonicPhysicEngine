@@ -15,7 +15,7 @@ void ofApp::setup(){
     // we add this listener before setting up so the initial circle resolution is correct
     circleResolution.addListener(this, &ofApp::circleResolutionChanged);
     //ringButton.addListener(this, &ofApp::ringButtonPressed);
-    fireballVolume.addListener(this, &ofApp::FireballVolumeChanged);
+    ProjectileVolume.addListener(this, &ofApp::ProjectileVolumeChanged);
 
     //here we are setting up all the buttons  
     gui.setup(); // most of the time you don't need a name
@@ -25,15 +25,17 @@ void ofApp::setup(){
     gui.add(color.setup("color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(circleResolution.setup("circle res", 50, 3, 90));
     
+    gui.add(ProjectileVolume.setup("Projectile Volume", 0.5f, 0.01f, 1.0f));
     gui.add(launchBall.setup("Projectile de base | C"));
     gui.add(launchFireBall.setup("FireBall | V"));
-    gui.add(fireballVolume.setup("Fireball Volume", 1.0f, 0.1f, 1.0f));
     gui.add(launchthirdBall.setup("Firework | B"));
     gui.add(launchFourthBall.setup("Laser | N"));
     gui.add(screenSize.setup("screen size", ofToString(ofGetWidth())+"x"+ofToString(ofGetHeight())));
     
     bHide = false;
     FireballSound.load("fireball_sound.wav");
+    FireworkSound.load("FireworkWhistle.mp3");
+    LaserSound.load("laserfire.ogg");
 }
 
 //--------------------------------------------------------------
@@ -48,9 +50,12 @@ void ofApp::circleResolutionChanged(int &circleResolution){
 
 
 
-void ofApp::FireballVolumeChanged(float &fireballVolume)
+void ofApp::ProjectileVolumeChanged(float &ProjectileVolume)
 {
-    FireballSound.setVolume(fireballVolume);
+    FireballSound.setVolume(ProjectileVolume);
+    FireworkSound.setVolume(ProjectileVolume);
+    LaserSound.setVolume(ProjectileVolume);
+    Volume = ProjectileVolume;
 }
 
 //--------------------------------------------------------------
@@ -135,7 +140,6 @@ void ofApp::keyPressed(int key){
         // Normal particle
         Particle * p = particleSystem.AddParticle(new Particle(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 20));
         p->Setup();
-        FireballSound.play();
     }
     else if(key == 'v')
     {
@@ -148,7 +152,8 @@ void ofApp::keyPressed(int key){
         // Firework
         Particle * p = particleSystem.AddParticle(new ParticleFirework(20,2, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 10));
         p->Setup();
-        FireballSound.play();
+        p->ExplosionSound.setVolume(Volume);
+        FireworkSound.play();
     }
     else if(key == 'n'){
         // Laser
@@ -158,7 +163,7 @@ void ofApp::keyPressed(int key){
             p->Setup();
         }
         
-        FireballSound.play();
+        LaserSound.play();
     }
     
     //Deplacement

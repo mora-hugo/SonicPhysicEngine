@@ -1,5 +1,6 @@
 #pragma once
 #include "of3dPrimitives.h"
+#include "ofSoundPlayer.h"
 #include "../../Public/Math/Vector3D.h"
 
 class Particle : protected ofSpherePrimitive
@@ -15,6 +16,8 @@ public:
     virtual void Update(double f);
 
     virtual void OnAnimationFinished();
+
+    ofSoundPlayer ExplosionSound;
     
 protected:
     void ApplyPhysics();    

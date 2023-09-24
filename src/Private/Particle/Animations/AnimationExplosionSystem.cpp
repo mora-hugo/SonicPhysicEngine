@@ -36,7 +36,7 @@ void AnimationExplosionSystem::Draw() const
     AnimationSystem::Draw();
     if(!bIsPlaying) return;
     Sparks.Draw();
-    std::cout << "Class AnimationExplosionSystem : Draw" <<  std::endl;
+   // std::cout << "Class AnimationExplosionSystem : Draw" <<  std::endl;
 }
 
 void AnimationExplosionSystem::Update(double f)
@@ -44,7 +44,7 @@ void AnimationExplosionSystem::Update(double f)
     AnimationSystem::Update(f);
     if(!bIsPlaying || bIsInPause) return;
     Sparks.Update(f);
-    std::cout << "Class AnimationExplosionSystem : Update" <<  std::endl;
+   // std::cout << "Class AnimationExplosionSystem : Update" <<  std::endl;
     
 }
 

@@ -14,7 +14,7 @@ void ParticleFirework::Setup()
 {
     Particle::Setup();
     this->SetColor(ofColor::red);
-    
+    ExplosionSound.load("FireworkExplosion.wav");
 }
 
 void ParticleFirework::Update(double f)
@@ -22,7 +22,11 @@ void ParticleFirework::Update(double f)
     Particle::Update(f);
     AES.Update(f);
     if(!AES.ItWasPlayed() && GetLifetimeRemaining() <= 0)
+    {
+        //play explosion sound
+        ExplosionSound.play();
         AES.StartAnimation();
+    }
     
 }
 
