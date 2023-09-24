@@ -29,9 +29,10 @@ void AnimationTrailsSystem::Update(double f)
 {
     AnimationSystem::Update(f);
     if(!bIsPlaying || bIsInPause) return;
-    Particle * p = Trails.AddParticle( new Particle(5, Owner->GetLifetime(),Owner->GetPosition(),Owner->GetVelocity().Negate().Multiply(0.2).Multiply(ofRandom(0.1,1.5)),Vector3D(0,0.00098),Owner->GetRadius()/1.75f*ofRandom(0.5,1.2)));
+    Particle * p = Trails.AddParticle( new Particle(5, Owner->GetLifetime(),Owner->GetPosition(),Owner->GetVelocity().Negate().Multiply(0.2).Multiply(ofRandom(0.1,1.5)),Owner->GetAcceleration(),Owner->GetRadius()/1.75f*ofRandom(0.5,1.2)));
     p->SetColor(GetRandomColor());
     Trails.Update(f);
+    
     
 }
 

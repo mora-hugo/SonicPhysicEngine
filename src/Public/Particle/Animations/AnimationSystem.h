@@ -32,6 +32,8 @@ protected:
 
     bool bIsInPause = false;
 
+    bool bWasPlayed = false;
+
     const float Lifetime = 0;
 
     float LifetimeRemaining = 0;
@@ -42,5 +44,7 @@ public:
     bool IsInPause() const;
 
     bool IsFinished() const;
+
+    bool ItWasPlayed() const;
     
 };

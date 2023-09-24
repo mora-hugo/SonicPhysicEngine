@@ -17,6 +17,8 @@ void AnimationSystem::Draw() const
 void AnimationSystem::StartAnimation()
 {
     bIsPlaying = true;
+    bWasPlayed = true;
+    
 }
 
 void AnimationSystem::PauseAnimation()
@@ -56,4 +58,9 @@ bool AnimationSystem::IsInPause() const
 bool AnimationSystem::IsFinished() const
 {
     return !bIsPlaying;
+}
+
+bool AnimationSystem::ItWasPlayed() const
+{
+    return bWasPlayed;
 }

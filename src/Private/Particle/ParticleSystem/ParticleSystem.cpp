@@ -3,10 +3,11 @@
 
 ParticleSystem::~ParticleSystem()
 {
-    for(unsigned int i = 0; i < particles.size(); i++)
+    for(unsigned int i = 0; i < particles.size();)
     {
-        // Remove the particle if it is finished
         delete particles[i];
+        particles[i] = nullptr;
+        // Remove the element from the vector and don't increment i
         particles.erase(particles.begin() + i);
     }
 }
@@ -21,16 +22,23 @@ void ParticleSystem::Setup()
 
 void ParticleSystem::Update(double f)
 {
-    for(unsigned int i = 0; i < particles.size(); i++)
+    for(unsigned int i = 0; i < particles.size();)
     {
         if(particles[i]->GetIsFinished())
         {
-            /*
             delete particles[i];
+            particles[i] = nullptr;
+            // Remove the element from the vector and don't increment i
             particles.erase(particles.begin() + i);
-            */
         }
-        particles[i]->Update(f);
+        else
+        {
+            particles[i]->Update(f);
+            i++;
+        }
+
+        
+        
     }
 }
 

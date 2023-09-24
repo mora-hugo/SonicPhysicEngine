@@ -27,8 +27,8 @@ void Particle::Update(double f)
 {
     SetFrameLength(f);
     lifeTimeRemaining-=f;
-    if(lifeTimeRemaining <= 0)
-        SetIsFinished(true);
+    /*if(lifeTimeRemaining <= 0)
+        SetIsFinished(true);*/
     this->ApplyPhysics();
     setPosition(position);
 }
@@ -71,6 +71,11 @@ double Particle::getFrameLength()
 float Particle::GetLifetime() const
 {
     return lifeTime;
+}
+
+float Particle::GetLifetimeRemaining() const
+{
+    return lifeTimeRemaining;
 }
 
 
@@ -124,12 +129,4 @@ void Particle::ApplyPhysics()
 {
     UpdateVelocity();
     UpdatePosition();
-    
-    /*
-     * Ce qui était fait avant
-     // Physics source : bob
-    position = position + velocity;
-
-    velocity = velocity.Add(Vector3D(0,mass/100,0));
-    */
 }

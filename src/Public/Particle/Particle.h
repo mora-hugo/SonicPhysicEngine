@@ -47,6 +47,8 @@ public:
     double getFrameLength();
 
     float GetLifetime() const;
+
+    float GetLifetimeRemaining() const;
     
     bool GetIsFinished();
     
