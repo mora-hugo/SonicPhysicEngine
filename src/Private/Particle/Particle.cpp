@@ -56,6 +56,7 @@ void Particle::SetRadius(const float radius)
 void Particle::SetColor(const ofColor color)
 {
     this->color = color;
+    
 }
 
 void Particle::SetFrameLength(double f)

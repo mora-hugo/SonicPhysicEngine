@@ -29,16 +29,14 @@ public:
 	void gotMessage(ofMessage msg);
 
 	void circleResolutionChanged(int & circleResolution);
-	//void ringButtonPressed();
 	void ProjectileVolumeChanged(float & ProjectileVolume);
 
 	bool bHide;
 
-	ofxFloatSlider radius;
+
 	ofxColorSlider color;
 	ofxVec2Slider center;
-	ofxIntSlider circleResolution;
-	//ofxToggle filled;
+
 	ofxButton twoCircles;
 	ofxButton ringButton;
 	ofxLabel screenSize;
@@ -52,7 +50,6 @@ public:
 
 	float TargetPositionX;
 	float TargetPositionY;
-	//ofSoundPlayer ring;
 
 	ParticleSystem particleSystem;
 	

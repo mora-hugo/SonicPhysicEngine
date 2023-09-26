@@ -12,27 +12,23 @@ void ofApp::setup(){
     //Setup for the interface
     ofSetVerticalSync(true);
 
-    // we add this listener before setting up so the initial circle resolution is correct
-    circleResolution.addListener(this, &ofApp::circleResolutionChanged);
     //ringButton.addListener(this, &ofApp::ringButtonPressed);
     ProjectileVolume.addListener(this, &ofApp::ProjectileVolumeChanged);
 
     //here we are setting up all the buttons  
     gui.setup(); // most of the time you don't need a name
-    //gui.add(filled.setup("fill", false));
-    gui.add(radius.setup("radius", 40, 10, 300));
+
     gui.add(center.setup("center", {ofGetWidth()*.5, ofGetHeight()*.5}, {0, 0}, {ofGetWidth(), ofGetHeight()}));
     gui.add(color.setup("color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
-    gui.add(circleResolution.setup("circle res", 50, 3, 90));
-    
-    gui.add(ProjectileVolume.setup("Projectile Volume", 0.5f, 0.01f, 1.0f));
+    gui.add(ProjectileVolume.setup("Projectiles Volume", 0.5f, 0.01f, 1.0f));
     gui.add(launchBall.setup("Projectile de base | C"));
     gui.add(launchFireBall.setup("FireBall | V"));
     gui.add(launchthirdBall.setup("Firework | B"));
     gui.add(launchFourthBall.setup("Laser | N"));
-    gui.add(screenSize.setup("screen size", ofToString(ofGetWidth())+"x"+ofToString(ofGetHeight())));
     
     bHide = false;
+
+    // Loading sounds
     FireballSound.load("fireball_sound.wav");
     FireworkSound.load("FireworkWhistle.mp3");
     LaserSound.load("laserfire.ogg");
@@ -40,7 +36,6 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-    //ringButton.removeListener(this, &ofApp::ringButtonPressed);
 }
 
 //--------------------------------------------------------------
@@ -64,7 +59,6 @@ void ofApp::update(){
    
     FrameTime = ofGetLastFrameTime();
     particleSystem.Update(FrameTime);
-    ofSetCircleResolution(circleResolution);
 }
 
 //--------------------------------------------------------------
@@ -74,41 +68,9 @@ void ofApp::draw(){
     // draw the GUI
     ofNoFill();
     ofSetColor(color);
-    ofDrawCircle(center, radius );
-    ofDrawCircle(TargetPositionX,TargetPositionY, 30);
+    ofDrawCircle(center, 35 );
+   // ofDrawCircle(TargetPositionX,TargetPositionY, 30);
     ofDrawLine(center->x,center->y, (mouseX), (mouseY));
-
-    /*
-    //Clic sur le GUI
-    if(launchBall)
-    {
-        Particle * p = particleSystem.AddParticle(new Particle(20,1, Vector3D(center->x,center->y),Vector3D(TargetPositionX - center->x, TargetPositionY -center->y), Vector3D(0,9.8), 20));
-        p->Setup();
-        FireballSound.play();
-    }
-    
-    if(launchFireBall)
-    {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(TargetPositionX - center->x, TargetPositionY -center->y), Vector3D(0,9.8), 20));
-        p->Setup();
-        FireballSound.play();
-    }
-
-    if(launchthirdBall)
-    {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(TargetPositionX - center->x, TargetPositionY -center->y), Vector3D(0,9.8), 20));
-        p->Setup();
-        FireballSound.play();
-    }
-
-    if(launchFourthBall)
-    {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,1, Vector3D(center->x,center->y),Vector3D(TargetPositionX - center->x, TargetPositionY -center->y), Vector3D(0,9.8), 20));
-        p->Setup();
-        FireballSound.play();
-    }
-    */
-
     if(!bHide){
         gui.draw();
     }
@@ -129,8 +91,9 @@ void ofApp::keyPressed(int key){
         gui.loadFromFile("settings.xml");
     }
 
-    //viseur
+    //viseur - Removed
     else if(key == 't'){
+        
         TargetPositionX = mouseX;
         TargetPositionY = mouseY;
     }
@@ -138,19 +101,23 @@ void ofApp::keyPressed(int key){
     //Touches
     else if(key == 'c'){
         // Normal particle
-        Particle * p = particleSystem.AddParticle(new Particle(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 20));
+        Particle * p = particleSystem.AddParticle(new Particle(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,15), 20));
+        p->SetColor(color);
         p->Setup();
+        
     }
     else if(key == 'v')
     {
         // Fireball
         Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 20));
+        p->SetColor(color);
         p->Setup();
         FireballSound.play();
     }
     else if(key == 'b'){
         // Firework
         Particle * p = particleSystem.AddParticle(new ParticleFirework(20,2, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 10));
+        p->SetColor(color);
         p->Setup();
         p->ExplosionSound.setVolume(Volume);
         FireworkSound.play();
@@ -160,6 +127,7 @@ void ofApp::keyPressed(int key){
         for(int i = 0; i < 100; i++)
         {
             Particle * p = particleSystem.AddParticle(new ParticleLaser(20,1, Vector3D((center->x),center->y).Add(Vector3D(mouseX - center->x, mouseY -center->y).Normalize().Multiply(i)),Vector3D(mouseX - center->x, mouseY -center->y).Multiply(5), Vector3D(0,0), 5));
+            p->SetColor(color);
             p->Setup();
         }
         
