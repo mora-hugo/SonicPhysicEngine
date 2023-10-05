@@ -3,6 +3,8 @@
 #include "../../Public/Engine/EventManager.h"
 #include "../../Public/Engine/InputSystem.h"
 #include "../../Public/Particle/ParticleFireball.h"
+#include "../../Public/Particle/ParticleFirework.h"
+#include "../../Public/Particle/ParticleLaser.h"
 #include "../../ofApp.h"
 
 
@@ -43,9 +45,37 @@ void GameWorld::OnMouseEvent(const MouseEvent& event)
 
 void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
 {
-    if(event.key == 'c' && event.InputType == KeyboardEventType::KEY_PRESSED)
+    if(event.InputType == KeyboardEventType::KEY_PRESSED)
     {
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(Context->center->x,Context->center->y),Vector3D(Context->mouseX - Context->center->x, Context->mouseY - Context->center->y), Vector3D(0,150), 20));
-        p->Setup();
+        const float centerX = Context->center->x;
+        const float centerY = Context->center->y;
+        if(event.key == 'c')
+        {
+            Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 20));
+            p->Setup();
+        }
+        else if(event.key == 'v')
+        {
+            // Fireball
+            Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 20));
+            p->Setup();
+            //FireballSound.play();
+        }
+        else if(event.key == 'b'){
+            // Firework
+            Particle * p = particleSystem.AddParticle(new ParticleFirework(20,2, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 10));
+            p->Setup();
+            //p->ExplosionSound.setVolume(Volume);
+            //FireworkSound.play();
+        }
+        else if(event.key == 'n'){
+            // Laser
+            for(int i = 0; i < 100; i++)
+            {
+                Particle * p = particleSystem.AddParticle(new ParticleLaser(20,1, Vector3D((centerX),centerY).Add(Vector3D(Context->mouseX - centerX, Context->mouseY - centerY).Normalize().Multiply(i)),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY).Multiply(5), Vector3D(0,0), 5));
+                p->Setup();
+            }
+        }
     }
+   
 }

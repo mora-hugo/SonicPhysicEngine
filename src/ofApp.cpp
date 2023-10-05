@@ -126,45 +126,6 @@ void ofApp::keyPressed(int key){
         TargetPositionX = mouseX;
         TargetPositionY = mouseY;
     }
-    
-    //Touches
-    /*
-    else if(key == 'c'){
-        // Normal particle
-        
-        Particle * p = particleSystem.AddParticle(new Particle(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,15), 20));
-        p->SetColor(color);
-        p->Setup();
-        
-    }
-    else if(key == 'v')
-    {
-        // Fireball
-        Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 20));
-        p->SetColor(color);
-        p->Setup();
-        FireballSound.play();
-    }
-    else if(key == 'b'){
-        // Firework
-        Particle * p = particleSystem.AddParticle(new ParticleFirework(20,2, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,150), 10));
-        p->SetColor(color);
-        p->Setup();
-        p->ExplosionSound.setVolume(Volume);
-        FireworkSound.play();
-    }
-    else if(key == 'n'){
-        // Laser
-        for(int i = 0; i < 100; i++)
-        {
-            Particle * p = particleSystem.AddParticle(new ParticleLaser(20,1, Vector3D((center->x),center->y).Add(Vector3D(mouseX - center->x, mouseY -center->y).Normalize().Multiply(i)),Vector3D(mouseX - center->x, mouseY -center->y).Multiply(5), Vector3D(0,0), 5));
-            p->SetColor(color);
-            p->Setup();
-        }
-        
-        LaserSound.play();
-    }
-    */
     //Deplacement
     else if(key == 'w' || key == 'z'){
         center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
