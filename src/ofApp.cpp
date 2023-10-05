@@ -8,7 +8,7 @@
 #include "Public/Particle/ParticleFireball.h"
 #include "Public/Particle/ParticleFirework.h"
 #include "Public/Particle/ParticleLaser.h"
-
+#include "Public/Config/Config.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -43,6 +43,7 @@ void ofApp::setup(){
     LaserSound.load("laserfire.ogg");
 
     GameWorld.BeginPlay(this);
+    
 }
 
 //--------------------------------------------------------------
