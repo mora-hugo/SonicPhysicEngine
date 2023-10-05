@@ -13,7 +13,10 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    
+    // Subscribe to events
+    EventManager::KeyboardEvent.subscribe([=](const KeyboardEvent& event) {
+        OnKeyPressed(event);
+    });
 
     //Setup for the interface
     ofSetVerticalSync(true);
@@ -48,7 +51,7 @@ void ofApp::exit(){
 
 void ofApp::ProcessInputs()
 {
-    //Keyboard
+    // call the event for each type of inputs
     EventVariant event;
     while (InputManager::getNextEvent(event))
     {
@@ -81,6 +84,8 @@ Vector3D ofApp::GetCenter() const
     return Vector3D(center.getPosition());
 }
 
+
+
 //--------------------------------------------------------------
 void ofApp::update(){
     ProcessInputs();   
@@ -107,46 +112,9 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     KeyboardEvent event(key, KeyboardEventType::KEY_PRESSED);
-    EventManager::KeyboardEvent(event);
-
-    //sauvegarde
-    if(key == 'h'){
-        bHide = !bHide;
-    }
-    else if(key == 'o'){
-        gui.saveToFile("settings.xml");
-    }
-    else if(key == 'p'){
-        gui.loadFromFile("settings.xml");
-    }
-
-    //viseur - Removed
-    else if(key == 't'){
-        
-        TargetPositionX = mouseX;
-        TargetPositionY = mouseY;
-    }
-    //Deplacement
-    else if(key == 'w' || key == 'z'){
-        center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(key == 'a' || key == 'q')
-    {
-        center.setup("center", {center->x-5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(key == 's'){
-        center.setup("center", {center->x, center->y+5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(key == 'd')
-    {
-        center.setup("center", {center->x+5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
+    InputManager::addInput(event);
     
-    //defaut
-    else if(key == ' '){
-        color = ofColor(255);
-    }
-    
+
 }
 
 //--------------------------------------------------------------
@@ -206,4 +174,49 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+
+
+void ofApp::OnKeyPressed(const KeyboardEvent& event)
+{
+    
+    //sauvegarde
+    if(event.key == 'h'){
+        bHide = !bHide;
+    }
+    else if(event.key == 'o'){
+        gui.saveToFile("settings.xml");
+    }
+    else if(event.key == 'p'){
+        gui.loadFromFile("settings.xml");
+    }
+
+    //viseur - Removed
+    else if(event.key == 't'){
+        
+        TargetPositionX = mouseX;
+        TargetPositionY = mouseY;
+    }
+    //Deplacement
+    else if(event.key == 'w' || event.key == 'z'){
+        center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+    }
+    else if(event.key == 'a' || event.key == 'q')
+    {
+        center.setup("center", {center->x-5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+    }
+    else if(event.key == 's'){
+        center.setup("center", {center->x, center->y+5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+    }
+    else if(event.key == 'd')
+    {
+        center.setup("center", {center->x+5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+    }
+    
+    //defaut
+    else if(event.key == ' '){
+        color = ofColor(255);
+    }
+    
 }

@@ -36,6 +36,7 @@ public:
 	void circleResolutionChanged(int & circleResolution);
 	void ProjectileVolumeChanged(float & ProjectileVolume);
 
+	
 	bool bHide;
 
 	Vector3D GetCenter() const;
@@ -66,4 +67,7 @@ public:
 	float Volume = 0.5f;
 
 	GameWorld GameWorld;
+
+private:
+	void OnKeyPressed(const KeyboardEvent& event);
 };
