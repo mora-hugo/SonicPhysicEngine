@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "Public/Engine/GameWorld.h"
 #include "Public/Math/Vector3D.h"
 #include "Public/Particle/Particle.h"
 #include "Public/Particle/ParticleSystem/ParticleSystem.h"
@@ -9,6 +10,7 @@
 class ofApp : public ofBaseApp{
 
 public:
+
 	void setup();
 	void update();
 	void draw();
@@ -16,6 +18,8 @@ public:
 	// an exit for the listener
 	void exit();
 
+	void ProcessInputs();
+	
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
@@ -28,12 +32,13 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	
 	void circleResolutionChanged(int & circleResolution);
 	void ProjectileVolumeChanged(float & ProjectileVolume);
 
 	bool bHide;
 
-
+	Vector3D GetCenter() const;
 	ofxColorSlider color;
 	ofxVec2Slider center;
 
@@ -51,7 +56,7 @@ public:
 	float TargetPositionX;
 	float TargetPositionY;
 
-	ParticleSystem particleSystem;
+	
 	
 	double FrameTime;
 
@@ -59,4 +64,6 @@ public:
 	ofSoundPlayer FireworkSound;
 	ofSoundPlayer LaserSound;
 	float Volume = 0.5f;
+
+	GameWorld GameWorld;
 };

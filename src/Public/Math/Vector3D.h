@@ -8,6 +8,7 @@ public:
     
     Vector3D(const double X = 0, const double Y = 0, const double Z = 0, const double W = 0);
 
+    Vector3D(const glm::vec3 & vec3);
     /*
      *
      * Math functions

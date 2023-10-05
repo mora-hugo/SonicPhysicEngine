@@ -4,6 +4,11 @@ Vector3D::Vector3D(const double X, const double Y, const double Z, const double 
     
 }
 
+Vector3D::Vector3D(const glm::vec3& vec3) : X(vec3.x), Y(vec3.y), Z(vec3.z), W(1)
+{
+    
+}
+
 Vector3D Vector3D::Add(const Vector3D& Vector) const
 {
     return Vector3D(X+Vector.GetX(),Y+Vector.GetY(),Z+Vector.GetZ(),W);

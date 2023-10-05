@@ -1,13 +1,19 @@
 #include "ofApp.h"
 #include "time.h"
+#include "Public/Engine/EventManager.h"
+#include "Public/Engine/InputSystem.h"
+#include "Public/Engine/MouseEvent.h"
+#include "Public/Engine/KeyboardEvent.h"
+#include "Public/Engine/GameWorld.h"
 #include "Public/Particle/ParticleFireball.h"
 #include "Public/Particle/ParticleFirework.h"
 #include "Public/Particle/ParticleLaser.h"
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    particleSystem.Setup();
+    
 
     //Setup for the interface
     ofSetVerticalSync(true);
@@ -32,10 +38,26 @@ void ofApp::setup(){
     FireballSound.load("fireball_sound.wav");
     FireworkSound.load("FireworkWhistle.mp3");
     LaserSound.load("laserfire.ogg");
+
+    GameWorld.BeginPlay(this);
 }
 
 //--------------------------------------------------------------
 void ofApp::exit(){
+}
+
+void ofApp::ProcessInputs()
+{
+    //Keyboard
+    EventVariant event;
+    while (InputManager::getNextEvent(event))
+    {
+        if (std::holds_alternative<KeyboardEvent>(event)) {
+            EventManager::KeyboardEvent(std::get<KeyboardEvent>(event));
+        } else if (std::holds_alternative<MouseEvent>(event)) {
+            EventManager::MouseEvent(std::get<MouseEvent>(event));
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -53,17 +75,22 @@ void ofApp::ProjectileVolumeChanged(float &ProjectileVolume)
     Volume = ProjectileVolume;
 }
 
+Vector3D ofApp::GetCenter() const
+{
+    
+    return Vector3D(center.getPosition());
+}
+
 //--------------------------------------------------------------
 void ofApp::update(){
-
-   
+    ProcessInputs();   
     FrameTime = ofGetLastFrameTime();
-    particleSystem.Update(FrameTime);
+    GameWorld.Update(FrameTime);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    particleSystem.Draw();
+   
 
     // draw the GUI
     ofNoFill();
@@ -74,11 +101,13 @@ void ofApp::draw(){
     if(!bHide){
         gui.draw();
     }
-
+    GameWorld.Draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    KeyboardEvent event(key, KeyboardEventType::KEY_PRESSED);
+    EventManager::KeyboardEvent(event);
 
     //sauvegarde
     if(key == 'h'){
@@ -99,8 +128,10 @@ void ofApp::keyPressed(int key){
     }
     
     //Touches
+    /*
     else if(key == 'c'){
         // Normal particle
+        
         Particle * p = particleSystem.AddParticle(new Particle(20,20, Vector3D(center->x,center->y),Vector3D(mouseX - center->x, mouseY -center->y), Vector3D(0,15), 20));
         p->SetColor(color);
         p->Setup();
@@ -133,7 +164,7 @@ void ofApp::keyPressed(int key){
         
         LaserSound.play();
     }
-    
+    */
     //Deplacement
     else if(key == 'w' || key == 'z'){
         center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
@@ -159,37 +190,46 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    KeyboardEvent event(key, KeyboardEventType::KEY_RELEASED);
+    InputManager::addInput(event);
 }
+
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_MOVE);
+    InputManager::addInput(event);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    MouseEvent event(x, y, MouseEvent::GetMouseKeyFromInt(button), MouseEventType::MOUSE_MOVE);
+    InputManager::addInput(event);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    MouseEvent event(x, y, MouseEvent::GetMouseKeyFromInt(button), MouseEventType::MOUSE_PRESSED);
+    InputManager::addInput(event);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    MouseEvent event(x, y, MouseEvent::GetMouseKeyFromInt(button), MouseEventType::MOUSE_RELEASED);
+    InputManager::addInput(event);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+    MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_ENTERED);
+    InputManager::addInput(event);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-
+    MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_EXITED);
+    InputManager::addInput(event);
 }
 
 //--------------------------------------------------------------
