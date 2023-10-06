@@ -24,17 +24,18 @@ void ofApp::setup(){
 
     //ringButton.addListener(this, &ofApp::ringButtonPressed);
     ProjectileVolume.addListener(this, &ofApp::ProjectileVolumeChanged);
+    
 
     //here we are setting up all the buttons  
     gui.setup(); // most of the time you don't need a name
 
     gui.add(center.setup("center", {ofGetWidth()*.5, ofGetHeight()*.5}, {0, 0}, {ofGetWidth(), ofGetHeight()}));
     gui.add(color.setup("color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
-    gui.add(ProjectileVolume.setup("Projectiles Volume", 0.5f, 0.01f, 1.0f));
-    gui.add(launchBall.setup("Projectile de base | C"));
-    gui.add(launchFireBall.setup("FireBall | V"));
-    gui.add(launchthirdBall.setup("Firework | B"));
-    gui.add(launchFourthBall.setup("Laser | N"));
+    gui.add(ProjectileVolume.setup("Projectiles Volume", ofToFloat(Config::get("VOLUME")), 0.01f, 1.0f));
+    gui.add(launchBall.setup("Projectile de base | " + ofToUpper(Config::get("KEY_THROW_BASE_PARTICLE"))));
+    gui.add(launchFireBall.setup("FireBall | " + ofToUpper(Config::get("KEY_THROW_FIREBALL"))));
+    gui.add(launchthirdBall.setup("Firework | " + ofToUpper(Config::get("KEY_THROW_FIREWORK"))));
+    gui.add(launchFourthBall.setup("Laser | " + ofToUpper(Config::get("KEY_THROW_LASER"))));
     
     bHide = false;
 
@@ -74,16 +75,13 @@ void ofApp::circleResolutionChanged(int &circleResolution){
 
 void ofApp::ProjectileVolumeChanged(float &ProjectileVolume)
 {
+    EventManager::OnVolumeModified(ProjectileVolume);
+    
+    Config::set("VOLUME", std::to_string(ProjectileVolume));
     FireballSound.setVolume(ProjectileVolume);
     FireworkSound.setVolume(ProjectileVolume);
     LaserSound.setVolume(ProjectileVolume);
     Volume = ProjectileVolume;
-}
-
-Vector3D ofApp::GetCenter() const
-{
-    
-    return Vector3D(center.getPosition());
 }
 
 
@@ -110,6 +108,13 @@ void ofApp::draw(){
     }
     GameWorld.Draw();
 }
+
+ofApp::~ofApp()
+{
+    GameWorld.EndPlay();
+    Config::Save();
+}
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){

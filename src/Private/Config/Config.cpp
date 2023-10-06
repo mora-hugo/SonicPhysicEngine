@@ -26,6 +26,60 @@ void Config::Parse()
     else std::cout << "Unable to open file";
 }
 
+void Config::Save()
+{
+    std::ifstream infile("data/Config.conf");
+    std::ofstream outfile("data/Config.conf.temp");
+
+    if (infile.is_open() && outfile.is_open())
+    {
+        std::string line;
+        while (std::getline(infile, line))
+        {
+            if (line.length() > 2 && (line[0] != '#') && line != "\n" && line != "\r" && !line.empty())
+            {
+                std::string segment(line);
+                std::stringstream test(line);
+                std::vector<std::string> seglist;
+
+                while (std::getline(test, segment, ':'))
+                {
+                    seglist.push_back(segment);
+                }
+
+                if (seglist.size() != 2)
+                {
+                    outfile << line << "\n";
+                    continue;
+                }
+
+                std::string Key = trim(seglist[0]);
+                if (ConfigMap.find(Key) != ConfigMap.end())
+                {
+                    outfile << Key << " : " << ConfigMap[Key] << "\n";
+                }
+                else
+                {
+                    outfile << line << "\n";
+                }
+            }
+            else
+            {
+                outfile << line << "\n";
+            }
+        }
+        infile.close();
+        outfile.close();
+
+        std::filesystem::rename("data/Config.conf.temp", "data/Config.conf");
+    }
+    else
+    {
+        std::cout << "Unable to open file";
+    }
+}
+
+
 void Config::InsertKeyValueFromString(const std::string& Line)
 {
     std::string segment(Line);
@@ -55,3 +109,20 @@ std::string& Config::get(const std::string& Key)
         return std::string();
     return ConfigMap[Key];
 }
+
+void Config::set(const std::string& Key, const std::string& Value)
+{
+    if(ConfigMap.find(Key) == ConfigMap.end())
+        ConfigMap.insert(std::pair(Key, Value));
+    else
+        ConfigMap[Key] = Value;
+}
+
+char Config::getChar(const std::string& Key)
+{
+    if(ConfigMap.find(Key) == ConfigMap.end() || ConfigMap[Key].length() < 1)
+        return ' ';
+    return ConfigMap[Key].at(0);
+}
+
+

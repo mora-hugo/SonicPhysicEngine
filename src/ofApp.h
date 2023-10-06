@@ -14,6 +14,7 @@ public:
 	void setup();
 	void update();
 	void draw();
+	~ofApp();
 
 	// an exit for the listener
 	void exit();
@@ -39,7 +40,6 @@ public:
 	
 	bool bHide;
 
-	Vector3D GetCenter() const;
 	ofxColorSlider color;
 	ofxVec2Slider center;
 

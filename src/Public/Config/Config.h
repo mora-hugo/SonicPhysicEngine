@@ -8,7 +8,10 @@ public:
     
 
     static std::string & get(const std::string & Key);
+    static void set(const std::string & Key, const std::string & Value);
+    static char getChar(const std::string & Key);
     void static Parse();
+    void static Save();
     
     
 

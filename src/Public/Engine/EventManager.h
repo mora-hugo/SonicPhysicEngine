@@ -31,4 +31,5 @@ namespace EventManager
 {
     MyEvent<MouseEvent> MouseEvent;
     MyEvent<KeyboardEvent> KeyboardEvent;
+    MyEvent<float> OnVolumeModified;
 }
