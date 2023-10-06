@@ -12,7 +12,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+
+    Config::Parse();
     // Subscribe to events
     EventManager::KeyboardEvent.subscribe([=](const KeyboardEvent& event) {
         OnKeyPressed(event);
