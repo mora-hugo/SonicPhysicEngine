@@ -61,14 +61,14 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             // Fireball
             Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 20));
             p->Setup();
-            //FireballSound.play();
+            Context->FireballSound.play();
         }
         else if(event.key ==  Config::getChar("KEY_THROW_FIREWORK")){
             // Firework
             Particle * p = particleSystem.AddParticle(new ParticleFirework(20,2, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 10));
             p->Setup();
-            //p->ExplosionSound.setVolume(Volume);
-            //FireworkSound.play();
+            p->ExplosionSound.setVolume(Context->Volume);
+            Context->FireworkSound.play();
         }
         else if(event.key == Config::getChar("KEY_THROW_LASER")){
             // Laser
@@ -76,6 +76,7 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             {
                 Particle * p = particleSystem.AddParticle(new ParticleLaser(20,1, Vector3D((centerX),centerY).Add(Vector3D(Context->mouseX - centerX, Context->mouseY - centerY).Normalize().Multiply(i)),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY).Multiply(5), Vector3D(0,0), 5));
                 p->Setup();
+                Context->LaserSound.play();
             }
         }
     }
