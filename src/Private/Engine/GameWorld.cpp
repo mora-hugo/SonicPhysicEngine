@@ -50,7 +50,7 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
     {
         const float centerX = Context->center->x;
         const float centerY = Context->center->y;
-        if(event.key == 'c')
+        if(event.key == Config::getChar("KEY_THROW_BASE_PARTICLE"))
         {
             Particle * p = particleSystem.AddParticle(new ParticleFireball(20,20, Vector3D(centerX,centerY),Vector3D(Context->mouseX - centerX, Context->mouseY - centerY), Vector3D(0,150), 20));
             p->Setup();

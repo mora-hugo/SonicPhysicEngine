@@ -1,0 +1,70 @@
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+/.idea/.gitignore
+/.vs/AMOGUS/v17/.suo
+/addons.make
+/.idea/AMOGUS.iml
+/obj/x64/Debug/AMOGUS.tlog/AMOGUS.lastbuildstate
+/AMOGUS.sln
+/AMOGUS.vcxproj
+/AMOGUS.vcxproj.filters
+/AMOGUS.vcxproj.user
+/bin/AMOGUS_debug.exe
+/obj/x64/Debug/AMOGUS_debug.exe.recipe
+/bin/AMOGUS_debug.pdb
+/obj/x64/Debug/Build/src/Private/Particle/Animations/Debug/AnimationExplosionSystem.obj
+/obj/x64/Debug/Build/src/Private/Particle/Animations/Debug/AnimationSystem.obj
+/obj/x64/Debug/Build/src/Private/Particle/Animations/Debug/AnimationTrailsSystem.obj
+/.vs/AMOGUS/v17/Browse.VC.db
+/obj/x64/Debug/AMOGUS.tlog/CL.command.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/Cl.items.tlog
+/obj/x64/Debug/AMOGUS.tlog/CL.read.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/CL.write.1.tlog
+/config.make
+/obj/x64/Debug/Build/src/Private/Config/Debug/Config.obj
+/obj/x64/Debug/Build/src/Private/Engine/Debug/EventManager.obj
+/bin/fmod.dll
+/bin/fmodL.dll
+/bin/FreeImage.dll
+/obj/x64/Debug/Build/src/Private/Engine/Debug/GameWorld.obj
+/icon.rc
+/obj/x64/Debug/icon.res
+/.idea/.idea.AMOGUS/.idea/indexLayout.xml
+/obj/x64/Debug/Build/src/Private/Engine/Debug/InputSystem.obj
+/obj/x64/Debug/Build/src/Private/Engine/Debug/KeyboardEvent.obj
+/obj/x64/Debug/AMOGUS.tlog/link.command.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/link.read.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/link.write.1.tlog
+/obj/x64/Debug/Build/src/Debug/main.obj
+/.idea/modules.xml
+/obj/x64/Debug/Build/src/Private/Engine/Debug/MouseEvent.obj
+/obj/x64/Debug/Build/src/Debug/ofApp.obj
+/obj/addons/ofxGui/src/Debug/ofxBaseGui.obj
+/obj/addons/ofxGui/src/Debug/ofxButton.obj
+/obj/addons/ofxGui/src/Debug/ofxColorPicker.obj
+/obj/addons/ofxGui/src/Debug/ofxGuiGroup.obj
+/obj/addons/ofxGui/src/Debug/ofxInputField.obj
+/obj/addons/ofxGui/src/Debug/ofxLabel.obj
+/obj/addons/ofxGui/src/Debug/ofxPanel.obj
+/obj/addons/ofxGui/src/Debug/ofxSlider.obj
+/obj/addons/ofxGui/src/Debug/ofxSliderGroup.obj
+/obj/addons/ofxGui/src/Debug/ofxToggle.obj
+/obj/x64/Debug/Build/src/Private/Particle/Debug/Particle.obj
+/obj/x64/Debug/Build/src/Private/Particle/Debug/ParticleFireball.obj
+/obj/x64/Debug/Build/src/Private/Particle/Debug/ParticleFirework.obj
+/obj/x64/Debug/Build/src/Private/Particle/Debug/ParticleLaser.obj
+/obj/x64/Debug/Build/src/Private/Particle/Debug/ParticleSparksTrails.obj
+/obj/x64/Debug/Build/src/Private/Particle/ParticleSystem/Debug/ParticleSystem.obj
+/obj/x64/Debug/AMOGUS.tlog/rc.command.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/rc.read.1.tlog
+/obj/x64/Debug/AMOGUS.tlog/rc.write.1.tlog
+/.vs/AMOGUS/v17/Solution.VC.db
+/obj/x64/Debug/vc143.pdb
+/.idea/.idea.AMOGUS/.idea/vcs.xml
+/.idea/vcs.xml
+/obj/x64/Debug/Build/src/Private/Math/Debug/Vector3D.obj
+/obj/x64/Debug/Build/src/Private/Engine/Debug/World.obj
