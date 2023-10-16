@@ -68,6 +68,7 @@ public:
 
 	GameWorld GameWorld;
 
+	ofCamera cam;
 private:
 	void OnKeyPressed(const KeyboardEvent& event);
 };

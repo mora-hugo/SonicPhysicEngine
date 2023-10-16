@@ -12,8 +12,13 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    
     Config::Parse();
+    cam.setScale(1, -1, 1);
+    cam.setPosition(ofGetWidth()/2,ofGetHeight()/2,700);
+    
+    // the camera is reversed, so we need to invert the world
+    
     // Subscribe to events
     EventManager::KeyboardEvent.subscribe([=](const KeyboardEvent& event) {
         OnKeyPressed(event);
@@ -95,23 +100,26 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-   
-
+    if(!bHide){
+        gui.draw();
+    }
+    cam.begin();
+/*
     // draw the GUI
     ofNoFill();
     ofSetColor(color);
     ofDrawCircle(center, 35 );
    // ofDrawCircle(TargetPositionX,TargetPositionY, 30);
     ofDrawLine(center->x,center->y, (mouseX), (mouseY));
-    if(!bHide){
-        gui.draw();
-    }
+*/
     GameWorld.Draw();
+    cam.end();
 }
 
 ofApp::~ofApp()
 {
     GameWorld.EndPlay();
+    cam.end();
     Config::Save();
 }
 
@@ -187,43 +195,45 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::OnKeyPressed(const KeyboardEvent& event)
 {
-    
-    //sauvegarde
-    if(event.key == 'h'){
-        bHide = !bHide;
-    }
-    else if(event.key == 'o'){
-        gui.saveToFile("settings.xml");
-    }
-    else if(event.key == 'p'){
-        gui.loadFromFile("settings.xml");
-    }
+    {
+        /*
+        //sauvegarde
+        if(event.key == 'h'){
+            bHide = !bHide;
+        }
+        else if(event.key == 'o'){
+            gui.saveToFile("settings.xml");
+        }
+        else if(event.key == 'p'){
+            gui.loadFromFile("settings.xml");
+        }
 
-    //viseur - Removed
-    else if(event.key == 't'){
+        //viseur - Removed
+        else if(event.key == 't'){
         
-        TargetPositionX = mouseX;
-        TargetPositionY = mouseY;
-    }
-    //Deplacement
-    else if(event.key == 'w' || event.key == 'z'){
-        center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(event.key == 'a' || event.key == 'q')
-    {
-        center.setup("center", {center->x-5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(event.key == 's'){
-        center.setup("center", {center->x, center->y+5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
-    else if(event.key == 'd')
-    {
-        center.setup("center", {center->x+5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-    }
+            TargetPositionX = mouseX;
+            TargetPositionY = mouseY;
+        }
+        //Deplacement
+        else if(event.key == 'w' || event.key == 'z'){
+            center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+        }
+        else if(event.key == 'a' || event.key == 'q')
+        {
+            center.setup("center", {center->x-5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+        }
+        else if(event.key == 's'){
+            center.setup("center", {center->x, center->y+5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+        }
+        else if(event.key == 'd')
+        {
+            center.setup("center", {center->x+5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
+        }
     
-    //defaut
-    else if(event.key == ' '){
-        color = ofColor(255);
+        //defaut
+        else if(event.key == ' '){
+            color = ofColor(255);
+        }
+        */
     }
-    
 }

@@ -2,6 +2,7 @@
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
+class Player;
 class ofApp;
 
 
@@ -28,4 +29,6 @@ private:
     ParticleSystem particleSystem;
 
     ofApp * Context;
+
+    Player * player;
 };

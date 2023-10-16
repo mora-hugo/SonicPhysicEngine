@@ -27,6 +27,7 @@ Vector3D Vector3D::Multiply(const double Scalar) const
 Vector3D Vector3D::Divide(const double Scalar) const
 {
     //assert(Scalar == 0,"Division by zero is impossible");
+
     return Multiply(1/Scalar);
 }
 

@@ -34,6 +34,7 @@ private:
     float lifeTime = 0;
     float lifeTimeRemaining = 0;
 
+    bool bSimulatePhysics = true;
 
 
 public:
@@ -54,12 +55,15 @@ public:
     float GetLifetimeRemaining() const;
     
     bool GetIsFinished();
+
+    void SetSimulatePhysics(bool SimulatePhysics);
     
     Vector3D GetPosition() const;
 
     Vector3D GetVelocity() const;
 
     Vector3D GetAcceleration() const;
+
 
     float GetRadius() const;
 
@@ -70,5 +74,7 @@ public:
     void UpdateVelocity();
 
     void UpdatePosition();
+
+    bool IsSumulatePhysics() const;
     
 };

@@ -29,7 +29,8 @@ void Particle::Update(double f)
     lifeTimeRemaining-=f;
     /*if(lifeTimeRemaining <= 0)
         SetIsFinished(true);*/
-    this->ApplyPhysics();
+    if(bSimulatePhysics)
+        this->ApplyPhysics();
     setPosition(position);
 }
 
@@ -46,6 +47,16 @@ void Particle::SetIsFinished(const bool isFinished)
 bool Particle::GetIsFinished()
 {
     return bIsFinished;
+}
+
+void Particle::SetSimulatePhysics(bool SimulatePhysics)
+{
+    bSimulatePhysics = SimulatePhysics;
+}
+
+bool Particle::IsSumulatePhysics() const
+{
+    return bSimulatePhysics;
 }
 
 void Particle::SetRadius(const float radius)
