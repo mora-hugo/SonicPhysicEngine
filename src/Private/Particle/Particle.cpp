@@ -3,6 +3,7 @@
 #include "time.h"
 
 #include "ofGraphics.h"
+#include "Public/Generator/Force.h"
 
 Particle::Particle(const double& mass, const float lifetime, const Vector3D& position, const Vector3D& velocity, const Vector3D& acceleration, const float radius) :
     position(position),velocity(velocity), acceleration(acceleration), mass(mass), radius(radius), lifeTime(lifetime), lifeTimeRemaining(lifeTime)
@@ -57,6 +58,52 @@ void Particle::SetSimulatePhysics(bool SimulatePhysics)
 bool Particle::IsSumulatePhysics() const
 {
     return bSimulatePhysics;
+}
+
+Force Particle::AccumForce()
+{
+    Force res = Force(NULL, 60, this, Constant) ; //somme des forces
+    
+    for (int i=0 ; i < Forces.size() ; ++i)
+    {
+        if (Forces[i].lifetime <= 0)
+        {
+           Forces.erase(Forces.begin()+i);
+        } else
+        {
+            res.movement = res.movement + Forces[i].movement;
+            acceleration = Forces[i].movement * GetReverseMass();
+            Forces[i].lifetime = Forces[i].lifetime - getFrameLength();
+        }
+    }
+    return res;
+}
+
+void Particle::AddForce(Force force)
+{
+    Forces.push_back(force);
+}
+
+void Particle::cleanAccumForce()
+{
+    Forces.clear();
+}
+
+void Particle::UpdateForce(Force force)
+{
+    switch (type)
+    {
+    case Input:
+        break;
+    case Environnement:
+        break;
+    case Constant:
+        break;
+    case Friction:
+        break;
+    case Ressort:
+        break;
+    }
 }
 
 void Particle::SetRadius(const float radius)
@@ -123,11 +170,10 @@ double Particle::GetReverseMass() const
 
 void Particle::UpdateVelocity()
 {
-    //velocité instant k+1 = velocité instant k + longueur d'une frame (en secondes) * accélération
-   // velocity = velocity + acceleration.Multiply(FrameLength);
-
     //coefficient de frottement
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
+
+    Force force = AccumForce();
     velocity = velocity.Multiply(pow(0.97, FrameLength)) + acceleration.Multiply(FrameLength);
 }
 

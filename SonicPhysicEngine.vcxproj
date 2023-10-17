@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Condition="'$(WindowsTargetPlatformVersion)'==''">
+		<LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
+		<WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+		<TargetPlatformVersion>$(WindowsTargetPlatformVersion)</TargetPlatformVersion>
+	</PropertyGroup>
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+		<Keyword>Win32Proj</Keyword>
+		<RootNamespace>SonicPhysicEngine</RootNamespace>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+		<ConfigurationType>Application</ConfigurationType>
+		<CharacterSet>Unicode</CharacterSet>
+		<PlatformToolset>v142</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+		<ConfigurationType>Application</ConfigurationType>
+		<CharacterSet>Unicode</CharacterSet>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<PlatformToolset>v142</PlatformToolset>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+	</ImportGroup>
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<OutDir>bin\</OutDir>
+		<IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+		<TargetName>$(ProjectName)_debug</TargetName>
+		<LinkIncremental>true</LinkIncremental>
+		<GenerateManifest>true</GenerateManifest>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<OutDir>bin\</OutDir>
+		<IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<ClCompile>
+			<Optimization>Disabled</Optimization>
+			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+			<WarningLevel>Level3</WarningLevel>
+			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src\Private\Config;src\Private\Controller;src\Private\Engine;src\Private\Engine\Interfaces;src\Private\Math;src\Private\Particle\Animations;src\Private\Particle;src\Private\Particle\ParticleSystem;src\Public\Config;src\Public\Controller;src\Public\Engine;src\Public\Math;src\Public\Particle\Animations;src\Public\Particle;src\Public\Particle\ParticleSystem;src;..\..\..\addons\ofxGui\src</AdditionalIncludeDirectories>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
+			<LanguageStandard>stdcpp17</LanguageStandard>
+			<AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<Link>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Console</SubSystem>
+			<RandomizedBaseAddress>false</RandomizedBaseAddress>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
+		</Link>
+		<PostBuildEvent />
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<ClCompile>
+			<WholeProgramOptimization>false</WholeProgramOptimization>
+			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+			<WarningLevel>Level3</WarningLevel>
+			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src\Private\Config;src\Private\Controller;src\Private\Engine;src\Private\Engine\Interfaces;src\Private\Math;src\Private\Particle\Animations;src\Private\Particle;src\Private\Particle\ParticleSystem;src\Public\Config;src\Public\Controller;src\Public\Engine;src\Public\Math;src\Public\Particle\Animations;src\Public\Particle;src\Public\Particle\ParticleSystem;src;..\..\..\addons\ofxGui\src</AdditionalIncludeDirectories>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
+			<LanguageStandard>stdcpp17</LanguageStandard>
+			<AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<Link>
+			<IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<SubSystem>Console</SubSystem>
+			<OptimizeReferences>true</OptimizeReferences>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<RandomizedBaseAddress>false</RandomizedBaseAddress>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
+		</Link>
+		<PostBuildEvent />
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClCompile Include="src\main.cpp" />
+		<ClCompile Include="src\ofApp.cpp" />
+		<ClCompile Include="src\Private\Config\Config.cpp" />
+		<ClCompile Include="src\Private\Controller\Player.cpp" />
+		<ClCompile Include="src\Private\Engine\EventManager.cpp" />
+		<ClCompile Include="src\Private\Engine\GameWorld.cpp" />
+		<ClCompile Include="src\Private\Engine\InputSystem.cpp" />
+		<ClCompile Include="src\Private\Engine\KeyboardEvent.cpp" />
+		<ClCompile Include="src\Private\Engine\MouseEvent.cpp" />
+		<ClCompile Include="src\Private\Generator\Force.cpp">
+		  <AssemblerOutput>NoListing</AssemblerOutput>
+		  <AssemblerListingLocation>obj\x64\Debug\</AssemblerListingLocation>
+		  <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+		  <BrowseInformation>false</BrowseInformation>
+		  <BrowseInformationFile>obj\x64\Debug\</BrowseInformationFile>
+		  <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+		  <CompileAs>CompileAsCpp</CompileAs>
+		  <ConformanceMode>Default</ConformanceMode>
+		  <DiagnosticsFormat>Column</DiagnosticsFormat>
+		  <DisableLanguageExtensions>false</DisableLanguageExtensions>
+		  <ErrorReporting>Prompt</ErrorReporting>
+		  <ExpandAttributedSource>false</ExpandAttributedSource>
+		  <ExceptionHandling>Sync</ExceptionHandling>
+		  <EnableASAN>false</EnableASAN>
+		  <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+		  <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+		  <FloatingPointModel>Precise</FloatingPointModel>
+		  <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+		  <GenerateModuleDependencies>false</GenerateModuleDependencies>
+		  <GenerateSourceDependencies>false</GenerateSourceDependencies>
+		  <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+		  <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+		  <IntrinsicFunctions>false</IntrinsicFunctions>
+		  <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+		  <LanguageStandard>stdcpp17</LanguageStandard>
+		  <LanguageStandard_C>Default</LanguageStandard_C>
+		  <MinimalRebuild>false</MinimalRebuild>
+		  <ModuleDependenciesFile>obj\x64\Debug\</ModuleDependenciesFile>
+		  <ModuleOutputFile>obj\x64\Debug\</ModuleOutputFile>
+		  <OmitDefaultLibName>false</OmitDefaultLibName>
+		  <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+		  <WholeProgramOptimization>false</WholeProgramOptimization>
+		  <Optimization>Disabled</Optimization>
+		  <ObjectFileName>obj\x64\Debug\\Build\%(RelativeDir)\Debug\</ObjectFileName>
+		  <CallingConvention>Cdecl</CallingConvention>
+		  <ProgramDataBaseFileName>obj\x64\Debug\vc142.pdb</ProgramDataBaseFileName>
+		  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+		  <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+		  <PrecompiledHeaderOutputFile>obj\x64\Debug\SonicPhysicEngine_debug.pch</PrecompiledHeaderOutputFile>
+		  <PreprocessToFile>false</PreprocessToFile>
+		  <PreprocessKeepComments>false</PreprocessKeepComments>
+		  <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+		  <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+		  <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+		  <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+		  <ShowIncludes>false</ShowIncludes>
+		  <SourceDependenciesFile>obj\x64\Debug\</SourceDependenciesFile>
+		  <SuppressStartupBanner>true</SuppressStartupBanner>
+		  <BufferSecurityCheck>true</BufferSecurityCheck>
+		  <SmallerTypeCheck>false</SmallerTypeCheck>
+		  <SpectreMitigation>false</SpectreMitigation>
+		  <StructMemberAlignment>Default</StructMemberAlignment>
+		  <SupportJustMyCode>false</SupportJustMyCode>
+		  <TrackerLogDirectory>obj\x64\Debug\SonicPhy.7FD42DF7.tlog\</TrackerLogDirectory>
+		  <TranslateIncludes>false</TranslateIncludes>
+		  <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+		  <TreatWarningAsError>false</TreatWarningAsError>
+		  <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+		  <UseFullPaths>true</UseFullPaths>
+		  <WarningLevel>Level3</WarningLevel>
+		  <XMLDocumentationFileName>obj\x64\Debug\</XMLDocumentationFileName>
+		  <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		  <IntelJCCErratum>false</IntelJCCErratum>
+		  <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+		  <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+		  <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+		  <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+		  <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;POCO_STATIC;CAIRO_WIN32_STATIC_BUILD;DISABLE_SOME_FLOATING_POINT;CURL_STATICLIB;_UNICODE;UNICODE;</PreprocessorDefinitions>
+		  <AdditionalOptions>/Zc:__cplusplus /Zc:__cplusplus </AdditionalOptions>
+		  <AdditionalIncludeDirectories>D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\graphics;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\app;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\sound;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\utils;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\communication;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\video;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\types;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\math;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\3d;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\gl;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\events;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glm\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\rtAudio\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\quicktime\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include\freetype2;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freeImage\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\fmod\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\videoInput\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glew\include\;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glu\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\tess2\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\cairo\include\cairo;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glfw\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openssl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\utf8\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\boost\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\json\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\curl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\uriparser\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\pugixml\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\addons;;src\Private\Config;src\Private\Controller;src\Private\Engine;src\Private\Engine\Interfaces;src\Private\Math;src\Private\Particle\Animations;src\Private\Particle;src\Private\Particle\ParticleSystem;src\Public\Config;src\Public\Controller;src\Public\Engine;src\Public\Math;src\Public\Particle\Animations;src\Public\Particle;src\Public\Particle\ParticleSystem;src;..\..\..\addons\ofxGui\src</AdditionalIncludeDirectories>
+		  <MultiProcessorCompilation>true</MultiProcessorCompilation>
+		  <LinkCompiled>true</LinkCompiled>
+		</ClCompile>
+		<ClCompile Include="src\Private\Generator\ForceGenerator.cpp">
+		  <AssemblerOutput>NoListing</AssemblerOutput>
+		  <AssemblerListingLocation>obj\x64\Debug\</AssemblerListingLocation>
+		  <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+		  <BrowseInformation>false</BrowseInformation>
+		  <BrowseInformationFile>obj\x64\Debug\</BrowseInformationFile>
+		  <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+		  <CompileAs>CompileAsCpp</CompileAs>
+		  <ConformanceMode>Default</ConformanceMode>
+		  <DiagnosticsFormat>Column</DiagnosticsFormat>
+		  <DisableLanguageExtensions>false</DisableLanguageExtensions>
+		  <ErrorReporting>Prompt</ErrorReporting>
+		  <ExpandAttributedSource>false</ExpandAttributedSource>
+		  <ExceptionHandling>Sync</ExceptionHandling>
+		  <EnableASAN>false</EnableASAN>
+		  <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+		  <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+		  <FloatingPointModel>Precise</FloatingPointModel>
+		  <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+		  <GenerateModuleDependencies>false</GenerateModuleDependencies>
+		  <GenerateSourceDependencies>false</GenerateSourceDependencies>
+		  <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+		  <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+		  <IntrinsicFunctions>false</IntrinsicFunctions>
+		  <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+		  <LanguageStandard>stdcpp17</LanguageStandard>
+		  <LanguageStandard_C>Default</LanguageStandard_C>
+		  <MinimalRebuild>false</MinimalRebuild>
+		  <ModuleDependenciesFile>obj\x64\Debug\</ModuleDependenciesFile>
+		  <ModuleOutputFile>obj\x64\Debug\</ModuleOutputFile>
+		  <OmitDefaultLibName>false</OmitDefaultLibName>
+		  <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+		  <WholeProgramOptimization>false</WholeProgramOptimization>
+		  <Optimization>Disabled</Optimization>
+		  <ObjectFileName>obj\x64\Debug\\Build\%(RelativeDir)\Debug\</ObjectFileName>
+		  <CallingConvention>Cdecl</CallingConvention>
+		  <ProgramDataBaseFileName>obj\x64\Debug\vc142.pdb</ProgramDataBaseFileName>
+		  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+		  <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+		  <PrecompiledHeaderOutputFile>obj\x64\Debug\SonicPhysicEngine_debug.pch</PrecompiledHeaderOutputFile>
+		  <PreprocessToFile>false</PreprocessToFile>
+		  <PreprocessKeepComments>false</PreprocessKeepComments>
+		  <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+		  <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+		  <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+		  <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+		  <ShowIncludes>false</ShowIncludes>
+		  <SourceDependenciesFile>obj\x64\Debug\</SourceDependenciesFile>
+		  <SuppressStartupBanner>true</SuppressStartupBanner>
+		  <BufferSecurityCheck>true</BufferSecurityCheck>
+		  <SmallerTypeCheck>false</SmallerTypeCheck>
+		  <SpectreMitigation>false</SpectreMitigation>
+		  <StructMemberAlignment>Default</StructMemberAlignment>
+		  <SupportJustMyCode>false</SupportJustMyCode>
+		  <TrackerLogDirectory>obj\x64\Debug\SonicPhy.7FD42DF7.tlog\</TrackerLogDirectory>
+		  <TranslateIncludes>false</TranslateIncludes>
+		  <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+		  <TreatWarningAsError>false</TreatWarningAsError>
+		  <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+		  <UseFullPaths>true</UseFullPaths>
+		  <WarningLevel>Level3</WarningLevel>
+		  <XMLDocumentationFileName>obj\x64\Debug\</XMLDocumentationFileName>
+		  <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		  <IntelJCCErratum>false</IntelJCCErratum>
+		  <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+		  <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+		  <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+		  <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+		  <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;POCO_STATIC;CAIRO_WIN32_STATIC_BUILD;DISABLE_SOME_FLOATING_POINT;CURL_STATICLIB;_UNICODE;UNICODE;</PreprocessorDefinitions>
+		  <AdditionalOptions>/Zc:__cplusplus /Zc:__cplusplus </AdditionalOptions>
+		  <AdditionalIncludeDirectories>D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\graphics;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\app;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\sound;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\utils;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\communication;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\video;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\types;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\math;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\3d;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\gl;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\events;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glm\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\rtAudio\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\quicktime\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include\freetype2;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freeImage\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\fmod\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\videoInput\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glew\include\;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glu\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\tess2\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\cairo\include\cairo;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glfw\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openssl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\utf8\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\boost\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\json\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\curl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\uriparser\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\pugixml\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\addons;;src\Private\Config;src\Private\Controller;src\Private\Engine;src\Private\Engine\Interfaces;src\Private\Math;src\Private\Particle\Animations;src\Private\Particle;src\Private\Particle\ParticleSystem;src\Public\Config;src\Public\Controller;src\Public\Engine;src\Public\Math;src\Public\Particle\Animations;src\Public\Particle;src\Public\Particle\ParticleSystem;src;..\..\..\addons\ofxGui\src</AdditionalIncludeDirectories>
+		  <MultiProcessorCompilation>true</MultiProcessorCompilation>
+		  <LinkCompiled>true</LinkCompiled>
+		</ClCompile>
+		<ClCompile Include="src\Private\Generator\ParticleForceRegistry.cpp">
+		  <AssemblerOutput>NoListing</AssemblerOutput>
+		  <AssemblerListingLocation>obj\x64\Debug\</AssemblerListingLocation>
+		  <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+		  <BrowseInformation>false</BrowseInformation>
+		  <BrowseInformationFile>obj\x64\Debug\</BrowseInformationFile>
+		  <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+		  <CompileAs>CompileAsCpp</CompileAs>
+		  <ConformanceMode>Default</ConformanceMode>
+		  <DiagnosticsFormat>Column</DiagnosticsFormat>
+		  <DisableLanguageExtensions>false</DisableLanguageExtensions>
+		  <ErrorReporting>Prompt</ErrorReporting>
+		  <ExpandAttributedSource>false</ExpandAttributedSource>
+		  <ExceptionHandling>Sync</ExceptionHandling>
+		  <EnableASAN>false</EnableASAN>
+		  <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+		  <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+		  <FloatingPointModel>Precise</FloatingPointModel>
+		  <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+		  <GenerateModuleDependencies>false</GenerateModuleDependencies>
+		  <GenerateSourceDependencies>false</GenerateSourceDependencies>
+		  <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+		  <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+		  <IntrinsicFunctions>false</IntrinsicFunctions>
+		  <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+		  <LanguageStandard>stdcpp17</LanguageStandard>
+		  <LanguageStandard_C>Default</LanguageStandard_C>
+		  <MinimalRebuild>false</MinimalRebuild>
+		  <ModuleDependenciesFile>obj\x64\Debug\</ModuleDependenciesFile>
+		  <ModuleOutputFile>obj\x64\Debug\</ModuleOutputFile>
+		  <OmitDefaultLibName>false</OmitDefaultLibName>
+		  <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+		  <WholeProgramOptimization>false</WholeProgramOptimization>
+		  <Optimization>Disabled</Optimization>
+		  <ObjectFileName>obj\x64\Debug\\Build\%(RelativeDir)\Debug\</ObjectFileName>
+		  <CallingConvention>Cdecl</CallingConvention>
+		  <ProgramDataBaseFileName>obj\x64\Debug\vc142.pdb</ProgramDataBaseFileName>
+		  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+		  <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+		  <PrecompiledHeaderOutputFile>obj\x64\Debug\SonicPhysicEngine_debug.pch</PrecompiledHeaderOutputFile>
+		  <PreprocessToFile>false</PreprocessToFile>
+		  <PreprocessKeepComments>false</PreprocessKeepComments>
+		  <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+		  <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+		  <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+		  <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+		  <ShowIncludes>false</ShowIncludes>
+		  <SourceDependenciesFile>obj\x64\Debug\</SourceDependenciesFile>
+		  <SuppressStartupBanner>true</SuppressStartupBanner>
+		  <BufferSecurityCheck>true</BufferSecurityCheck>
+		  <SmallerTypeCheck>false</SmallerTypeCheck>
+		  <SpectreMitigation>false</SpectreMitigation>
+		  <StructMemberAlignment>Default</StructMemberAlignment>
+		  <SupportJustMyCode>false</SupportJustMyCode>
+		  <TrackerLogDirectory>obj\x64\Debug\SonicPhy.7FD42DF7.tlog\</TrackerLogDirectory>
+		  <TranslateIncludes>false</TranslateIncludes>
+		  <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+		  <TreatWarningAsError>false</TreatWarningAsError>
+		  <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+		  <UseFullPaths>true</UseFullPaths>
+		  <WarningLevel>Level3</WarningLevel>
+		  <XMLDocumentationFileName>obj\x64\Debug\</XMLDocumentationFileName>
+		  <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		  <IntelJCCErratum>false</IntelJCCErratum>
+		  <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+		  <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+		  <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+		  <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+		  <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;POCO_STATIC;CAIRO_WIN32_STATIC_BUILD;DISABLE_SOME_FLOATING_POINT;CURL_STATICLIB;_UNICODE;UNICODE;</PreprocessorDefinitions>
+		  <AdditionalOptions>/Zc:__cplusplus /Zc:__cplusplus </AdditionalOptions>
+		  <AdditionalIncludeDirectories>D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\graphics;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\app;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\sound;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\utils;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\communication;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\video;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\types;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\math;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\3d;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\gl;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openFrameworks\events;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glm\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\rtAudio\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\quicktime\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freetype\include\freetype2;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\freeImage\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\fmod\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\videoInput\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glew\include\;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glu\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\tess2\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\cairo\include\cairo;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\glfw\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\openssl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\utf8\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\boost\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\json\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\curl\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\uriparser\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\libs\pugixml\include;D:\projets\of_v0.12.0_vs_release\libs\openFrameworksCompiled\project\vs\\..\..\..\..\\addons;;src\Private\Config;src\Private\Controller;src\Private\Engine;src\Private\Engine\Interfaces;src\Private\Math;src\Private\Particle\Animations;src\Private\Particle;src\Private\Particle\ParticleSystem;src\Public\Config;src\Public\Controller;src\Public\Engine;src\Public\Math;src\Public\Particle\Animations;src\Public\Particle;src\Public\Particle\ParticleSystem;src;..\..\..\addons\ofxGui\src</AdditionalIncludeDirectories>
+		  <MultiProcessorCompilation>true</MultiProcessorCompilation>
+		  <LinkCompiled>true</LinkCompiled>
+		</ClCompile>
+		<ClCompile Include="src\Private\Math\Vector3D.cpp" />
+		<ClCompile Include="src\Private\Particle\Animations\AnimationExplosionSystem.cpp" />
+		<ClCompile Include="src\Private\Particle\Animations\AnimationSystem.cpp" />
+		<ClCompile Include="src\Private\Particle\Animations\AnimationTrailsSystem.cpp" />
+		<ClCompile Include="src\Private\Particle\BlobParticle.cpp" />
+		<ClCompile Include="src\Private\Particle\Particle.cpp" />
+		<ClCompile Include="src\Private\Particle\ParticleFireball.cpp" />
+		<ClCompile Include="src\Private\Particle\ParticleFirework.cpp" />
+		<ClCompile Include="src\Private\Particle\ParticleLaser.cpp" />
+		<ClCompile Include="src\Private\Particle\ParticleSparksTrails.cpp" />
+		<ClCompile Include="src\Private\Particle\ParticleSystem\ParticleSystem.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxInputField.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h" />
+		<ClInclude Include="src\Private\Engine\Interfaces\GameObject.h" />
+		<ClInclude Include="src\Public\Config\Config.h" />
+		<ClInclude Include="src\Public\Controller\Player.h" />
+		<ClInclude Include="src\Public\Engine\EventManager.h" />
+		<ClInclude Include="src\Public\Engine\GameWorld.h" />
+		<ClInclude Include="src\Public\Engine\InputSystem.h" />
+		<ClInclude Include="src\Public\Engine\KeyboardEvent.h" />
+		<ClInclude Include="src\Public\Engine\MouseEvent.h" />
+		<ClInclude Include="src\Public\Generator\Force.h" />
+		<ClInclude Include="src\Public\Generator\ForceGenerator.h" />
+		<ClInclude Include="src\Public\Generator\ParticleForceRegistry.h" />
+		<ClInclude Include="src\Public\Math\Vector3D.h" />
+		<ClInclude Include="src\Public\Particle\Animations\AnimationExplosionSystem.h" />
+		<ClInclude Include="src\Public\Particle\Animations\AnimationSystem.h" />
+		<ClInclude Include="src\Public\Particle\Animations\AnimationTrailsSystem.h" />
+		<ClInclude Include="src\Public\Particle\BlobParticle.h" />
+		<ClInclude Include="src\Public\Particle\Particle.h" />
+		<ClInclude Include="src\Public\Particle\ParticleFireball.h" />
+		<ClInclude Include="src\Public\Particle\ParticleFirework.h" />
+		<ClInclude Include="src\Public\Particle\ParticleLaser.h" />
+		<ClInclude Include="src\Public\Particle\ParticleSparksTrails.h" />
+		<ClInclude Include="src\Public\Particle\ParticleSystem\ParticleSystem.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxColorPicker.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiUtils.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxInputField.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+			<Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
+		</ResourceCompile>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties RESOURCE_FILE="icon.rc" />
+		</VisualStudio>
+	</ProjectExtensions>
+</Project>
