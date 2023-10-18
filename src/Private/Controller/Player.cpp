@@ -14,16 +14,25 @@ void Player::Right()
     BlobParticle->AddForce(right);
 }
 
+void Player::EndRight()
+{
+    BlobParticle->setVelocity(0,1,0);
+}
+
 void Player::Left()
 {
     Force left = Force(Vector3D(-1 * movement, 0, 0), 1, BlobParticle,Input);
     BlobParticle->AddForce(left);
 }
 
+void Player::EndLeft()
+{
+    BlobParticle->setVelocity(0,1,0);
+}
+
 void Player::Jump()
 {
-    
-    Force Jump = Force(Vector3D(0, -jump, 0), 1, BlobParticle,Input);
+    Force Jump = Force(Vector3D(0, -jump, 0), 3, BlobParticle,InputJump);
     BlobParticle->AddForce(Jump);
 }
 

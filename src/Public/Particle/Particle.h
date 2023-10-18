@@ -78,8 +78,6 @@ public:
 
     void UpdateVelocity();
 
-    void UpdateForce();
-
     void UpdatePosition();
 
     bool IsSumulatePhysics() const;
@@ -87,5 +85,6 @@ public:
     void AddForce(Force force);
 
     void cleanAccumForce();
-    
+
+    void setVelocity(double x, double y, double z);
 };

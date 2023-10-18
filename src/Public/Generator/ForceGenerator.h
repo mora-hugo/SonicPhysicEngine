@@ -7,6 +7,7 @@ enum ForceType
 {
     Constant,
     Input,
+    InputJump,
     Friction,
     Ressort,
     Environnement

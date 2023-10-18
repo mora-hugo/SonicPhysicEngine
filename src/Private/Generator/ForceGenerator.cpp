@@ -1,6 +1,6 @@
 ﻿#include "../../Public/Generator/ForceGenerator.h"
 
-#include "Force.h"
+#include "../../Public/Generator/Force.h"
 #include "Particle.h"
 
 void ForceGenerator::UpdateForce(Force force, Particle particle)

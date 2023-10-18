@@ -9,8 +9,10 @@ public:
     Player(ofCamera * Camera, BlobParticle * BlobParticle);    
 
     void Right();
+    void EndRight();
 
     void Left();
+    void EndLeft();
 
     void Jump();
     
@@ -23,6 +25,6 @@ private:
     ofCamera * Camera;
     BlobParticle * BlobParticle;
 
-    const double movement = 10;
-    const double jump = 200;
+    const double movement = 2000;
+    const double jump = 10000;
 };

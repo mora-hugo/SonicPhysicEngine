@@ -73,9 +73,14 @@ void Particle::cleanAccumForce()
             Forces.erase(Forces.begin()+i);
         }
     }
-    //Forces.push_back(Force(Vector3D(0.2,0.1,0),1,this,Friction));
+    Forces.push_back(Force(Vector3D(0.4,0.4,0),1,this,Friction));
     AccumForce = Vector3D();
     Forces.push_back(Force(Vector3D(0,9.8), 1 , this, Constant));
+}
+
+void Particle::setVelocity(double x, double y, double z)
+{
+    velocity = velocity.ComponentProduct(Vector3D(x,y,z));
 }
 
 void Particle::SetRadius(const float radius)
@@ -141,21 +146,30 @@ double Particle::GetReverseMass() const
 }
 
 void Particle::UpdateVelocity()
-{
-    acceleration = AccumForce * GetReverseMass();
+{    
+    //coefficient de friction cinétique
+    Force friction = Force(Vector3D(1,1,1),1,this,Friction);
     
-    //coefficient de frottement
-    Vector3D friction = Vector3D(1,1,1);
     for (int i=0 ; i < Forces.size() ; ++i)
     {
+        //AccumForce = AccumForce + Forces[i].movement;
+        Forces[i].lifetime = Forces[i].lifetime - 1;
+        //std::cout << Forces[i].lifetime << std::endl;
+
         switch (Forces[i].type)
         {
         case Constant:
+            AccumForce = AccumForce + Forces[i].movement;
             break;
         case Input :
+            AccumForce = AccumForce + Forces[i].movement;
+            break;
+        case InputJump:
+            AccumForce = AccumForce + Forces[i].movement;
             break;
         case Friction:
-            friction = velocity.Negate().CrossProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().CrossProduct(velocity.Normalize())* Forces[i].movement.GetX());
+            //Ne prend en compte que le frottement de l'air à modifier quand on aura les collisions
+            //AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
             break;
         case Ressort:
             break;
@@ -163,18 +177,11 @@ void Particle::UpdateVelocity()
             break;
         }
     }
+    acceleration = AccumForce * GetReverseMass();
+    
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
-    velocity = velocity.ComponentProduct(friction) + acceleration.Multiply(FrameLength);
-}
-
-void Particle::UpdateForce()
-{
-    for (int i=0 ; i < Forces.size() ; ++i)
-    {
-        AccumForce = AccumForce + Forces[i].movement;
-        Forces[i].lifetime = Forces[i].lifetime - 1;
-        //std::cout << Forces[i].lifetime << std::endl;
-    }
+    velocity = velocity + acceleration.Multiply(FrameLength);
+    std::cout << std::string(velocity) << std::endl;
 }
 
 void Particle::UpdatePosition()
@@ -185,7 +192,6 @@ void Particle::UpdatePosition()
 
 void Particle::ApplyPhysics()
 {
-    UpdateForce();
     UpdateVelocity();
     UpdatePosition();
     cleanAccumForce();
