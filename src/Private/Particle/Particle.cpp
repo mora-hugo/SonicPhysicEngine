@@ -73,6 +73,7 @@ void Particle::cleanAccumForce()
             Forces.erase(Forces.begin()+i);
         }
     }
+    //Forces.push_back(Force(Vector3D(0.2,0.1,0),1,this,Friction));
     AccumForce = Vector3D();
     Forces.push_back(Force(Vector3D(0,9.8), 1 , this, Constant));
 }
@@ -154,7 +155,7 @@ void Particle::UpdateVelocity()
         case Input :
             break;
         case Friction:
-            //friction = velocity.Negate() * (velocity.Normalize() * 0.2);
+            friction = velocity.Negate().CrossProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().CrossProduct(velocity.Normalize())* Forces[i].movement.GetX());
             break;
         case Ressort:
             break;
@@ -163,7 +164,7 @@ void Particle::UpdateVelocity()
         }
     }
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
-    velocity = velocity + acceleration.Multiply(FrameLength);
+    velocity = velocity.ComponentProduct(friction) + acceleration.Multiply(FrameLength);
 }
 
 void Particle::UpdateForce()
