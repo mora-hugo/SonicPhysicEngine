@@ -1,6 +1,6 @@
 #include "../../Public/Controller/Player.h"
 
-#include "Public/Generator/Force.h"
+#include "../../Public/Generator/Force.h"
 
 Player::Player(ofCamera* Camera, ::BlobParticle* BlobParticle) : Camera(Camera), BlobParticle(BlobParticle)
 {

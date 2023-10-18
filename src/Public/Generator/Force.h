@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "ForceGenerator.h"
-#include "Vector3D.h"
+#include "../../Public/Math/Vector3D.h"
 
 class Force
 {

@@ -3,13 +3,12 @@
 #include "time.h"
 
 #include "ofGraphics.h"
-#include "Public/Generator/Force.h"
+#include "../../Public/Generator/Force.h"
 
 Particle::Particle(const double& mass, const float lifetime, const Vector3D& position, const Vector3D& velocity, const Vector3D& acceleration, const float radius) :
     position(position),velocity(velocity), acceleration(acceleration), mass(mass), radius(radius), lifeTime(lifetime), lifeTimeRemaining(lifeTime)
 {
     ofSpherePrimitive::setRadius(radius);
-
 }
 
 void Particle::Setup()

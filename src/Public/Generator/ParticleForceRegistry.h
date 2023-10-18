@@ -1,9 +1,10 @@
 ﻿#pragma once
-#include "Particle.h"
+#include "ForceGenerator.h"
+#include "../../Public/Particle/Particle.h"
 
 struct registration
 {
-    Particle particle;
+    Particle * particle;
 };
 
 class ParticleForceRegistry : public ForceGenerator

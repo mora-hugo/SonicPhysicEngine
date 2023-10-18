@@ -108,6 +108,6 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
     if(event.key == Config::getChar("KEY_MOVE_LEFT"))
         player->Left();
     if(event.key == Config::getChar("KEY_MOVE_JUMP"))
-        player->Jump();
+        player->Jump(); 
 }
 

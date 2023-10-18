@@ -2,8 +2,8 @@
 #include "of3dPrimitives.h"
 #include "ofSoundPlayer.h"
 #include "../../Public/Math/Vector3D.h"
-#include "Public/Generator/ForceGenerator.h"
-#include "Public/Generator/Force.h"
+#include "../../Public/Generator/ForceGenerator.h"
+#include "../../Public/Generator/Force.h"
 
 class Particle :public ForceGenerator, protected ofSpherePrimitive
 {
