@@ -23,6 +23,6 @@ private:
     ofCamera * Camera;
     BlobParticle * BlobParticle;
 
-    const double movement = 1000;
-    const double jump = 1000;
+    const double movement = 10;
+    const double jump = 200;
 };

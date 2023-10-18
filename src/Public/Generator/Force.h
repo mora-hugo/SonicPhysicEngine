@@ -8,9 +8,7 @@ public:
     Vector3D movement;
     double lifetime;
     Particle* particle;
+    ForceType type;
 
     Force(const Vector3D& movement, double lifetime, Particle* particle, ForceType type);
-
-    ForceType type;
-    
 };

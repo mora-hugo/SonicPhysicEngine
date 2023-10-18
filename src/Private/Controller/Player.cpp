@@ -10,20 +10,20 @@ Player::Player(ofCamera* Camera, ::BlobParticle* BlobParticle) : Camera(Camera),
 void Player::Right()
 {
     
-    Force right = Force(Vector3D(movement, 0, 0), 60, BlobParticle,Input);
+    Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,Input);
     BlobParticle->AddForce(right);
 }
 
 void Player::Left()
 {
-    Force left = Force(Vector3D(-1 * movement, 0, 0), 60, BlobParticle,Input);
+    Force left = Force(Vector3D(-1 * movement, 0, 0), 1, BlobParticle,Input);
     BlobParticle->AddForce(left);
 }
 
 void Player::Jump()
 {
     
-    Force Jump = Force(Vector3D(0, jump, 0), 60, BlobParticle,Input);
+    Force Jump = Force(Vector3D(0, -jump, 0), 1, BlobParticle,Input);
     BlobParticle->AddForce(Jump);
 }
 

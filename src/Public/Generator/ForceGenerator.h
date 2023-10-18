@@ -16,5 +16,5 @@ class ForceGenerator
 {
 public:
     ForceType type = Input;
-    virtual void UpdateForce(Force force)=0;
+    void UpdateForce(Force force, Particle particle);
 };

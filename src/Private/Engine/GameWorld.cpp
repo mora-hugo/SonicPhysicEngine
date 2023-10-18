@@ -25,7 +25,7 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    Particle * p = particleSystem.AddParticle(new BlobParticle(Vector3D(ofGetWidth()/2,ofGetHeight()/2),Vector3D(100,0)));
+    Particle * p = particleSystem.AddParticle(new BlobParticle(Vector3D(ofGetWidth()/2,ofGetHeight()/2),Vector3D(0,0)));
     // cast particle to BlobParticle
     BlobParticle * bp = dynamic_cast<BlobParticle*>(p);
     p->SetColor(ofColor::blue);

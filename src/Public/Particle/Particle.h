@@ -22,6 +22,8 @@ public:
     ofSoundPlayer ExplosionSound;
     
     std::vector<Force> Forces;
+
+    Vector3D AccumForce;
     
 protected:
     void ApplyPhysics();    
@@ -68,7 +70,6 @@ public:
 
     Vector3D GetAcceleration() const;
 
-
     float GetRadius() const;
 
     double GetMass() const;
@@ -77,16 +78,14 @@ public:
 
     void UpdateVelocity();
 
+    void UpdateForce();
+
     void UpdatePosition();
 
     bool IsSumulatePhysics() const;
 
-    Force AccumForce();
-
     void AddForce(Force force);
 
     void cleanAccumForce();
-
-    void UpdateForce(Force force) override;
     
 };
