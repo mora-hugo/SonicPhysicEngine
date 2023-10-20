@@ -6,15 +6,16 @@
 class Player : public GameObject
 {
 public:
-    Player(ofCamera * Camera, BlobParticle * BlobParticle);
-
-    
+    Player(ofCamera * Camera, BlobParticle * BlobParticle);    
 
     void Right();
+    void EndRight();
 
     void Left();
+    void EndLeft();
 
     void Jump();
+    
     void BeginPlay() override;
     void Update() override;
     void Draw() override;
@@ -23,4 +24,7 @@ public:
 private:
     ofCamera * Camera;
     BlobParticle * BlobParticle;
+
+    const double movement = 2000;
+    const double jump = 10000;
 };

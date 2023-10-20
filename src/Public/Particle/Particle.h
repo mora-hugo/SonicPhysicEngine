@@ -2,8 +2,10 @@
 #include "of3dPrimitives.h"
 #include "ofSoundPlayer.h"
 #include "../../Public/Math/Vector3D.h"
+#include "../../Public/Generator/ForceGenerator.h"
+#include "../../Public/Generator/Force.h"
 
-class Particle : protected ofSpherePrimitive
+class Particle :public ForceGenerator, protected ofSpherePrimitive
 {
 public:
 
@@ -18,6 +20,10 @@ public:
     virtual void OnAnimationFinished();
 
     ofSoundPlayer ExplosionSound;
+    
+    std::vector<Force> Forces;
+
+    Vector3D AccumForce;
     
 protected:
     void ApplyPhysics();    
@@ -64,7 +70,6 @@ public:
 
     Vector3D GetAcceleration() const;
 
-
     float GetRadius() const;
 
     double GetMass() const;
@@ -76,5 +81,10 @@ public:
     void UpdatePosition();
 
     bool IsSumulatePhysics() const;
-    
+
+    void AddForce(Force force);
+
+    void cleanAccumForce();
+
+    void setVelocity(double x, double y, double z);
 };

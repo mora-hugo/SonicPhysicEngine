@@ -38,6 +38,10 @@ Vector3D Vector3D::Negate() const
 
 Vector3D Vector3D::Normalize() const
 {
+    if (this->GetX() == 0 && this->GetY() == 0 && this->GetZ() == 0)
+    {
+        return Vector3D();
+    }
     return Multiply(1/Magnitude());
 }
 
