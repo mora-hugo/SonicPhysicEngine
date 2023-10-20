@@ -1,9 +1,8 @@
 #pragma once
 #include "ofCamera.h"
-#include "../../Private/Engine/Interfaces/GameObject.h"
 #include "../Particle/BlobParticle.h"
 
-class Player : public GameObject
+class Player
 {
 public:
     Player(ofCamera * Camera, BlobParticle * BlobParticle);    
@@ -16,10 +15,10 @@ public:
 
     void Jump();
     
-    void BeginPlay() override;
-    void Update() override;
-    void Draw() override;
-    void EndPlay() override;
+    void BeginPlay();
+    void Update();
+    void Draw();
+    void EndPlay();
 
 private:
     ofCamera * Camera;
