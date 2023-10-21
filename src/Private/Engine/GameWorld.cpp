@@ -34,12 +34,25 @@ void GameWorld::BeginPlay(ofApp * Context)
     BlobParticle * bp = dynamic_cast<BlobParticle*>(go);
     bp->SetColor(ofColor::blue);
 
-    Particle * particule1 =particleSystem.AddParticle(new BlobParticle(Vector3D(40,40),Vector3D(0,0)));
+    ///////////////////////////////////////////////////////////////////////////////
+    ///test spring
+
+    GameObject * particule1 = objects.SpawnObject(new BlobParticle(Vector3D(40,40),Vector3D(0,0)));
     BlobParticle * BlobParticule1 = dynamic_cast<BlobParticle*>(particule1);
-    Particle * particule2 =particleSystem.AddParticle(new BlobParticle(Vector3D(1000,60),Vector3D(0,0)));
+    GameObject * particule2 = objects.SpawnObject(new BlobParticle(Vector3D(1000,60),Vector3D(0,0)));
     BlobParticle * BlobParticule2 = dynamic_cast<BlobParticle*>(particule2);
 
      spring = ClassicSpring(BlobParticule1,BlobParticule2,20,500,-2);
+
+    GameObject * particule3 = objects.SpawnObject(new BlobParticle(Vector3D(80,20),Vector3D(0,0)));
+    BlobParticle * BlobParticule3 = dynamic_cast<BlobParticle*>(particule3);
+    GameObject * particule4 = objects.SpawnObject(new BlobParticle(Vector3D(80,60),Vector3D(0,0)));
+    BlobParticle * BlobParticule4 = dynamic_cast<BlobParticle*>(particule4);
+
+    staticSpring = StaticSpring(bp,BlobParticule4,20,50,-2);
+
+
+    ///////////////////////////////////////////////////////////////////////////////
     
     player = new Player(&Context->cam,bp);
     player->BeginPlay();
@@ -48,6 +61,7 @@ void GameWorld::BeginPlay(ofApp * Context)
 void GameWorld::Update(double DeltaTimes)
 {
     spring.applyForce();
+    staticSpring.applyForce();
     player->Update();
     objects.Update(DeltaTimes);
 }

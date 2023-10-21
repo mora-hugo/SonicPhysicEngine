@@ -4,6 +4,7 @@
 #include "../GameObjects/GameObjectsContainer.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
 #include "ClassicSpring.h"
+#include "StaticSpring.h"
 
 class Player;
 class ofApp;
@@ -36,5 +37,7 @@ private:
     Player * player;
 
     ClassicSpring spring;
+
+    StaticSpring staticSpring;
 
 };

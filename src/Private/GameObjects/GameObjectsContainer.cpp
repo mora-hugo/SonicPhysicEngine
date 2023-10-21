@@ -57,8 +57,8 @@ void GameObjectsContainer::Update(double f)
 
 
                     
-                    p1->SetVelocity(ImpulseVectorP1);
-                    p2->SetVelocity(ImpulseVectorP2);
+                    //p1->SetVelocity(ImpulseVectorP1);
+                    //p2->SetVelocity(ImpulseVectorP2);
                     
                     std::cout << "collision ! " << std::endl;
                 }

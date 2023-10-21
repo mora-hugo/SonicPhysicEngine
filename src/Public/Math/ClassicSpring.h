@@ -6,12 +6,12 @@
 class ClassicSpring {
 public:
     ClassicSpring();
-    ClassicSpring(BlobParticle* p1, BlobParticle* p2, double springConstant, double restLength, double damping);
-    void applyForce();
+    ClassicSpring(GameObject* p1, GameObject* p2, double springConstant, double restLength, double damping);
+    virtual void applyForce();
     
 protected:
-    Particle* particle1;
-    Particle* particle2;
+    GameObject* particle1;
+    GameObject* particle2;
     double springConstant;
     double restLength;
     double damping;

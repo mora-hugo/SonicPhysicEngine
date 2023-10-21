@@ -5,7 +5,7 @@ ClassicSpring::ClassicSpring()
 {
 }
 
-ClassicSpring::ClassicSpring(BlobParticle* p1, BlobParticle* p2, double springConstant, double restLength, double damping)
+ClassicSpring::ClassicSpring(GameObject* p1, GameObject* p2, double springConstant, double restLength, double damping)
     : particle1(p1), particle2(p2), springConstant(springConstant), restLength(restLength), damping(damping) {}
 
 void ClassicSpring::applyForce() {
@@ -30,7 +30,7 @@ void ClassicSpring::applyForce() {
     Vector3D force1 = forceDirection * totalForce;
     Vector3D force2 = VectorNull.Sub(force1);
 
-    Force force1bis(force1,1,particle1,ForceType::Input);
+    Force force1bis(force1,1,particle1,ForceType::Constant);
     Force force2bis(force1.Negate(),1,particle2,ForceType::Constant);
 
     particle1->AddForce(force1bis);
