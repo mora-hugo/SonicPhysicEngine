@@ -3,7 +3,8 @@
 #include "MouseEvent.h"
 #include "../GameObjects/GameObjectsContainer.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
-#include "../../Public/Math/ClassicSpring.h"
+#include "ClassicSpring.h"
+#include "StaticSpring.h"
 
 class Player;
 class ofApp;
@@ -36,5 +37,7 @@ private:
     Player * player;
 
 
+
+    StaticSpring staticSpring;
 
 };
