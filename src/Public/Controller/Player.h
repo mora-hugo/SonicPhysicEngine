@@ -5,7 +5,7 @@
 class Player
 {
 public:
-    Player(ofCamera * Camera, BlobParticle * BlobParticle);    
+    Player(ofCamera * Camera, GameObject * BlobParticle);    
 
     void Right();
     void EndRight();
@@ -22,7 +22,7 @@ public:
 
 private:
     ofCamera * Camera;
-    BlobParticle * BlobParticle;
+    GameObject * BlobParticle;
 
     const double movement = 2000;
     const double jump = 10000;

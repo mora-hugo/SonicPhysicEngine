@@ -33,7 +33,6 @@ protected:
 private:
     double FrameLength = 0;
   
-    float radius = 30;
     ofColor color = ofColor::white;
     bool bIsFinished = false;
     float lifeTime = 0;
@@ -58,9 +57,7 @@ public:
     
     bool GetIsFinished();
 
-   
 
-    float GetRadius() const;
 
     void SetDamping(double damping);
 

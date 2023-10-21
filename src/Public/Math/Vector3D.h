@@ -134,6 +134,19 @@ public:
      */
     Vector3D CrossProduct(const Vector3D& Vector) const;
 
+     /**
+      * \brief Calculate the cross product (vector product) with another vector.
+      *
+      * This function calculates and returns the cross product (vector product) of the current
+      * vector with another 3D vector 'Vector'. The cross product produces a new 3D vector
+      * that is orthogonal to both input vectors and has a magnitude equal to the area of the
+      * parallelogram formed by the two vectors.
+      *
+      * \param Vector The other 3D vector for the cross product.
+      * \return A new 3D vector representing the cross product.
+      */
+    float Distance(const Vector3D& Vector) const;
+
 
     static Vector3D Zero();
 

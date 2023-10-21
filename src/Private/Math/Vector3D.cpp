@@ -62,7 +62,8 @@ Vector3D Vector3D::ComponentProduct(const Vector3D& Vector) const
 
 double Vector3D::DotProduct(const Vector3D& Vector) const
 {
-    return X * Vector.X + Y * Vector.Y + Z * Vector.Z;
+    return (X * Vector.X + Y * Vector.Y + Z * Vector.Z);
+
 }
 
 Vector3D Vector3D::CrossProduct(const Vector3D& Vector) const
@@ -73,6 +74,14 @@ Vector3D Vector3D::CrossProduct(const Vector3D& Vector) const
     
     return Vector3D(resultX, resultY, resultZ, W);
 }
+
+float Vector3D::Distance(const Vector3D& Vector) const
+{
+    // get distance beetween two points
+    return Sub(Vector).Magnitude();
+    
+}
+
 
 Vector3D Vector3D::Zero()
 {

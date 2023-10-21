@@ -6,7 +6,7 @@
 #include "../../Public/Generator/Force.h"
 
 Particle::Particle(const double& _mass, const float lifetime, const Vector3D& _position, const Vector3D& _velocity, const Vector3D& _acceleration, const float radius) :
-   GameObject(_mass,_position,_velocity,_acceleration) , radius(radius), lifeTime(lifetime), lifeTimeRemaining(lifeTime)
+   GameObject(_mass,_position,_velocity,_acceleration,radius) , lifeTime(lifetime), lifeTimeRemaining(lifeTime)
 {
     ofSpherePrimitive::setRadius(radius);
 }
@@ -45,10 +45,6 @@ bool Particle::GetIsFinished()
     return bIsFinished;
 }
 
-float Particle::GetRadius() const
-{
-    return radius;
-}
 
 void Particle::SetRadius(const float radius)
 {
