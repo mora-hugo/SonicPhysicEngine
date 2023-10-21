@@ -26,6 +26,8 @@ public:
 
     Vector3D AccumForce;
     
+    double damping;
+
 protected:
 
 private:
@@ -59,6 +61,8 @@ public:
    
 
     float GetRadius() const;
+
+    void SetDamping(double damping);
 
 
 };

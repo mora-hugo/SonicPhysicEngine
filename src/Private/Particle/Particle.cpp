@@ -80,3 +80,7 @@ float Particle::GetLifetimeRemaining() const
 {
     return lifeTimeRemaining;
 }
+
+void Particle::SetDamping(double damping) {
+    this->damping = damping;
+}

@@ -9,6 +9,7 @@
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
 #include "../../Public/Particle/BlobParticle.h"
+#include "../../Public/Math/ClassicSpring.h"
 
 
 void GameWorld::BeginPlay(ofApp * Context)
@@ -30,13 +31,20 @@ void GameWorld::BeginPlay(ofApp * Context)
     BlobParticle * bp = dynamic_cast<BlobParticle*>(p);
     p->SetColor(ofColor::blue);
 
+    Particle * particule1 =particleSystem.AddParticle(new BlobParticle(Vector3D(40,40),Vector3D(0,0)));
+    BlobParticle * BlobParticule1 = dynamic_cast<BlobParticle*>(particule1);
+    Particle * particule2 =particleSystem.AddParticle(new BlobParticle(Vector3D(1000,60),Vector3D(0,0)));
+    BlobParticle * BlobParticule2 = dynamic_cast<BlobParticle*>(particule2);
+
+     spring = ClassicSpring(BlobParticule1,BlobParticule2,20,500,-2);
+    
     player = new Player(&Context->cam,bp);
     player->BeginPlay();
-    
 }
 
 void GameWorld::Update(double DeltaTimes)
 {
+    spring.applyForce();
     player->Update();
     particleSystem.Update(DeltaTimes);
 }

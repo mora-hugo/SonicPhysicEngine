@@ -2,6 +2,8 @@
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
+#include "ClassicSpring.h"
+
 class Player;
 class ofApp;
 
@@ -31,4 +33,7 @@ private:
     ofApp * Context;
 
     Player * player;
+
+    ClassicSpring spring;
+
 };
