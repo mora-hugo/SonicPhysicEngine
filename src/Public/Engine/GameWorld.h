@@ -35,6 +35,6 @@ private:
 
     Player * player;
 
-    ClassicSpring spring;
+
 
 };

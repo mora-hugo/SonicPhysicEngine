@@ -56,7 +56,9 @@ void GameObjectsContainer::Update(double f)
                     p2->GetImpulseFromCollision(p1,collisionData.CollisionNormal,ImpulseVectorP2,false);
 
 
-                
+                    
+                    p1->SetVelocity(ImpulseVectorP1);
+                    p2->SetVelocity(ImpulseVectorP2);
                     
                     std::cout << "collision ! " << std::endl;
                 }

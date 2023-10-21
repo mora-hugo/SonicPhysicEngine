@@ -56,9 +56,9 @@ void GameObject::GetImpulseFromCollision(GameObject * other, const Vector3D& col
     const double Denominator = (GetReverseMass() + other->GetReverseMass());
     const double K = Numerator / Denominator;
     if(bIsP1)
-        OutImpulseVector = collisionNormal.Multiply(K).Negate();
+        OutImpulseVector =  GetVelocity().Sub((collisionNormal.Multiply(K))*GetReverseMass());
     else
-        OutImpulseVector = collisionNormal.Multiply(K);
+        OutImpulseVector =  GetVelocity().Add((collisionNormal.Multiply(K))*GetReverseMass());
 }
 
 void GameObject::cleanAccumForce()
