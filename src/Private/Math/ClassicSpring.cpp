@@ -1,5 +1,5 @@
-﻿#include "./ClassicSpring.h"
-#include "../Particle/BlobParticle.h"
+﻿#include "./../../Public/Math/ClassicSpring.h"
+#include "../../Public/Particle/BlobParticle.h"
 
 ClassicSpring::ClassicSpring()
 {
