@@ -3,8 +3,9 @@
 #include <iostream>
 #include <ostream>
 
-GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,
-                       const Vector3D& acceleration, const int radius) : radius(radius), position(position), velocity(velocity), acceleration(acceleration), mass(mass)
+#include "../../Public/Engine/GameWorld.h"
+
+GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass)
 {
 }
 
@@ -72,7 +73,8 @@ void GameObject::cleanAccumForce()
     }
     Forces.push_back(Force(Vector3D(0.4,0.4,0),1,this,Friction));
     AccumForce = Vector3D();
-    Forces.push_back(Force(Vector3D(0,9.8), 1 , this, Constant));
+    if(bUsingGravity)
+        Forces.push_back(Force(Config::GRAVITY, 1 , this, Constant));
 }
 
 void GameObject::modifyVelocity(double x, double y, double z)
@@ -117,16 +119,7 @@ void GameObject::CheckCollision(const GameObject& other, CollisionData& collisio
 
 }
 
-void GameObject::SetCollisionWasChecked(bool CollisionWasChecked)
-{
-    this->bCollisionWasChecked = CollisionWasChecked;
-    
-}
 
-bool GameObject::GetCollisionWasChecked() const
-{
-    return bCollisionWasChecked;
-}
 
 void GameObject::SetVelocity(Vector3D NewVelocity)
 {
@@ -136,6 +129,16 @@ void GameObject::SetVelocity(Vector3D NewVelocity)
 void GameObject::AddPosition(Vector3D Offset)
 {
     position = position.Add(Offset);
+}
+
+void GameObject::SetUsingGravity(bool bIsUsingGravity)
+{
+    bUsingGravity = bIsUsingGravity;
+}
+
+bool GameObject::GetUsingGravity() const
+{
+    return bUsingGravity;
 }
 
 

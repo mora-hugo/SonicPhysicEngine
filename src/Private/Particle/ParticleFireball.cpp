@@ -3,7 +3,7 @@
 
 
 ParticleFireball::ParticleFireball(const double& mass, const float lifetime, const Vector3D& position, const Vector3D& velocity,
-                                   const Vector3D& acceleration, const float radius) : Particle(mass,lifetime, position,velocity,acceleration,radius), ATS(this,6)
+                                   const Vector3D& acceleration, const float radius) : Particle(mass,lifetime, position,velocity,radius), ATS(this,6)
 {
     
 }

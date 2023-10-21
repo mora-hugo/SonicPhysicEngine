@@ -5,6 +5,7 @@
 #include "../../Public/Math/Vector3D.h"
 #include "../../Public/Generator/ForceGenerator.h"
 #include "../../Public/Generator/Force.h"
+#include "../../Public/Config/Config.h"
 #include "Structs/CollisionData.h"
 
 class Force;
@@ -12,7 +13,7 @@ class Force;
 class GameObject
 {
 public:
-    GameObject(const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const Vector3D &acceleration = Vector3D::Zero(), const int radius = 10);
+    GameObject(const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const int radius = 10, const bool bIsUsingGravity = true);
 
     virtual void Setup();
     
@@ -48,13 +49,13 @@ public:
 
     void CheckCollision(const GameObject& other, CollisionData & collisionData) const;
 
-    void SetCollisionWasChecked(bool bCollisionWasChecked);
-
-    bool GetCollisionWasChecked() const;
-
     void SetVelocity(Vector3D NewVelocity);
 
     void AddPosition(Vector3D Offset);
+
+    void SetUsingGravity(bool bIsUsingGravity);
+
+    bool GetUsingGravity() const;
 
     
 private:
@@ -73,5 +74,5 @@ private:
     std::vector<Force> Forces;
     Vector3D AccumForce;
     int radius= 0;
-    bool bCollisionWasChecked = false;
+    bool bUsingGravity = true;
 };

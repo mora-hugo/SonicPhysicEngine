@@ -1,4 +1,5 @@
 #include "../../Public/GameObjects/GameObjectsContainer.h"
+#include "../../Public/Config/Config.h"
 
 #include <array>
 #include <iostream>
@@ -15,6 +16,7 @@ void GameObjectsContainer::Setup()
 
 void GameObjectsContainer::Update(double f)
 {
+    
     for(unsigned int i = 0; i < objects.size();i++)
     {
         objects[i]->Update(f);
@@ -55,13 +57,16 @@ void GameObjectsContainer::Update(double f)
                     Vector3D ImpulseVectorP2;
                     p2->GetImpulseFromCollision(p1,collisionData.CollisionNormal,ImpulseVectorP2,false);
 
-
+                    
+                    
+                    if(ImpulseVectorP1.Multiply(f).GetY() > Config::GRAVITY.GetY())
+                        ImpulseVectorP1.SetY(0);
+                    if(ImpulseVectorP2.Multiply(f).GetY() >Config::GRAVITY.GetY())
+                        ImpulseVectorP2.SetY(0);
+                    
                     
                     p1->SetVelocity(ImpulseVectorP1);
                     p2->SetVelocity(ImpulseVectorP2);
-                    
-                    //p1->SetVelocity(ImpulseVectorP1);
-                    //p2->SetVelocity(ImpulseVectorP2);
                     
                     std::cout << "collision ! " << std::endl;
                 }

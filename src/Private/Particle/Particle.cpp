@@ -5,8 +5,8 @@
 #include "ofGraphics.h"
 #include "../../Public/Generator/Force.h"
 
-Particle::Particle(const double& _mass, const float lifetime, const Vector3D& _position, const Vector3D& _velocity, const Vector3D& _acceleration, const float radius) :
-   GameObject(_mass,_position,_velocity,_acceleration,radius) , lifeTime(lifetime), lifeTimeRemaining(lifeTime)
+Particle::Particle(const double& _mass, const float lifetime, const Vector3D& _position, const Vector3D& _velocity, const float radius, const bool bIsUsingGravity) :
+   GameObject(_mass,_position,_velocity,radius,bIsUsingGravity) , lifeTime(lifetime), lifeTimeRemaining(lifeTime)
 {
     ofSpherePrimitive::setRadius(radius);
 }
