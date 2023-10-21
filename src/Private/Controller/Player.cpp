@@ -2,7 +2,7 @@
 
 #include "../../Public/Generator/Force.h"
 
-Player::Player(ofCamera* Camera, ::BlobParticle* BlobParticle) : Camera(Camera), BlobParticle(BlobParticle)
+Player::Player(ofCamera* Camera, ::GameObject* BlobParticle) : Camera(Camera), BlobParticle(BlobParticle)
 {
     
 }
@@ -10,24 +10,24 @@ Player::Player(ofCamera* Camera, ::BlobParticle* BlobParticle) : Camera(Camera),
 void Player::Right()
 {
     
-    Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,Input);
+    Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,ForceType::Input);
     BlobParticle->AddForce(right);
 }
 
 void Player::EndRight()
 {
-    BlobParticle->setVelocity(0,1,0);
+    BlobParticle->modifyVelocity(0,1,0);
 }
 
 void Player::Left()
 {
-    Force left = Force(Vector3D(-1 * movement, 0, 0), 1, BlobParticle,Input);
+    Force left = Force(Vector3D(-1 * movement, 0, 0), 1, BlobParticle,ForceType::Input);
     BlobParticle->AddForce(left);
 }
 
 void Player::EndLeft()
 {
-    BlobParticle->setVelocity(0,1,0);
+    BlobParticle->modifyVelocity(0,1,0);
 }
 
 void Player::Jump()

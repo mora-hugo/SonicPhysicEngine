@@ -4,7 +4,7 @@
 #include <ostream>
 
 GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,
-                       const Vector3D& acceleration) : position(position), velocity(velocity), acceleration(acceleration), mass(mass)
+                       const Vector3D& acceleration, const int radius) : radius(radius), position(position), velocity(velocity), acceleration(acceleration), mass(mass)
 {
 }
 
@@ -42,6 +42,25 @@ void GameObject::AddForce(Force force)
     Forces.push_back(force);
 }
 
+void GameObject::GetImpulseFromCollision(GameObject * other, const Vector3D& collisionNormal, Vector3D & OutImpulseVector, bool bIsP1)
+{
+    const float restitutionCoef = 0.7;
+    
+    Vector3D relativeVelocity;
+    if(bIsP1)
+        relativeVelocity = velocity.Sub(other->GetVelocity());
+    else
+        relativeVelocity = other->GetVelocity().Sub(velocity);
+    
+    const double Numerator = ((restitutionCoef + 1) * (relativeVelocity.DotProduct(collisionNormal)));
+    const double Denominator = (GetReverseMass() + other->GetReverseMass());
+    const double K = Numerator / Denominator;
+    if(bIsP1)
+        OutImpulseVector = collisionNormal.Multiply(K).Negate();
+    else
+        OutImpulseVector = collisionNormal.Multiply(K);
+}
+
 void GameObject::cleanAccumForce()
 {
     for (int i=0 ; i < Forces.size() ; ++i)
@@ -56,10 +75,11 @@ void GameObject::cleanAccumForce()
     Forces.push_back(Force(Vector3D(0,9.8), 1 , this, Constant));
 }
 
-void GameObject::setVelocity(double x, double y, double z)
+void GameObject::modifyVelocity(double x, double y, double z)
 {
     velocity = velocity.ComponentProduct(Vector3D(x,y,z));
 }
+
 
 void GameObject::SetSimulatePhysics(bool SimulatePhysics)
 {
@@ -79,6 +99,45 @@ Vector3D GameObject::GetAcceleration() const
 {
     return acceleration;
 }
+
+float GameObject::GetRadius() const
+{
+    return radius;
+}
+
+bool GameObject::IsCollidingWith(const GameObject& other) const
+{
+    const float radius = GetRadius() + other.GetRadius();
+    const float distance = GetPosition().Distance(other.GetPosition());
+    return (distance <= radius);
+}
+
+void GameObject::CheckCollision(const GameObject& other, CollisionData& collisionData) const
+{
+
+}
+
+void GameObject::SetCollisionWasChecked(bool CollisionWasChecked)
+{
+    this->bCollisionWasChecked = CollisionWasChecked;
+    
+}
+
+bool GameObject::GetCollisionWasChecked() const
+{
+    return bCollisionWasChecked;
+}
+
+void GameObject::SetVelocity(Vector3D NewVelocity)
+{
+    velocity = NewVelocity;
+}
+
+void GameObject::AddPosition(Vector3D Offset)
+{
+    position = position.Add(Offset);
+}
+
 
 void GameObject::ApplyPhysics(double DeltaTimes)
 {
@@ -123,7 +182,6 @@ void GameObject::UpdateVelocity(double Deltatimes)
     
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
     velocity = velocity + acceleration.Multiply(Deltatimes);
-    std::cout << std::string(velocity) << std::endl;
 }
 
 void GameObject::UpdatePosition(double Deltatimes)

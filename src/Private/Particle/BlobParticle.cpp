@@ -10,6 +10,7 @@ void BlobParticle::Setup()
 void BlobParticle::Draw() const
 {
     Particle::Draw();
+    //
 }
 
 void BlobParticle::Update(double f)

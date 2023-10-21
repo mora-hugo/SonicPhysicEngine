@@ -1,6 +1,7 @@
 #pragma once
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
+#include "../GameObjects/GameObjectsContainer.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
 class Player;
 class ofApp;
@@ -26,7 +27,7 @@ public:
 
     
 private:
-    ParticleSystem particleSystem;
+    GameObjectsContainer objects;
 
     ofApp * Context;
 
