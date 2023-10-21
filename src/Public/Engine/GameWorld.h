@@ -3,7 +3,7 @@
 #include "MouseEvent.h"
 #include "../GameObjects/GameObjectsContainer.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
-#include "ClassicSpring.h"
+#include "../../Public/Math/ClassicSpring.h"
 
 class Player;
 class ofApp;
