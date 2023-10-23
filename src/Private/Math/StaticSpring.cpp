@@ -25,7 +25,7 @@ void StaticSpring::applyForce()
     
     // Apply forces to the particles
     Vector3D force2 = forceDirection.Negate() * totalForce;
-    Force force2bis(force2,1,secondGameObject,ForceType::Constant);
+    Force force2bis(force2,1,secondGameObject,ForceType::Ressort);
     
     secondGameObject->AddForce(force2bis);
 }

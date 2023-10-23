@@ -24,6 +24,6 @@ private:
     ofCamera * Camera;
     GameObject * BlobParticle;
 
-    const double movement = 2000;
-    const double jump = 10000;
+    const double movement = 100;
+    const double jump = 100;
 };

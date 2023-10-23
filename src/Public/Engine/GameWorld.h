@@ -27,6 +27,8 @@ public:
 
     void OnKeyboardEvent(const KeyboardEvent& event);
 
+    void CreateBlob(BlobParticle *mother);
+
     
 private:
     GameObjectsContainer objects;
@@ -35,7 +37,9 @@ private:
 
     Player * player;
 
-    StaticSpring staticSpring;
-    ClassicSpring spring;
+    std::vector<StaticSpring> Springs;
+    std::vector<BlobParticle> Blobs;
+
+    const int nbBlob = 20; 
 
 };

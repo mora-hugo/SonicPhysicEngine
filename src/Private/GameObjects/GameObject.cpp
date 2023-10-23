@@ -71,8 +71,9 @@ void GameObject::cleanAccumForce()
             Forces.erase(Forces.begin()+i);
         }
     }
+    //A la fin de la simulation on ajoute la force de friction avec l'air et la force de gravité qui s'appliqe à chaque pas de simulation
     Forces.push_back(Force(Vector3D(0.4,0.4,0),1,this,Friction));
-    AccumForce = Vector3D();
+    AccumForce = Vector3D().Zero();
     if(bUsingGravity)
         Forces.push_back(Force(Config::GRAVITY, 1 , this, Constant));
 }
@@ -166,16 +167,19 @@ void GameObject::UpdateVelocity(double Deltatimes)
             AccumForce = AccumForce + Forces[i].movement;
             break;
         case Input :
-            AccumForce = AccumForce + Forces[i].movement;
+            //On va set la velocity pour faire des déplacement plus "jeux vidéos" / plus maniable
+            velocity.SetX(Forces[i].movement.GetX());
             break;
-        case InputJump:
-            AccumForce = AccumForce + Forces[i].movement;
+        case ImpulseJump:
+            //On va set la velocity pour faire des déplacement plus "jeux vidéos" / plus maniable
+            velocity.SetY(Forces[i].movement.GetY());
             break;
         case Friction:
             //Ne prend en compte que le frottement de l'air à modifier quand on aura les collisions
-            //AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
+            AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
             break;
         case Ressort:
+            AccumForce = AccumForce + Forces[i].movement;
             break;
         case Environnement:
             break;

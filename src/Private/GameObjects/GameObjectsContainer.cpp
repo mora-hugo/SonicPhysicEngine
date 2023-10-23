@@ -19,6 +19,7 @@ void GameObjectsContainer::Update(double f)
     
     for(unsigned int i = 0; i < objects.size();i++)
     {
+        std::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
         objects[i]->Update(f);
         for(unsigned int j = i + 1; j < objects.size(); j++)
         {
