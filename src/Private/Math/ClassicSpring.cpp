@@ -12,7 +12,7 @@ void ClassicSpring::applyForce() {
     double distance = displacement.Magnitude(); // Assuming you have a method for vector magnitude
 
     // Hooke's Law: F = -k * (x - L)
-    double forceMagnitude = springConstant * (distance - restLength);
+    double forceMagnitude = -springConstant * (distance - restLength);
 
     // Calculate damping force
     Vector3D relativeVelocity = secondGameObject->GetVelocity() - firstGameObject->GetVelocity();
@@ -32,7 +32,7 @@ void ClassicSpring::applyForce() {
 
     Force force1bis(force1,1,firstGameObject,ForceType::Ressort);
     Force force2bis(force1.Negate(),1,secondGameObject,ForceType::Ressort);
-
+    std::cout << "Force du ressort : " << std::string(force1) << std::endl;
     firstGameObject->AddForce(force1bis);
     secondGameObject->AddForce(force2bis);
     
