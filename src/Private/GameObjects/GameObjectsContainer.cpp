@@ -19,8 +19,9 @@ void GameObjectsContainer::Update(double f)
     
     for(unsigned int i = 0; i < objects.size();i++)
     {
-        std::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
+        
         objects[i]->Update(f);
+        std::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
         for(unsigned int j = i + 1; j < objects.size(); j++)
         {
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others

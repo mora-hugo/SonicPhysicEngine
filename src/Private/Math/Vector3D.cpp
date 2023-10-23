@@ -47,6 +47,9 @@ Vector3D Vector3D::Normalize() const
 
 double Vector3D::Magnitude() const
 {
+    if(MagnitudeSquared() == 0)
+        return 0;
+    
     return sqrt(MagnitudeSquared());
 }
 

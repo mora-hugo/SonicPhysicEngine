@@ -7,6 +7,7 @@
 
 GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass)
 {
+    
 }
 
 void GameObject::Setup()

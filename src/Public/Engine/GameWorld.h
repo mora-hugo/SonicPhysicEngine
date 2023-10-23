@@ -37,9 +37,11 @@ private:
 
     Player * player;
 
-    std::vector<StaticSpring> Springs;
-    std::vector<BlobParticle> Blobs;
+    std::vector<StaticSpring*> Springs;
+    std::vector<BlobParticle*> Blobs;
 
-    const int nbBlob = 20; 
+    StaticSpring test;
+
+    const int nbBlob = 2; 
 
 };

@@ -31,11 +31,14 @@ void GameWorld::BeginPlay(ofApp * Context)
     // cast particle to BlobParticle
     BlobParticle * bp = dynamic_cast<BlobParticle*>(go);
     bp->SetColor(ofColor::blue);
+
+
+    
     
     GameObject * ground = objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
     
     player = new Player(&Context->cam,bp);
-    for(int i =0; i<nbBlob; ++i)
+    for(int i =0; i<1; ++i)
     {
         CreateBlob(bp);
     }
@@ -44,12 +47,14 @@ void GameWorld::BeginPlay(ofApp * Context)
 
 void GameWorld::Update(double DeltaTimes)
 {
-    for (StaticSpring spring : Springs)
+    for (StaticSpring * spring : Springs)
     {
-        spring.applyForce();
+        spring->applyForce();
     }
     player->Update();
     objects.Update(DeltaTimes);
+    
+   
 }
 
 void GameWorld::Draw()
@@ -93,14 +98,12 @@ void GameWorld::CreateBlob(BlobParticle* mother)
     if (rnegate == 0)
     {
         startPos.Add(Vector3D(rx , ry, 0));
-    } else
+    } 
     {
         startPos.Add(Vector3D(-rx , -ry, 0));
     }
-    GameObject * g1 = objects.SpawnObject(new BlobParticle(startPos));
-    BlobParticle * bp = dynamic_cast<BlobParticle*>(g1);
-    bp->SetColor(ofColor::red);
+    GameObject * g1 = objects.SpawnObject(new Particle(10,1,startPos,Vector3D::Zero(),50));
 
-    Springs.push_back(StaticSpring(mother, g1, 1,  20, -2));
+    Springs.push_back(new StaticSpring(mother, g1, 20,  50, -2));
 }
 

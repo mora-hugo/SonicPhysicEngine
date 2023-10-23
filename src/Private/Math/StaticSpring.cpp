@@ -15,17 +15,19 @@ void StaticSpring::applyForce()
 
     // Calculate damping force
     Vector3D relativeVelocity = secondGameObject->GetVelocity();
-    double dampingForce = -damping * relativeVelocity.DotProduct(displacement.Divide(distance));
+    double dampingForce = 0;
+    if(relativeVelocity.MagnitudeSquared() != 0)
+        dampingForce = -damping * relativeVelocity.DotProduct(displacement.Divide(distance));
 
     // Calculate total force
     double totalForce = forceMagnitude + dampingForce;
 
     // Calculate force direction
     Vector3D forceDirection = displacement.Normalize();
-    
+
     // Apply forces to the particles
     Vector3D force2 = forceDirection.Negate() * totalForce;
-    Force force2bis(force2,1,secondGameObject,ForceType::Ressort);
-    
+    Force force2bis(force2,1,secondGameObject,ForceType::Constant);
+
     secondGameObject->AddForce(force2bis);
 }

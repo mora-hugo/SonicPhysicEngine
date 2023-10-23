@@ -16,7 +16,9 @@ void ClassicSpring::applyForce() {
 
     // Calculate damping force
     Vector3D relativeVelocity = secondGameObject->GetVelocity() - firstGameObject->GetVelocity();
-    double dampingForce = -damping * relativeVelocity.DotProduct(displacement.Divide(distance));
+    double dampingForce = 0;
+    if(relativeVelocity.MagnitudeSquared() != 0)
+        dampingForce = -damping * relativeVelocity.DotProduct(displacement.Divide(distance));
 
     // Calculate total force
     double totalForce = forceMagnitude + dampingForce;
