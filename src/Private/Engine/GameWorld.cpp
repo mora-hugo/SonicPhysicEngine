@@ -30,7 +30,7 @@ void GameWorld::BeginPlay(ofApp * Context)
     objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
     
     
-    for(int i =0; i<2; ++i)
+    for(int i =0; i<10; ++i)
     {
         //CreateBlob(go);
         GameObject * g1 = objects.SpawnObject(new BlobParticle(go->GetPosition(),Vector3D::Zero(),5));
@@ -39,7 +39,7 @@ void GameWorld::BeginPlay(ofApp * Context)
         {
             Springs.push_back(new ClassicSpring(Blobs[i-1], g1, 5,  10, -2));
         }
-        //Springs.push_back(new StaticSpring(go, g1, 20,  40, -2));
+        Springs.push_back(new StaticSpring(go, g1, 10,  30, -2));
     }
     Blobs.push_back(go);
     player = new Player(&Context->cam,Blobs,go);
