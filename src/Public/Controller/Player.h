@@ -5,7 +5,7 @@
 class Player
 {
 public:
-    Player(ofCamera * Camera, GameObject * BlobParticle);    
+    Player(ofCamera * Camera,  std::vector<GameObject *>& blobs, GameObject * _mother);    
 
     void Right();
     void EndRight();
@@ -22,8 +22,8 @@ public:
 
 private:
     ofCamera * Camera;
-    GameObject * BlobParticle;
-
+    std::vector<GameObject *> BlobsParticle;
+    GameObject * mother;
     const double movement = 100;
     const double jump = 100;
 };

@@ -21,7 +21,7 @@ void GameObjectsContainer::Update(double f)
     {
         
         objects[i]->Update(f);
-        std::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
+        //td::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
         for(unsigned int j = i + 1; j < objects.size(); j++)
         {
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others
@@ -70,7 +70,7 @@ void GameObjectsContainer::Update(double f)
                     p1->SetVelocity(ImpulseVectorP1);
                     p2->SetVelocity(ImpulseVectorP2);
                     
-                    std::cout << "collision ! " << std::endl;
+                    //std::cout << "collision ! " << std::endl;
                 }
             }
         }

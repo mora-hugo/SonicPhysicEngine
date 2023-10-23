@@ -24,42 +24,37 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0)));
-
+    GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),5));
+    Blobs.push_back(go);
     
-    GameObject * g1 = objects.SpawnObject(new Particle(10,1,Vector3D(50,50),Vector3D::Zero(),50));
-    // cast particle to BlobParticle
-    BlobParticle * bp = dynamic_cast<BlobParticle*>(go);
-    bp->SetColor(ofColor::blue);
-
-
+    objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
     
     
-    GameObject * ground = objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
-    
-    player = new Player(&Context->cam,bp);
-    for(int i =0; i<1; ++i)
+    for(int i =0; i<nbBlob; ++i)
     {
-        CreateBlob(bp);
+        CreateBlob(go);
     }
+
+    player = new Player(&Context->cam,Blobs,go);
     player->BeginPlay();
 }
 
 void GameWorld::Update(double DeltaTimes)
 {
-    for (StaticSpring * spring : Springs)
+    for (Spring * spring : Springs)
     {
-        spring->applyForce();
+      spring->applyForce();
     }
     player->Update();
     objects.Update(DeltaTimes);
+
+    //std::cout << "ground pos" << std::string(ground->GetPosition()) << std::endl;
     
-   
 }
 
 void GameWorld::Draw()
 {
-    player->Draw();
+    //player->Draw();
     objects.Draw();
 }
 
@@ -87,23 +82,13 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
     }
 }
 
-void GameWorld::CreateBlob(BlobParticle* mother)
+void GameWorld::CreateBlob(GameObject* mother, int i)
 {
     Vector3D startPos = mother->GetPosition();
 
-    int rx = ofRandom(10,20);
-    int ry = ofRandom(10,20);
-    int rnegate = ofRandom(0,1);
-
-    if (rnegate == 0)
-    {
-        startPos.Add(Vector3D(rx , ry, 0));
-    } 
-    {
-        startPos.Add(Vector3D(-rx , -ry, 0));
-    }
-    GameObject * g1 = objects.SpawnObject(new Particle(10,1,startPos,Vector3D::Zero(),50));
-
-    Springs.push_back(new StaticSpring(mother, g1, 20,  50, -2));
+    startPos.SetY(startPos.GetY() - (i * 30));
+    GameObject * g1 = objects.SpawnObject(new BlobParticle(startPos,Vector3D::Zero(),5));
+    Blobs.push_back(g1);
+    Springs.push_back(new StaticSpring(mother, g1, 20,  20, -2));
 }
 
