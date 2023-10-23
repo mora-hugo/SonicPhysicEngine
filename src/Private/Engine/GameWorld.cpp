@@ -25,16 +25,23 @@ void GameWorld::BeginPlay(ofApp * Context)
     });
 
     GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),5));
-    Blobs.push_back(go);
+    
     
     objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
     
     
-    for(int i =0; i<nbBlob; ++i)
+    for(int i =0; i<2; ++i)
     {
-        CreateBlob(go);
+        //CreateBlob(go);
+        GameObject * g1 = objects.SpawnObject(new BlobParticle(go->GetPosition(),Vector3D::Zero(),5));
+        Blobs.push_back(g1);
+        if(Blobs.size() >= i-1)
+        {
+            Springs.push_back(new ClassicSpring(Blobs[i-1], g1, 5,  10, -2));
+        }
+        //Springs.push_back(new StaticSpring(go, g1, 20,  40, -2));
     }
-
+    Blobs.push_back(go);
     player = new Player(&Context->cam,Blobs,go);
     player->BeginPlay();
 }
