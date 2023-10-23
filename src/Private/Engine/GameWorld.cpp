@@ -86,9 +86,9 @@ void GameWorld::CreateBlob(GameObject* mother, int i)
 {
     Vector3D startPos = mother->GetPosition();
 
-    startPos.SetY(startPos.GetY() - (i * 30));
+    startPos.SetY(startPos.GetY() - (i * 10));
     GameObject * g1 = objects.SpawnObject(new BlobParticle(startPos,Vector3D::Zero(),5));
     Blobs.push_back(g1);
-    Springs.push_back(new StaticSpring(mother, g1, 20,  20, -2));
+    Springs.push_back(new StaticSpring(mother, g1, 20,  40, -2));
 }
 
