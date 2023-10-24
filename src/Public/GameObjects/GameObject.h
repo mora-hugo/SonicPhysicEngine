@@ -47,8 +47,6 @@ public:
 
     bool IsCollidingWith(const GameObject& other) const;
 
-    void CheckCollision(const GameObject& other, CollisionData & collisionData) const;
-
     void SetVelocity(Vector3D NewVelocity);
 
     void AddPosition(Vector3D Offset);
@@ -56,6 +54,8 @@ public:
     void SetUsingGravity(bool bIsUsingGravity);
 
     bool GetUsingGravity() const;
+
+    void AddImpulse(Vector3D ImpulseVector);
 
     
 private:

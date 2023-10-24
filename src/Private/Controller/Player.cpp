@@ -2,51 +2,74 @@
 
 #include "../../Public/Generator/Force.h"
 
-Player::Player(ofCamera* Camera, std::vector<GameObject *>& blobs, GameObject * _mother) : Camera(Camera), mother(_mother)
+Player::Player(ofCamera* Camera, std::vector<GameObject *>& blobs1,  std::vector<GameObject *>& blobs2, GameObject * _mother) : Camera(Camera), mother(_mother)
 {
     
-    for(GameObject * BlobParticle : blobs)
+    for(GameObject * BlobParticle : blobs1)
     {
-        BlobsParticle.push_back(BlobParticle);
+        BlobsParticle1.push_back(BlobParticle);
+    }
+
+    for(GameObject * BlobParticle : blobs2)
+    {
+        BlobsParticle2.push_back(BlobParticle);
     }
     
 }
 
 void Player::Right()
 {
-   Force right = Force(Vector3D(movement, 0, 0), 1, mother,ForceType::Input);
-    mother->AddForce(right);
+    for(GameObject * BlobParticle : BlobsParticle1)
+    {
+        Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,ForceType::Input);
+        BlobParticle->AddForce(right);
+    }
+    if(bIsDivide) return;
+    for(GameObject * BlobParticle : BlobsParticle2)
+    {
+        Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,ForceType::Input);
+        BlobParticle->AddForce(right);
+    }
+   
 }
 
-void Player::EndRight()
-{
-    
-    Force right = Force(Vector3D(0, 1, 1), 1, mother,ForceType::Input);
-    mother->AddForce(right);
-    
-}
+
 
 void Player::Left()
 {
-    
-    Force left = Force(Vector3D(-1 * movement, 0, 0), 1, mother,ForceType::Input);
-    mother->AddForce(left);
-    
+    for(GameObject * BlobParticle : BlobsParticle1)
+    {
+        Force left = Force(Vector3D(-1 * movement, 0, 0), 1, mother,ForceType::Input);
+        BlobParticle->AddForce(left);
+    }
+    if(bIsDivide) return;
+    for(GameObject * BlobParticle : BlobsParticle2)
+    {
+        Force left = Force(Vector3D(-1 * movement, 0, 0), 1, mother,ForceType::Input);
+        BlobParticle->AddForce(left);
+    }
 }
 
-void Player::EndLeft()
-{
-    
-    Force left = Force(Vector3D(0, 1, 1), 1, mother,ForceType::Input);
-    mother->AddForce(left);
-    
-}
+
 
 void Player::Jump()
 {
-    
-    Force Jump = Force(Vector3D(1, -jump, 1), 3, mother,ImpulseJump);
-    mother->AddForce(Jump);
+    for(GameObject * BlobParticle : BlobsParticle1)
+    {
+        Force Jump = Force(Vector3D(1, -jump, 1), 3, mother,ImpulseJump);
+        BlobParticle->AddForce(Jump);
+    }
+    if(bIsDivide) return;
+    for(GameObject * BlobParticle : BlobsParticle2)
+    {
+        Force Jump = Force(Vector3D(1, -jump, 1), 3, mother,ImpulseJump);
+        BlobParticle->AddForce(Jump);
+    }
+}
+
+void Player::SetIsDivided(bool Divided)
+{
+    bIsDivide = Divided;
 }
 
 void Player::BeginPlay()

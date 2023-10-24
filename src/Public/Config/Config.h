@@ -9,7 +9,7 @@ public:
     
 
     static std::string & get(const std::string & Key);
-    const inline static Vector3D GRAVITY = Vector3D(0, 150, 0);
+    const inline static Vector3D GRAVITY = Vector3D(0, 1000, 0);
     static void set(const std::string & Key, const std::string & Value);
     static char getChar(const std::string & Key);
     void static Parse();

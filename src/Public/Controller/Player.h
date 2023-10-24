@@ -5,16 +5,15 @@
 class Player
 {
 public:
-    Player(ofCamera * Camera,  std::vector<GameObject *>& blobs, GameObject * _mother);    
+    Player(ofCamera * Camera,  std::vector<GameObject *>& blobs1,  std::vector<GameObject *>& blobs2, GameObject * _mother);    
 
     void Right();
-    void EndRight();
 
     void Left();
-    void EndLeft();
 
     void Jump();
-    
+
+    void SetIsDivided(bool Divided);
     void BeginPlay();
     void Update();
     void Draw();
@@ -22,8 +21,10 @@ public:
 
 private:
     ofCamera * Camera;
-    std::vector<GameObject *> BlobsParticle;
+    std::vector<GameObject *> BlobsParticle1;
+    std::vector<GameObject *> BlobsParticle2;
     GameObject * mother;
-    const double movement = 100;
-    const double jump = 100;
+    const double movement = 160;
+    const double jump = 160;
+    bool bIsDivide = false;
 };

@@ -8,6 +8,7 @@
 #include "../../Public/Controller/Player.h"
 #include "../../Public/Particle/BlobParticle.h"
 #include "../../Public/Math/ClassicSpring.h"
+#include "../../Public/Math/Cable.h"
 
 
 void GameWorld::BeginPlay(ofApp * Context)
@@ -24,25 +25,63 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),5));
+    GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),20));
+
     
-    
-    objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
-    
-    
+    GameObject * ground = objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 2000,false));
+    Particle * p = static_cast<Particle*>(ground);
+    p->SetColor(ofColor::green);
+   
     for(int i =0; i<10; ++i)
     {
         //CreateBlob(go);
-        GameObject * g1 = objects.SpawnObject(new BlobParticle(go->GetPosition(),Vector3D::Zero(),5));
-        Blobs.push_back(g1);
-        if(Blobs.size() >= i-1)
-        {
-            Springs.push_back(new ClassicSpring(Blobs[i-1], g1, 5,  10, -2));
-        }
-        Springs.push_back(new StaticSpring(go, g1, 10,  30, -2));
+        GameObject * g1 = objects.SpawnObject(new BlobParticle(Vector3D(i*20+500,0),Vector3D::Zero(),20));
+        Blobs1.push_back(g1);
     }
-    Blobs.push_back(go);
-    player = new Player(&Context->cam,Blobs,go);
+    Blobs1.push_back(go);
+    for(int i =0; i<10; ++i)
+    {
+        //CreateBlob(go);
+        GameObject * g1 = objects.SpawnObject(new BlobParticle(Vector3D(i*20+500,0),Vector3D::Zero(),20));
+        Blobs2.push_back(g1);
+    }
+    
+    for(int i = 0; i < Blobs1.size(); ++i)
+    {
+        for(int j = i+1 ; j < Blobs1.size(); ++j)
+        {
+            Springs.push_back(new Cable(Blobs1[i], Blobs1[j], 0.1, NULL, -2, 80));
+        }
+    }
+
+    for(int i = 0; i < Blobs2.size(); ++i)
+    {
+        for(int j = i+1 ; j < Blobs2.size(); ++j)
+        {
+            Springs.push_back(new Cable(Blobs2[i], Blobs2[j], 0.1, NULL, -2, 80));
+        }
+    }
+    
+    for(int i = 0; i < std::min(Blobs1.size(),Blobs2.size()); ++i)
+    {
+        for(int j = i +1; j < std::min(Blobs1.size(),Blobs2.size()); ++j)
+        {
+            SpringsToDestroy.push_back(new Cable(Blobs1[i], Blobs2[i], 0.1, NULL, -2, 80));
+        }
+    }
+
+    /*
+    for(int i =0; i < Blobs.size(); ++i)
+    {
+        for(int j = i + 1; j < Blobs.size(); ++j)
+        {
+            Springs.push_back(new Cable(Blobs[i], Blobs[j], 0.05, NULL, -2, 80));
+        }
+    }
+    */
+    
+    
+    player = new Player(&Context->cam,Blobs1,Blobs2,go);
     player->BeginPlay();
 }
 
@@ -51,6 +90,11 @@ void GameWorld::Update(double DeltaTimes)
     for (Spring * spring : Springs)
     {
       spring->applyForce();
+    }
+    for (Spring * spring : SpringsToDestroy)
+    {
+        if(bIsDivided) break;
+        spring->applyForce();
     }
     player->Update();
     objects.Update(DeltaTimes);
@@ -69,6 +113,10 @@ void GameWorld::EndPlay()
 {
     player->EndPlay();
     delete player;
+    for(int i =0; i < Springs.size(); ++i)
+    {
+       delete Springs[i];
+    }
 }
 
 void GameWorld::OnMouseEvent(const MouseEvent& event)
@@ -86,16 +134,11 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             player->Left();
         if(event.key == Config::getChar("KEY_MOVE_JUMP"))
             player->Jump();
+        if(event.key == Config::getChar("KEY_MOVE_DIVIDE"))
+        {
+            bIsDivided = !bIsDivided;
+            player->SetIsDivided(bIsDivided);
+        }
     }
-}
-
-void GameWorld::CreateBlob(GameObject* mother, int i)
-{
-    Vector3D startPos = mother->GetPosition();
-
-    startPos.SetY(startPos.GetY() - (i * 10));
-    GameObject * g1 = objects.SpawnObject(new BlobParticle(startPos,Vector3D::Zero(),5));
-    Blobs.push_back(g1);
-    Springs.push_back(new StaticSpring(mother, g1, 20,  40, -2));
 }
 

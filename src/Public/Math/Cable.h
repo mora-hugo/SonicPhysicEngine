@@ -13,6 +13,7 @@ public:
 
 private:
     double maxSeparation;
+    
 };
 
 #endif // CABLE_H

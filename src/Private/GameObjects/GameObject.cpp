@@ -116,10 +116,7 @@ bool GameObject::IsCollidingWith(const GameObject& other) const
     return (distance <= radius);
 }
 
-void GameObject::CheckCollision(const GameObject& other, CollisionData& collisionData) const
-{
 
-}
 
 
 
@@ -141,6 +138,11 @@ void GameObject::SetUsingGravity(bool bIsUsingGravity)
 bool GameObject::GetUsingGravity() const
 {
     return bUsingGravity;
+}
+
+void GameObject::AddImpulse(Vector3D ImpulseVector)
+{
+    velocity = velocity + ImpulseVector.Multiply(GetReverseMass());
 }
 
 

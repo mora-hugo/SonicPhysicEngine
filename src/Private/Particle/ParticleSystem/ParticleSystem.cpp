@@ -23,42 +23,21 @@ void ParticleSystem::Setup()
 void ParticleSystem::Update(double f)
 {
     int i = 0;
-    for(unsigned int i = 0; i < particles.size();)
+    
+    if(particles[i]->GetIsFinished())
     {
-        for(unsigned int j = 0; j < particles.size(); j++)
-        {
-            if(i != j && i < particles.size() * 2 ) // If there is more than 2n collisions, then abandon the others
-            {
-                GameObject * p1 = particles[i];
-                GameObject * p2 = particles[j];
-                i++;
-                if(p1->IsCollidingWith(*p2))
-                {
-                    CollisionData collisionData;
-                    p1->CheckCollision(*p2,collisionData);
-                    //Calculate the force
-                    Vector3D movement = collisionData.CollisionNormal.Multiply(collisionData.PenetrationDepth).Multiply(p2->GetMass()/(p1->GetMass()+p2->GetMass()));
-                    Force force(movement,1,p1,Constant);
-                    particles[i]->AddForce(force);
-                }
-            }
-        }
-        if(particles[i]->GetIsFinished())
-        {
-            delete particles[i];
-            particles[i] = nullptr;
-            // Remove the element from the vector and don't increment i
-            particles.erase(particles.begin() + i);
-        }
-        else
-        {
-            particles[i]->Update(f);
-            i++;
-        }
-
-        
-        
+        delete particles[i];
+        particles[i] = nullptr;
+        // Remove the element from the vector and don't increment i
+        particles.erase(particles.begin() + i);
     }
+    else
+    {
+        particles[i]->Update(f);
+        i++;
+    }
+
+    
 }
 
 void ParticleSystem::Draw() const

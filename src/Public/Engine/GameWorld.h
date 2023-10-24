@@ -27,7 +27,6 @@ public:
 
     void OnKeyboardEvent(const KeyboardEvent& event);
 
-    void CreateBlob(GameObject * go, int i = 0);
 
     
 private:
@@ -37,11 +36,14 @@ private:
 
     Player * player;
 
+    
+    std::vector<Spring*> SpringsToDestroy;
     std::vector<Spring*> Springs;
-    std::vector<GameObject*> Blobs;
+    std::vector<GameObject*> Blobs1;
+    std::vector<GameObject*> Blobs2;
 
     StaticSpring test;
-
+    bool bIsDivided = false;
     GameObject * ground;
     const int nbBlob = 20; 
 
