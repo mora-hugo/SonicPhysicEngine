@@ -25,27 +25,28 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    GameObject * go = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),20));
+    playerParticle = objects.SpawnObject(new BlobParticle(Vector3D(ofGetWidth()/2,-100),Vector3D(0,0),20));
 
-    
-    GameObject * ground = objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 2000,false));
+    //Create the planet
+    ground = objects.SpawnObject(new Particle(INT_MAX, 0, Vector3D(ofGetWidth()/2, ofGetHeight()+200), Vector3D::Zero(), 1000,false));
     Particle * p = static_cast<Particle*>(ground);
     p->SetColor(ofColor::green);
-   
+
+    // Create the blobs
     for(int i =0; i<10; ++i)
     {
-        //CreateBlob(go);
         GameObject * g1 = objects.SpawnObject(new BlobParticle(Vector3D(i*20+500,0),Vector3D::Zero(),20));
         Blobs1.push_back(g1);
     }
-    Blobs1.push_back(go);
+    // Add  the "player to the vec"
+    Blobs1.push_back(playerParticle);
     for(int i =0; i<10; ++i)
     {
-        //CreateBlob(go);
         GameObject * g1 = objects.SpawnObject(new BlobParticle(Vector3D(i*20+500,0),Vector3D::Zero(),20));
         Blobs2.push_back(g1);
     }
-    
+
+    // Adding springs 
     for(int i = 0; i < Blobs1.size(); ++i)
     {
         for(int j = i+1 ; j < Blobs1.size(); ++j)
@@ -61,7 +62,8 @@ void GameWorld::BeginPlay(ofApp * Context)
             Springs.push_back(new Cable(Blobs2[i], Blobs2[j], 0.1, NULL, -2, 80));
         }
     }
-    
+
+    // Added temp spring (destroyed when the blob is divided)
     for(int i = 0; i < std::min(Blobs1.size(),Blobs2.size()); ++i)
     {
         for(int j = i +1; j < std::min(Blobs1.size(),Blobs2.size()); ++j)
@@ -69,19 +71,9 @@ void GameWorld::BeginPlay(ofApp * Context)
             SpringsToDestroy.push_back(new Cable(Blobs1[i], Blobs2[i], 0.1, NULL, -2, 80));
         }
     }
-
-    /*
-    for(int i =0; i < Blobs.size(); ++i)
-    {
-        for(int j = i + 1; j < Blobs.size(); ++j)
-        {
-            Springs.push_back(new Cable(Blobs[i], Blobs[j], 0.05, NULL, -2, 80));
-        }
-    }
-    */
     
     
-    player = new Player(&Context->cam,Blobs1,Blobs2,go);
+    player = new Player(&Context->cam,Blobs1,Blobs2,playerParticle);
     player->BeginPlay();
 }
 
@@ -96,16 +88,15 @@ void GameWorld::Update(double DeltaTimes)
         if(bIsDivided) break;
         spring->applyForce();
     }
+    
     player->Update();
     objects.Update(DeltaTimes);
 
-    //std::cout << "ground pos" << std::string(ground->GetPosition()) << std::endl;
     
 }
 
 void GameWorld::Draw()
 {
-    //player->Draw();
     objects.Draw();
 }
 
@@ -134,6 +125,8 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             player->Left();
         if(event.key == Config::getChar("KEY_MOVE_JUMP"))
             player->Jump();
+        if(event.key == Config::getChar("KEY_MOVE_DOWN"))
+            player->Down();
         if(event.key == Config::getChar("KEY_MOVE_DIVIDE"))
         {
             bIsDivided = !bIsDivided;

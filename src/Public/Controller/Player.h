@@ -13,6 +13,8 @@ public:
 
     void Jump();
 
+    void Down();
+
     void SetIsDivided(bool Divided);
     void BeginPlay();
     void Update();

@@ -21,13 +21,13 @@ void Player::Right()
 {
     for(GameObject * BlobParticle : BlobsParticle1)
     {
-        Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,ForceType::Input);
+        Force right = Force(Vector3D(movement, 0, 0), 1,ForceType::Input);
         BlobParticle->AddForce(right);
     }
     if(bIsDivide) return;
     for(GameObject * BlobParticle : BlobsParticle2)
     {
-        Force right = Force(Vector3D(movement, 0, 0), 1, BlobParticle,ForceType::Input);
+        Force right = Force(Vector3D(movement, 0, 0), 1,ForceType::Input);
         BlobParticle->AddForce(right);
     }
    
@@ -39,13 +39,13 @@ void Player::Left()
 {
     for(GameObject * BlobParticle : BlobsParticle1)
     {
-        Force left = Force(Vector3D(-1 * movement, 0, 0), 1, mother,ForceType::Input);
+        Force left = Force(Vector3D(-1 * movement, 0, 0), 1,ForceType::Input);
         BlobParticle->AddForce(left);
     }
     if(bIsDivide) return;
     for(GameObject * BlobParticle : BlobsParticle2)
     {
-        Force left = Force(Vector3D(-1 * movement, 0, 0), 1, mother,ForceType::Input);
+        Force left = Force(Vector3D(-1 * movement, 0, 0), 1,ForceType::Input);
         BlobParticle->AddForce(left);
     }
 }
@@ -56,13 +56,28 @@ void Player::Jump()
 {
     for(GameObject * BlobParticle : BlobsParticle1)
     {
-        Force Jump = Force(Vector3D(1, -jump, 1), 3, mother,ImpulseJump);
+        Force Jump = Force(Vector3D(1, -jump, 1), 3,ImpulseJump);
         BlobParticle->AddForce(Jump);
     }
     if(bIsDivide) return;
     for(GameObject * BlobParticle : BlobsParticle2)
     {
-        Force Jump = Force(Vector3D(1, -jump, 1), 3, mother,ImpulseJump);
+        Force Jump = Force(Vector3D(1, -jump, 1), 3,ImpulseJump);
+        BlobParticle->AddForce(Jump);
+    }
+}
+
+void Player::Down()
+{
+    for(GameObject * BlobParticle : BlobsParticle1)
+    {
+        Force Jump = Force(Vector3D(1, jump, 1), 3,ImpulseJump);
+        BlobParticle->AddForce(Jump);
+    }
+    if(bIsDivide) return;
+    for(GameObject * BlobParticle : BlobsParticle2)
+    {
+        Force Jump = Force(Vector3D(1, jump, 1), 3,ImpulseJump);
         BlobParticle->AddForce(Jump);
     }
 }

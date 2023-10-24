@@ -73,10 +73,10 @@ void GameObject::cleanAccumForce()
         }
     }
     //A la fin de la simulation on ajoute la force de friction avec l'air et la force de gravité qui s'appliqe à chaque pas de simulation
-    Forces.push_back(Force(Vector3D(0.4,0.4,0),1,this,Friction));
+    Forces.push_back(Force(Vector3D(0.4,0.4,0),1,Friction));
     AccumForce = Vector3D().Zero();
     if(bUsingGravity)
-        Forces.push_back(Force(Config::GRAVITY, 1 , this, Constant));
+        Forces.push_back(Force(Config::GRAVITY, 1, Constant));
 }
 
 void GameObject::modifyVelocity(double x, double y, double z)
@@ -155,8 +155,7 @@ void GameObject::ApplyPhysics(double DeltaTimes)
 
 void GameObject::UpdateVelocity(double Deltatimes)
 {
-    //coefficient de friction cinétique
-    Force friction = Force(Vector3D(1,1,1),1,this,Friction);
+
     
     for (int i=0 ; i < Forces.size() ; ++i)
     {

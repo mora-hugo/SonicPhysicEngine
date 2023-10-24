@@ -45,6 +45,7 @@ private:
     StaticSpring test;
     bool bIsDivided = false;
     GameObject * ground;
+    GameObject * playerParticle;
     const int nbBlob = 20; 
 
 };

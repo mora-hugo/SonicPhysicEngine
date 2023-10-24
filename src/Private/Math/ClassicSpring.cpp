@@ -30,8 +30,8 @@ void ClassicSpring::applyForce() {
     Vector3D force1 = forceDirection * totalForce;
     Vector3D force2 = VectorNull.Sub(force1);
 
-    Force force1bis(force1,1,firstGameObject,ForceType::Ressort);
-    Force force2bis(force1.Negate(),1,secondGameObject,ForceType::Ressort);
+    Force force1bis(force1,1,ForceType::Ressort);
+    Force force2bis(force1.Negate(),1,ForceType::Ressort);
     std::cout << "Force du ressort : " << std::string(force1) << std::endl;
     firstGameObject->AddForce(force1bis);
     secondGameObject->AddForce(force2bis);
