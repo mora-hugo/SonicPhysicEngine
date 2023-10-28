@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <array>
 #include <iostream>
+#include "Vector3D.h"
 using namespace std;
 
 class Matrix3
@@ -8,17 +9,12 @@ class Matrix3
 public:
     
     Matrix3();
-    Matrix3(double v11, double v12, double v13,
-            double v21, double v22, double v23,
-            double v31, double v32, double v33);
+    Matrix3(Vector3D& v1, Vector3D& v2, Vector3D& v3);
 
-    
-    // Getter for accessing individual elements of the matrix
-    double GetMatrix3Element(int row, int col);
-    
-    // Setter for modifying individual elements of the matrix
-    void SetMatrix3Element(int row, int col, double value);
+    Vector3D GetColumn(int col) const;
+
+    void SetColumn(int col, const Vector3D& vec);
 
 private:
-    double data[3][3];
+    Vector3D columns[3];
 };
