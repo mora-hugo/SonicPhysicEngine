@@ -34,18 +34,10 @@ private:
 
     ofApp * Context;
 
-    Player * player;
+    Vector3D prev;
 
-    
-    std::vector<Spring*> SpringsToDestroy;
-    std::vector<Spring*> Springs;
-    std::vector<GameObject*> Blobs1;
-    std::vector<GameObject*> Blobs2;
-
-    StaticSpring test;
-    bool bIsDivided = false;
     GameObject * ground;
-    GameObject * playerParticle;
-    const int nbBlob = 20; 
 
 };
+
+

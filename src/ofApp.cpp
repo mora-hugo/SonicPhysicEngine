@@ -1,13 +1,14 @@
 #include "ofApp.h"
+
+#include <GLFW/glfw3.h>
+
 #include "time.h"
 #include "Public/Engine/EventManager.h"
 #include "Public/Engine/InputSystem.h"
 #include "Public/Engine/MouseEvent.h"
 #include "Public/Engine/KeyboardEvent.h"
 #include "Public/Engine/GameWorld.h"
-#include "Public/Particle/ParticleFireball.h"
-#include "Public/Particle/ParticleFirework.h"
-#include "Public/Particle/ParticleLaser.h"
+#include "ofxAssimpModelLoader.h"
 #include "Public/Config/Config.h"
 
 //--------------------------------------------------------------
@@ -15,8 +16,6 @@ void ofApp::setup(){
     
     Config::Parse();
     cam.setScale(1, -1, 1);
-    cam.setPosition(ofGetWidth()/2,ofGetHeight()/2,700);
-    
     // the camera is reversed, so we need to invert the world
     
     // Subscribe to events
@@ -49,7 +48,16 @@ void ofApp::setup(){
     FireworkSound.load("FireworkWhistle.mp3");
     LaserSound.load("laserfire.ogg");
 
+    yourModel.load("model.fbx", 20);
+    yourModel.disableColors();
+    lastMouse.set(ofGetMouseX(), ofGetMouseY());
     GameWorld.BeginPlay(this);
+    cam.lookAt(yourModel.getPosition());
+    // Cachez le curseur de la souris
+   ofHideCursor();
+
+    // Déplacez la fenêtre au centre de l'écran
+    ofSetWindowPosition(ofGetScreenWidth() / 2 - ofGetWidth() / 2, ofGetScreenHeight() / 2 - ofGetHeight() / 2);
     
 }
 
@@ -93,9 +101,15 @@ void ofApp::ProjectileVolumeChanged(float &ProjectileVolume)
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+
+    // -------------
     ProcessInputs();   
     FrameTime = ofGetLastFrameTime();
     GameWorld.Update(FrameTime);
+    
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -112,7 +126,9 @@ void ofApp::draw(){
    // ofDrawCircle(TargetPositionX,TargetPositionY, 30);
     ofDrawLine(center->x,center->y, (mouseX), (mouseY));
 */
+    
     GameWorld.Draw();
+    yourModel.drawFaces();
     cam.end();
 }
 
@@ -143,13 +159,37 @@ void ofApp::keyReleased(int key){
 void ofApp::mouseMoved(int x, int y ){
     MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_MOVE);
     InputManager::addInput(event);
+    // Obtenez la différence de position de la souris depuis la dernière frame
+    int MouseXPos = event.x;
+    int MouseYPos = event.y;
+    int deltaX = MouseXPos - lastMouse.x;
+    int deltaY = MouseYPos - lastMouse.y;
+
     
+
+    // Définissez la sensibilité de la souris
+    float sensitivity = 0.1;
+   
+
+    // Appliquez la rotation de la caméra en fonction des mouvements de la souris
+    cam.rotateDeg(-deltaX * sensitivity, ofVec3f(0, 1, 0)); // Utilisation de -deltaX pour inverser l'axe X
+    cam.tiltDeg(deltaY * sensitivity);
+
+    // Mettez à jour la dernière position de la souris
+    
+    
+    SetCursorPos(ofGetWindowPositionX()+ofGetWidth()/2,ofGetWindowPositionY()+ofGetHeight()/2);
+    lastMouse.set(ofGetWidth()/2,ofGetHeight()/2);
+
+    
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    MouseEvent event(x, y, MouseEvent::GetMouseKeyFromInt(button), MouseEventType::MOUSE_MOVE);
+    MouseEvent event(x, y, MouseEvent::GetMouseKeyFromInt(button), MouseEventType::MOUSE_DRAGGED);
     InputManager::addInput(event);
+    
 }
 
 //--------------------------------------------------------------
@@ -174,6 +214,7 @@ void ofApp::mouseEntered(int x, int y){
 void ofApp::mouseExited(int x, int y){
     MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_EXITED);
     InputManager::addInput(event);
+   
 }
 
 //--------------------------------------------------------------

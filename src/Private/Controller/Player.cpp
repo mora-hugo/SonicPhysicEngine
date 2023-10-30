@@ -94,7 +94,8 @@ void Player::BeginPlay()
 void Player::Update()
 {
     
-     Camera->setPosition(mother->GetPosition().GetX(),mother->GetPosition().GetY(),Camera->getPosition().z);
+     Camera->lookAt(mother->GetPosition());
+     
 }
 
 void Player::Draw()
