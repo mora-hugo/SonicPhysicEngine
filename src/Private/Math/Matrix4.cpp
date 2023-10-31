@@ -30,6 +30,19 @@ Matrix4::Matrix4(double v11, double v12, double v13, double v14, double v21, dou
     data[3][3] = v44;
 }
 
+void Matrix4::Diagonal()
+{
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            data[i][j] = 0.0;
+        }
+    }
+    data[0][0] = 1;
+    data[1][1] = 1;
+    data[2][2] = 1;
+    data[3][3] = 1;
+}
+
 double Matrix4::GetMatrix4Element(int row, int col)
 {
     if (row >= 0 && row < 4 && col >= 0 && col < 4) {
@@ -47,4 +60,67 @@ void Matrix4::SetMatrix4Element(int row, int col, double value)
     } else {
         std::cerr << "Invalid indices for setElement()" << std::endl;
     }
+}
+
+Matrix4 Matrix4::Add(Matrix4 m)
+{
+    Matrix4 res = Matrix4();
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            res.SetMatrix4Element(i,j, data[i][j] + m.GetMatrix4Element(i, j));
+        }
+    }
+    return res;
+}
+
+Matrix4 Matrix4::Substract(Matrix4 m)
+{
+    Matrix4 res = Matrix4();
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            res.SetMatrix4Element(i,j, data[i][j] - m.GetMatrix4Element(i, j));
+        }
+    }
+    return res;
+}
+
+Matrix4 Matrix4::Multiply(double Scalar)
+{
+    Matrix4 res = Matrix4();
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            res.SetMatrix4Element(i,j, data[i][j] * Scalar);
+        }
+    }
+    return res;
+}
+
+Matrix4 Matrix4::Multiply(Matrix4 m)
+{
+    Matrix4 res = Matrix4();
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            
+            /*
+            * | a11 a12 a13 a14 |     | b11 b12 b13 b14 |   | c11 c12 c13 c14 |
+            * | a21 a22 a23 a24 |  *  | b21 b22 b23 b24 | = | c21 c22 c23 c24 |
+            * | a31 a32 a33 a34 |     | b31 b32 b33 b34 |   | c31 c32 c33 c34 |
+            * | a41 a42 a43 a44 |     | b41 b42 b43 b44 |   | c41 c42 c43 c44 |
+            *
+            * démo :
+            * i = 1
+            * j = 3
+            * c13 = a11 * b13 + a12 * b23 + a13 * b33 + a14 * b43
+            * cij = ai1 * b1j + ai2 * b2j + ai3 * b3j + ai4 * b4j
+            */
+            
+            double value = data[i][0] * m.GetMatrix4Element(0, j) +
+                           data[i][1] * m.GetMatrix4Element(1,j) +
+                           data[i][2] * m.GetMatrix4Element(2, j) +
+                           data[i][3] * m.GetMatrix4Element(3,j);
+            
+            res.SetMatrix4Element(i,j, value );
+        }
+    }
+    return res;
 }

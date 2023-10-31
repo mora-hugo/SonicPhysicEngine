@@ -2,6 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Matrix3.h"
+#include "Matrix4.h"
 #include "time.h"
 #include "Public/Engine/EventManager.h"
 #include "Public/Engine/InputSystem.h"
@@ -13,6 +15,38 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    //======[Test Matrice]======
+    Matrix3 m3 = Matrix3(1,1,5
+                        ,4,2,1
+                        ,2,1,3);
+
+    Matrix4 m4 = Matrix4(1,3,1,2
+                        ,4,1,1,5
+                        ,2,1,3,1
+                        ,1,4,1,1);
+    double k = 2;
+
+    Matrix3 resAdd3 = m3 + m3; // 2 2 10 | 8 4 2 | 4 2 6
+    Matrix3 resSub3 = m3 - m3;  //Matrice de 0
+    Matrix3 resMultiK3 = m3 * k; // 2 2 10 | 8 4 2 | 4 2 6
+    Matrix3 resMultiM3 = m3 * resAdd3; // 30 16 42 | 28 18 50 |24 14 40
+    std::cout << "========[MATRIX 3 | ADD SUB MULTIPLY]========" << endl <<  std::string(resAdd3) << endl << std::string(resSub3) << endl << std::string(resMultiK3) << endl << std::string(resMultiM3) << endl ;
+
+    m3.SetMatrix3Element(1,2, 7);
+    double x3 = m3.GetMatrix3Element(1,2);
+    std::cout << "========[MATRIX 3 | GET SET]========" << endl << std::string(m3) << endl << x3 << endl;    
+    
+    Matrix4 resAdd4 = m4 + m4; // 2 6 2 4 | 8 2 2 10 | 4 2 6 2 | 2 8 2 2
+    Matrix4 resSub4 = m4 - m4; //Matrice de 0
+    Matrix4 resMultiK4 = m4 * k; // 2 6 2 4 | 8 2 2 10 | 4 2 6 2 | 2 8 2 2
+    Matrix4 resMultiM4 = m4 * resAdd4; // 34 30 18 40 | 30 68 26 38 | 26 28 26 26 | 40 24 18 48
+    std::cout << "========[MATRIX 4 | ADD SUB MULTIPLY]========" << endl << std::string(resAdd4) << endl << std::string(resSub4) << endl << std::string(resMultiK4) << endl << std::string(resMultiM4) ;
+    
+    m4.SetMatrix4Element(2,3, 7);
+    double x4 = m4.GetMatrix4Element(2,3);
+    std::cout << "========[MATRIX 4 | GET SET]========" << endl << std::string(m4) << endl << x4 << endl;
+    //======[FIN Test Matrice]======
     
     Config::Parse();
     cam.setScale(1, -1, 1);
