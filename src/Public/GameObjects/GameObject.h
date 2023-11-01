@@ -17,7 +17,7 @@ public:
 
     virtual void Setup();
     
-    virtual void Draw() const;
+    virtual void Draw();
 
     virtual void Update(double f);
 
@@ -57,21 +57,23 @@ public:
 
     void AddImpulse(Vector3D ImpulseVector);
 
+protected:
     
+
 private:
     void ApplyPhysics(double DeltaTimes);
 
-    void UpdateVelocity(double Deltatimes);
+    virtual void UpdateVelocity(double Deltatimes);
+    std::vector<Force> Forces;
 
     void UpdatePosition(double Deltatimes);
 
-    
     Vector3D position = Vector3D::Zero();
     Vector3D velocity = Vector3D::Zero();
     Vector3D acceleration = Vector3D::Zero();
     double mass = 5;
     bool bSimulatePhysics = true;
-    std::vector<Force> Forces;
+    
     Vector3D AccumForce;
     int radius= 0;
     bool bUsingGravity = true;

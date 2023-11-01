@@ -21,7 +21,7 @@ void ParticleFireball::Update(double f)
     
 }
 
-void ParticleFireball::Draw() const
+void ParticleFireball::Draw()
 {
     Particle::Draw();
     ATS.Draw();

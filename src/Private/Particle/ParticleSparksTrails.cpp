@@ -17,7 +17,7 @@ void ParticleSparksTrails::Setup()
 }
 
 
-void ParticleSparksTrails::Draw() const
+void ParticleSparksTrails::Draw()
 {
     Particle::Draw();
     ATS.Draw();

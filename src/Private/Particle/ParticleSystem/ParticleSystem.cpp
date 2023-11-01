@@ -42,7 +42,7 @@ void ParticleSystem::Update(double f)
 
 void ParticleSystem::Draw() const
 {
-    for(const Particle * particle: particles)
+    for(Particle * particle: particles)
     {
         particle->Draw();
     }

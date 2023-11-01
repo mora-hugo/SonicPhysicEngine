@@ -14,7 +14,7 @@ public:
 
     virtual void Setup() override;
     
-    virtual void Draw() const override;
+    virtual void Draw() override;
 
     virtual void Update(double f) override ;
 

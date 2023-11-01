@@ -14,7 +14,7 @@ void GameObject::Setup()
 {
 }
 
-void GameObject::Draw() const
+void GameObject::Draw()
 {
 }
 
@@ -156,7 +156,7 @@ void GameObject::ApplyPhysics(double DeltaTimes)
 void GameObject::UpdateVelocity(double Deltatimes)
 {
 
-    
+
     for (int i=0 ; i < Forces.size() ; ++i)
     {
         //AccumForce = AccumForce + Forces[i].movement;
@@ -187,6 +187,7 @@ void GameObject::UpdateVelocity(double Deltatimes)
             break;
         }
     }
+    
     acceleration = AccumForce * GetReverseMass();
     
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération

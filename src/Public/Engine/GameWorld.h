@@ -44,6 +44,9 @@ private:
 
     Player * player = nullptr;
 
+    ofImage rockTexture;
+    ofImage sky;
+
 
 };
 

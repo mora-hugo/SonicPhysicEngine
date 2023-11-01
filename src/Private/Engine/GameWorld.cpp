@@ -29,17 +29,20 @@ void GameWorld::BeginPlay(ofApp * Context)
 
     player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 10, Vector3D(0,-1000,0), Vector3D::Zero(), 10)));
     //Rock generation
+    
+    rockTexture.load("rock_albedo.jpg");
     for(int i = -10; i < 10; i++)
     {
         for(int j = -10; j < 10; j++)
         {
             const int randomRadius = ofRandom(20, 150);
             if(ofRandom(0,10) < 3) continue;
-            Rock * rock = new Rock(Vector3D(i * 500, 0, j * 500), randomRadius);
+            Rock * rock = new Rock(&rockTexture,Vector3D(i * 500, 0, j * 500), randomRadius);
             rock->SetFaces(10);
             objects.SpawnObject(rock);
         }
     }
+    player->Setup();
     
 }
 
@@ -47,13 +50,14 @@ void GameWorld::Update(double DeltaTimes)
 {
     objects.Update(DeltaTimes);
     
+    
 }
 
 void GameWorld::Draw()
 {
-    
     objects.Draw();
     ground.Draw();
+    player->Draw();
 }
 
 void GameWorld::EndPlay()
@@ -75,6 +79,10 @@ void GameWorld::OnMouseEvent(const MouseEvent& event)
         player->OnRotate(Vector3D(deltaX, deltaY, 0));
     
         LastMousePosition = Vector3D(ofGetWidth()/2,ofGetHeight()/2);
+    }
+    else if(event.EventType == MouseEventType::MOUSE_PRESSED)
+    {
+        objects.SpawnObject(new ParticleFireball(1,1, player->GetLaunchPoint(), player->GetCamera()->getLookAtDir()*5000, Vector3D::Zero(),5));
     }
 }
 

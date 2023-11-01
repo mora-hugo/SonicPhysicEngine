@@ -30,7 +30,7 @@ void ParticleFirework::Update(double f)
     
 }
 
-void ParticleFirework::Draw() const
+void ParticleFirework::Draw()
 {
     
     AES.Draw();

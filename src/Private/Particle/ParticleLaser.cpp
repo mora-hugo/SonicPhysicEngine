@@ -19,7 +19,7 @@ void ParticleLaser::Update(double f)
     
 }
 
-void ParticleLaser::Draw() const
+void ParticleLaser::Draw()
 {
     Particle::Draw();
 }

@@ -10,7 +10,7 @@ public:
     
     void Update(double f);
 
-    void Draw() const;
+    void Draw();
 
 
     

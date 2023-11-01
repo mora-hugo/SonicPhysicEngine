@@ -15,10 +15,9 @@ Ground::Ground() : ofPlanePrimitive(1000,1000,100,OF_PRIMITIVE_TRIANGLES)
 
 void Ground::Draw() const
 {
-    ofDisableArbTex();
     img.getTexture().bind();
     
-    drawFaces();
+    draw();
     img.getTexture().unbind();
 }
 

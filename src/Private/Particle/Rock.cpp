@@ -1,7 +1,10 @@
 ﻿#include "../../Public/Particle/Rock.h"
 
-Rock::Rock(const Vector3D& Position, int Radius) : Particle(1000, 0, Position, Vector3D::Zero(), Radius, false)
+Rock::Rock(ofImage * image, const Vector3D& Position, int Radius) : Particle(100000, 0, Position, Vector3D::Zero(), Radius, false)
 {
+    texture = image;
+    texture->getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
+    this->mapTexCoordsFromTexture(texture->getTexture());
 }
 
 void Rock::Setup()
@@ -9,10 +12,11 @@ void Rock::Setup()
     Particle::Setup();
 }
 
-void Rock::Draw() const
+void Rock::Draw() 
 {
-    
+    texture->getTexture().bind();
     Particle::Draw();
+    texture->getTexture().unbind();
 }
 
 void Rock::Update(double f)

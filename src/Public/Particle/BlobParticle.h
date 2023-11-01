@@ -9,7 +9,7 @@ public:
 
     }
     void Setup() override;
-    void Draw() const override;
+    void Draw() override;
     void Update(double f) override;
 
     constexpr inline static float RADIUS = 10;

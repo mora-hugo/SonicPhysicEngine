@@ -13,7 +13,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+    ofEnableDepthTest();
     Config::Parse();
     // the camera is reversed, so we need to invert the world
     
@@ -47,7 +47,6 @@ void ofApp::setup(){
     LaserSound.load("laserfire.ogg");
 
     yourModel.load("model.fbx", 20);
-    yourModel.disableColors();
     
     GameWorld.BeginPlay(this);
     // Cachez le curseur de la souris
@@ -116,19 +115,11 @@ void ofApp::draw(){
         gui.draw();
     }
     Camera.begin();
-/*
-    // draw the GUI
-    ofNoFill();
-    ofSetColor(color);
-    ofDrawCircle(center, 35 );
-   // ofDrawCircle(TargetPositionX,TargetPositionY, 30);
-    ofDrawLine(center->x,center->y, (mouseX), (mouseY));
-*/
-    
+
+   // yourModel.drawFaces();
     GameWorld.Draw();
-    yourModel.drawFaces();
+
     Camera.end();
-    
 }
 
 ofApp::~ofApp()

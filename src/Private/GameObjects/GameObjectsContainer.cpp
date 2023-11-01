@@ -94,9 +94,9 @@ void GameObjectsContainer::Update(double f)
     }
 }
 
-void GameObjectsContainer::Draw() const
+void GameObjectsContainer::Draw()
 {
-    for(const GameObject * object: objects)
+    for(GameObject * object: objects)
     {
         object->Draw();
     }

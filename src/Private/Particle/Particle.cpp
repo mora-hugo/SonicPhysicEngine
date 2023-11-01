@@ -16,7 +16,7 @@ void Particle::Setup()
     GameObject::Setup();
 }
 
-void Particle::Draw() const
+void Particle::Draw()
 {
     GameObject::Draw();
     ofSetColor(color);

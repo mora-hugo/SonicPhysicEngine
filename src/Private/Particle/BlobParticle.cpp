@@ -7,7 +7,7 @@ void BlobParticle::Setup()
     Particle::Setup();
 }
 
-void BlobParticle::Draw() const
+void BlobParticle::Draw()
 {
     Particle::Draw();
     //
