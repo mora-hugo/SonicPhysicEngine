@@ -39,7 +39,7 @@ void ofApp::setup(){
     gui.add(launchthirdBall.setup("Firework | " + ofToUpper(Config::get("KEY_THROW_FIREWORK"))));
     gui.add(launchFourthBall.setup("Laser | " + ofToUpper(Config::get("KEY_THROW_LASER"))));
     
-    bHide = false;
+    bHide = true;
 
     // Loading sounds
     FireballSound.load("fireball_sound.wav");
