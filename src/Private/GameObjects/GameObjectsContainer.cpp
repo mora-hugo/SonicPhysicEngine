@@ -21,7 +21,6 @@ void GameObjectsContainer::Update(double f)
     {
         
         objects[i]->Update(f);
-        //td::cout << std::string(objects[i]->GetPosition()) <<std::endl ;
         for(unsigned int j = i + 1; j < objects.size(); j++)
         {
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others
@@ -74,7 +73,24 @@ void GameObjectsContainer::Update(double f)
                 }
             }
         }
+        GameObject * p1 = objects[i];
         
+        if(p1->GetPosition().GetY() > 0) // collision with ground
+        {
+            CollisionData collisionData;
+            const float radius = p1->GetRadius();
+            const float distance = p1->GetPosition().Distance(Vector3D(0,0,0));
+                    
+            const Vector3D Penetration = p1->GetPosition().Sub(Vector3D(0,0,0));
+            collisionData.CollisionNormal = Penetration.Normalize();
+            collisionData.CollisionPoint = p1->GetPosition().Add(collisionData.CollisionNormal.Multiply(p1->GetRadius()));
+            collisionData.PenetrationDepth = distance;
+
+            p1->AddPosition(Vector3D(0,Penetration.Negate().GetY(),0));
+            
+            
+        }
+       
     }
 }
 

@@ -41,6 +41,7 @@ private:
 public:
     // Getters and Setters
 
+    void SetFaces(int nb);
     void SetIsFinished(const bool isFinished);
     
     void SetRadius(const float radius);

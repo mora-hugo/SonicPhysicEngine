@@ -2,8 +2,6 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Matrix3.h"
-#include "Matrix4.h"
 #include "time.h"
 #include "Public/Engine/EventManager.h"
 #include "Public/Engine/InputSystem.h"
@@ -16,40 +14,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    //======[Test Matrice]======
-    Matrix3 m3 = Matrix3(1,1,5
-                        ,4,2,1
-                        ,2,1,3);
-
-    Matrix4 m4 = Matrix4(1,3,1,2
-                        ,4,1,1,5
-                        ,2,1,3,1
-                        ,1,4,1,1);
-    double k = 2;
-
-    Matrix3 resAdd3 = m3 + m3; // 2 2 10 | 8 4 2 | 4 2 6
-    Matrix3 resSub3 = m3 - m3;  //Matrice de 0
-    Matrix3 resMultiK3 = m3 * k; // 2 2 10 | 8 4 2 | 4 2 6
-    Matrix3 resMultiM3 = m3 * resAdd3; // 30 16 42 | 28 18 50 |24 14 40
-    std::cout << "========[MATRIX 3 | ADD SUB MULTIPLY]========" << endl <<  std::string(resAdd3) << endl << std::string(resSub3) << endl << std::string(resMultiK3) << endl << std::string(resMultiM3) << endl ;
-
-    m3.SetMatrix3Element(1,2, 7);
-    double x3 = m3.GetMatrix3Element(1,2);
-    std::cout << "========[MATRIX 3 | GET SET]========" << endl << std::string(m3) << endl << x3 << endl;    
-    
-    Matrix4 resAdd4 = m4 + m4; // 2 6 2 4 | 8 2 2 10 | 4 2 6 2 | 2 8 2 2
-    Matrix4 resSub4 = m4 - m4; //Matrice de 0
-    Matrix4 resMultiK4 = m4 * k; // 2 6 2 4 | 8 2 2 10 | 4 2 6 2 | 2 8 2 2
-    Matrix4 resMultiM4 = m4 * resAdd4; // 34 30 18 40 | 30 68 26 38 | 26 28 26 26 | 40 24 18 48
-    std::cout << "========[MATRIX 4 | ADD SUB MULTIPLY]========" << endl << std::string(resAdd4) << endl << std::string(resSub4) << endl << std::string(resMultiK4) << endl << std::string(resMultiM4) ;
-    
-    m4.SetMatrix4Element(2,3, 7);
-    double x4 = m4.GetMatrix4Element(2,3);
-    std::cout << "========[MATRIX 4 | GET SET]========" << endl << std::string(m4) << endl << x4 << endl;
-    //======[FIN Test Matrice]======
-    
     Config::Parse();
-    cam.setScale(1, -1, 1);
     // the camera is reversed, so we need to invert the world
     
     // Subscribe to events
@@ -62,7 +27,6 @@ void ofApp::setup(){
 
     //ringButton.addListener(this, &ofApp::ringButtonPressed);
     ProjectileVolume.addListener(this, &ofApp::ProjectileVolumeChanged);
-    
 
     //here we are setting up all the buttons  
     gui.setup(); // most of the time you don't need a name
@@ -84,15 +48,15 @@ void ofApp::setup(){
 
     yourModel.load("model.fbx", 20);
     yourModel.disableColors();
-    lastMouse.set(ofGetMouseX(), ofGetMouseY());
+    
     GameWorld.BeginPlay(this);
-    cam.lookAt(yourModel.getPosition());
     // Cachez le curseur de la souris
-   ofHideCursor();
+    ofHideCursor();
 
     // Déplacez la fenêtre au centre de l'écran
     ofSetWindowPosition(ofGetScreenWidth() / 2 - ofGetWidth() / 2, ofGetScreenHeight() / 2 - ofGetHeight() / 2);
-    
+    Camera.setPosition(1100,-700,850);
+
 }
 
 //--------------------------------------------------------------
@@ -151,7 +115,7 @@ void ofApp::draw(){
     if(!bHide){
         gui.draw();
     }
-    cam.begin();
+    Camera.begin();
 /*
     // draw the GUI
     ofNoFill();
@@ -163,13 +127,13 @@ void ofApp::draw(){
     
     GameWorld.Draw();
     yourModel.drawFaces();
-    cam.end();
+    Camera.end();
+    
 }
 
 ofApp::~ofApp()
 {
     GameWorld.EndPlay();
-    cam.end();
     Config::Save();
 }
 
@@ -193,27 +157,8 @@ void ofApp::keyReleased(int key){
 void ofApp::mouseMoved(int x, int y ){
     MouseEvent event(x, y, MouseKey::NONE, MouseEventType::MOUSE_MOVE);
     InputManager::addInput(event);
-    // Obtenez la différence de position de la souris depuis la dernière frame
-    int MouseXPos = event.x;
-    int MouseYPos = event.y;
-    int deltaX = MouseXPos - lastMouse.x;
-    int deltaY = MouseYPos - lastMouse.y;
-
     
 
-    // Définissez la sensibilité de la souris
-    float sensitivity = 0.1;
-   
-
-    // Appliquez la rotation de la caméra en fonction des mouvements de la souris
-    cam.rotateDeg(-deltaX * sensitivity, ofVec3f(0, 1, 0)); // Utilisation de -deltaX pour inverser l'axe X
-    cam.tiltDeg(deltaY * sensitivity);
-
-    // Mettez à jour la dernière position de la souris
-    
-    
-    SetCursorPos(ofGetWindowPositionX()+ofGetWidth()/2,ofGetWindowPositionY()+ofGetHeight()/2);
-    lastMouse.set(ofGetWidth()/2,ofGetHeight()/2);
 
     
 
@@ -270,45 +215,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::OnKeyPressed(const KeyboardEvent& event)
 {
-    {
-        /*
-        //sauvegarde
-        if(event.key == 'h'){
-            bHide = !bHide;
-        }
-        else if(event.key == 'o'){
-            gui.saveToFile("settings.xml");
-        }
-        else if(event.key == 'p'){
-            gui.loadFromFile("settings.xml");
-        }
 
-        //viseur - Removed
-        else if(event.key == 't'){
-        
-            TargetPositionX = mouseX;
-            TargetPositionY = mouseY;
-        }
-        //Deplacement
-        else if(event.key == 'w' || event.key == 'z'){
-            center.setup("center", {center->x, center->y-5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-        }
-        else if(event.key == 'a' || event.key == 'q')
-        {
-            center.setup("center", {center->x-5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-        }
-        else if(event.key == 's'){
-            center.setup("center", {center->x, center->y+5}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-        }
-        else if(event.key == 'd')
-        {
-            center.setup("center", {center->x+5, center->y}, {0, 0}, {ofGetWidth(), ofGetHeight()});
-        }
-    
-        //defaut
-        else if(event.key == ' '){
-            color = ofColor(255);
-        }
-        */
-    }
 }

@@ -5,7 +5,7 @@
 
 #include "../../Public/Engine/GameWorld.h"
 
-GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass)
+GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass), bUsingGravity(bIsUsingGravity)
 {
     
 }
@@ -73,7 +73,7 @@ void GameObject::cleanAccumForce()
         }
     }
     //A la fin de la simulation on ajoute la force de friction avec l'air et la force de gravité qui s'appliqe à chaque pas de simulation
-    Forces.push_back(Force(Vector3D(0.4,0.4,0),1,Friction));
+    Forces.push_back(Force(Vector3D(0.8,0.4,0),1,Friction));
     AccumForce = Vector3D().Zero();
     if(bUsingGravity)
         Forces.push_back(Force(Config::GRAVITY, 1, Constant));

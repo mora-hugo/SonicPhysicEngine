@@ -35,6 +35,11 @@ void Particle::OnAnimationFinished()
     //DeleteObject(this);
 }
 
+void Particle::SetFaces(int nb)
+{
+    this->setResolution(nb);
+}
+
 void Particle::SetIsFinished(const bool isFinished)
 {
     bIsFinished = isFinished;

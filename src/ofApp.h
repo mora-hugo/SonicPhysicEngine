@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Public/Controller/FPSCamera.h"
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
 #include "ofxGui.h"
 #include "Public/Engine/GameWorld.h"
+#include "Public/GameObjects/Ground.h"
 #include "Public/Math/Vector3D.h"
 #include "Public/Particle/Particle.h"
 #include "Public/Particle/ParticleSystem/ParticleSystem.h"
@@ -41,6 +43,8 @@ public:
 	
 	bool bHide;
 
+	
+
 	ofxColorSlider color;
 	ofxVec2Slider center;
 
@@ -58,7 +62,6 @@ public:
 	float TargetPositionX;
 	float TargetPositionY;
 
-	Vector3D LastMousePosition;
 	ofxAssimpModelLoader yourModel;
 	
 	double FrameTime;
@@ -68,10 +71,9 @@ public:
 	ofSoundPlayer LaserSound;
 	float Volume = 0.5f;
 
-	bool isUserMouseMovement = true;
 	GameWorld GameWorld;
-	ofVec2f lastMouse;
-	ofCamera cam;
+	Vector3D lastMousePosition;
+	FPSCamera Camera {this};
 private:
 	void OnKeyPressed(const KeyboardEvent& event);
 };

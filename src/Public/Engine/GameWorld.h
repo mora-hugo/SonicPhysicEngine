@@ -2,9 +2,12 @@
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
 #include "../GameObjects/GameObjectsContainer.h"
+#include "../GameObjects/Ground.h"
+#include "../Controller/Player.h"
 #include "../Particle/ParticleSystem/ParticleSystem.h"
 #include "../Math/ClassicSpring.h"
 #include "../Math/StaticSpring.h"
+
 
 class Player;
 class ofApp;
@@ -30,13 +33,17 @@ public:
 
     
 private:
+    Vector3D LastMousePosition;
     GameObjectsContainer objects;
 
     ofApp * Context;
 
     Vector3D prev;
 
-    GameObject * ground;
+    Ground ground;
+
+    Player * player = nullptr;
+
 
 };
 

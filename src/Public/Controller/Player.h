@@ -1,32 +1,32 @@
 #pragma once
+#include "FPSCamera.h"
 #include "ofCamera.h"
 #include "../Particle/BlobParticle.h"
 
-class Player
+class Player : public GameObject
 {
+
 public:
-    Player(ofCamera * Camera,  std::vector<GameObject *>& blobs1,  std::vector<GameObject *>& blobs2, GameObject * _mother);    
-
-    void Right();
-
-    void Left();
+    
+    Player(ofApp * Context, const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), int SphereRadius = 10);
+    void OnRotate(const Vector3D& DeltaRot);
+    void Setup() override;
+    void Draw() const override;
+    void Update(double f) override;
 
     void Jump();
 
-    void Down();
-
-    void SetIsDivided(bool Divided);
-    void BeginPlay();
-    void Update();
-    void Draw();
-    void EndPlay();
+    void StartWalkingForward();
+    void StopWalkingForward();
+    
 
 private:
-    ofCamera * Camera;
-    std::vector<GameObject *> BlobsParticle1;
-    std::vector<GameObject *> BlobsParticle2;
-    GameObject * mother;
-    const double movement = 160;
-    const double jump = 160;
-    bool bIsDivide = false;
+    FPSCamera * Camera;
+
+    Vector3D CameraOffset{0, 80, 0};
+
+    bool bIsGoingForward = false;
+
+    float Speed = 1000;
+    float JumpForce = 2000;
 };
