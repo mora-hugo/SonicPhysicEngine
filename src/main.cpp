@@ -3,6 +3,7 @@
 #include "Public/Math/Matrix3.h"
 #include "Public/Math/Matrix4.h"
 #include "Public/Math/Quaternion.h"
+#include <cassert>
 
 bool testsUnitaire();
 bool RunMatrix3Tests();
@@ -70,7 +71,7 @@ bool RunMatrix3Tests() {
 	}
 
 	if (TestResult) {
-		std::cout << "AddTest passed." << std::endl;
+		std::cout << "Matrix3 AddTest passed." << std::endl;
 	}
 	else
 	{
@@ -94,7 +95,7 @@ bool RunMatrix3Tests() {
 	}
 
 	if (TestResult) {
-		std::cout << "SubTest passed." << std::endl;
+		std::cout << "Matrix3 SubTest passed." << std::endl;
 	}
 	else
 	{
@@ -117,7 +118,7 @@ bool RunMatrix3Tests() {
 	}
 
 	if (TestResult) {
-		std::cout << "MultScalarTest passed." << std::endl;
+		std::cout << "Matrix3 MultScalarTest passed." << std::endl;
 	}
 	else
 	{
@@ -141,7 +142,7 @@ bool RunMatrix3Tests() {
 	}
 
 	if (TestResult) {
-		std::cout << "MultMatrixTest passed." << std::endl;
+		std::cout << "Matrix3 MultMatrixTest passed." << std::endl;
 	}
 	else
 	{
@@ -154,12 +155,175 @@ bool RunMatrix3Tests() {
 }
 
 bool RunMatrix4Tests() {
+	// Test the Matrix4 Add method
+	Matrix4 matrixA(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+	Matrix4 matrixB(16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
+	Matrix4 result = matrixA.Add(matrixB);
+
+	// Define the expected result manually or calculate it
+	Matrix4 expected(17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17);
+
+	// Compare the actual result with the expected result
+	bool TestResult = true;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (result.GetMatrix4Element(i, j) != expected.GetMatrix4Element(i, j)) {
+				std::cerr << "AddTest failed at index (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << " Matrix4 AddTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+
+	// Test the Matrix4 substract method
+	Matrix4 resultSubstract = matrixA.Substract(matrixB);
+
+	Matrix4 expectedSubstract(-15, -13, -11, -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, 11, 13, 15);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (resultSubstract.GetMatrix4Element(i, j) != expectedSubstract.GetMatrix4Element(i, j)) {
+				std::cerr << "SubTest failed at index (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix4 SubTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	
+	// Test the Matrix4 multiply with scalar method
+	Matrix4 resultMultScalar = matrixA.Multiply(2);
+
+	Matrix4 expectedMultScalar(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (resultMultScalar.GetMatrix4Element(i, j) != expectedMultScalar.GetMatrix4Element(i, j)) {
+				std::cerr << "MultScalarTest failed at index (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix4 MultScalarTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+	
+	// Test the Matrix4 multiply with Matrix3 method
+	Matrix4 resultMultMatrix = matrixA.Multiply(matrixB);
+
+	Matrix4 expectedMultMatrix(80, 70, 60, 50, 240, 214, 188, 162, 400, 358, 316, 274, 560, 502, 444, 386);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (resultMultMatrix.GetMatrix4Element(i, j) != expectedMultMatrix.GetMatrix4Element(i, j)) {
+				std::cerr << "MultMatrixTest failed at index (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix4 MultMatrixTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+	
+	//return true if all tests are passed
 	return true;
 }
 
-bool RunQuaternionTests()
-{
+bool RunQuaternionTests() {
+	//Test the Quaternion multiply method
+	Quaternion q1(1, 2, 3, 4);
+	Quaternion q2(5, 6, 7, 8);
 
+	Quaternion result = q1 * q2;
+
+	// Define the expected result manually or calculate it
+	Quaternion expected(-60, 12, 30, 24);
+
+	// Compare the actual result with the expected result
+	assert(result.w == expected.w);
+	assert(result.x == expected.x);
+	assert(result.y == expected.y);
+	assert(result.z == expected.z);
+	std::cout << "TestQuaternionMultiplication passed." << std::endl;
+	
+
+	//Test the Quaternion conjugate method
+	Quaternion q(1, 2, 3, 4);
+
+	Quaternion resultConjugate = q.conjugate();
+
+	// Define the expected result manually
+	Quaternion expectedConjugate(1, -2, -3, -4);
+
+	// Compare the actual result with the expected result
+	assert(resultConjugate.w == expectedConjugate.w);
+	assert(resultConjugate.x == expectedConjugate.x);
+	assert(resultConjugate.y == expectedConjugate.y);
+	assert(resultConjugate.z == expectedConjugate.z);
+	std::cout << "TestQuaternionConjugate passed." << std::endl;
+	
+
+	//Test the Quaternion norm method
+	Quaternion q3(1, 2, 3, 4);
+
+	double resultNorm = q3.norm();
+
+	// Define the expected result manually
+	double expectedNorm = 5.477225575051661;
+
+	// Compare the actual result with the expected result, using a small tolerance
+	double tolerance = 1e-9;
+	assert(std::abs(resultNorm - expectedNorm) < tolerance);
+	std::cout << "TestQuaternionNorm passed." << std::endl;
+
+	
+	//Test the Quaternion normalize method
+	Quaternion q4(1, 2, 3, 4);
+
+	q4.normalize();
+
+	// Define the expected result manually
+	Quaternion expectedNormalize(0.18257418583505539, 0.36514837167011077, 0.5477225575051661, 0.7302967433402215);
+
+	// Compare the actual result with the expected result, using a small tolerance
+	double toleranceNormalize = 1e-9;
+	assert(std::abs(q4.w - expectedNormalize.w) < toleranceNormalize);
+	assert(std::abs(q4.x - expectedNormalize.x) < toleranceNormalize);
+	assert(std::abs(q4.y - expectedNormalize.y) < toleranceNormalize);
+	assert(std::abs(q4.z - expectedNormalize.z) < toleranceNormalize);
+	std::cout << "TestQuaternionNormalize passed." << std::endl;
+	
+
+	//return true if all tests are passed
 	return true;
 }
