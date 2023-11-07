@@ -4,6 +4,7 @@
 #include "Public/Math/Matrix4.h"
 #include "Public/Math/Quaternion.h"
 #include <cassert>
+#include "Public/Math/Vector3D.h"
 
 bool testsUnitaire();
 bool RunMatrix3Tests();
@@ -150,6 +151,87 @@ bool RunMatrix3Tests() {
 	}
 
 
+	// Test the Matrix3 multiply with vector method
+	Vector3D vector_3d(1, 2, 3);
+	Vector3D resultMultVector = matrixA.Multiply(vector_3d);
+
+	Vector3D expectedMultVector(14, 32, 50);
+
+	// Compare the actual result with the expected result
+	if(resultMultVector.GetX() != expectedMultVector.GetX() && resultMultVector.GetY() != expectedMultVector.GetY() && resultMultVector.GetZ() != expectedMultVector.GetZ())
+	{
+		std::cerr << "MultMatrixVectorTest failed " << std::endl;
+		TestResult = false;
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix3 MultMatrixVectorTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+	
+	// Test the Matrix3 determinant method
+	double resultDeterminant = matrixA.determinant();
+	double expectedDeterminant = 0;
+
+	// Compare the actual result with the expected result
+	assert(resultDeterminant == expectedDeterminant);
+	std::cout << "TestMatrix3Determinant passed." << std::endl;
+
+	
+	// Test the Matrix3 transpose method
+	Matrix3 resultTranspose = matrixA.Transpose();
+	Matrix3 expectedTranspose(1, 4, 7, 2, 5, 8, 3, 6, 9);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (resultTranspose.GetMatrix3Element(i, j) != expectedTranspose.GetMatrix3Element(i, j)) {
+				std::cerr << "MatrixTransposeTest failed " << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "MatrixTransposeTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+	
+	// Test the Matrix3 reverse method
+	/*
+	Matrix3 matrixC(2, 1, 3, 1, 3, 2, 3, 2, 1);
+	
+	Matrix3 resultReverse = Matrix3(2, 1, 3, 1, 3, 2, 3, 2, 1).Reverse();
+	Matrix3 expectedReverse(
+		0.166667, -1.33333, 0.666667,
+		-1.33333, 0.166667, -0.166667,
+		0.666667, -0.166667, -0.333333
+	);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			assert(fabs(resultReverse.GetMatrix3Element(i, j) - expectedReverse.GetMatrix3Element(i, j)) < 1e-6);
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "MatrixReverseTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	*/
+	
 	//return true if all tests are passed
 	return true;
 }
@@ -231,7 +313,7 @@ bool RunMatrix4Tests() {
 	}
 
 	
-	// Test the Matrix4 multiply with Matrix3 method
+	// Test the Matrix4 multiply with Matrix4 method
 	Matrix4 resultMultMatrix = matrixA.Multiply(matrixB);
 
 	Matrix4 expectedMultMatrix(80, 70, 60, 50, 240, 214, 188, 162, 400, 358, 316, 274, 560, 502, 444, 386);
@@ -254,6 +336,16 @@ bool RunMatrix4Tests() {
 		return false;
 	}
 
+
+	// Test the Matrix4 determinant method
+	// Test the Matrix4 transpose method
+	// Test the Matrix4 reverse method
+	
+
+
+
+
+	
 	
 	//return true if all tests are passed
 	return true;
