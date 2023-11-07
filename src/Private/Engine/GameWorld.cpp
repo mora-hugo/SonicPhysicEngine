@@ -43,7 +43,6 @@ void GameWorld::BeginPlay(ofApp * Context)
         }
     }
     player->Setup();
-    
 }
 
 void GameWorld::Update(double DeltaTimes)
@@ -55,9 +54,15 @@ void GameWorld::Update(double DeltaTimes)
 
 void GameWorld::Draw()
 {
+    
+    //IMPORTANT
+    player->StartPlayerSee();
     objects.Draw();
     ground.Draw();
     player->Draw();
+
+    //IMPORTANT
+    player->StopPlayerSee();
 }
 
 void GameWorld::EndPlay()
@@ -82,7 +87,8 @@ void GameWorld::OnMouseEvent(const MouseEvent& event)
     }
     else if(event.EventType == MouseEventType::MOUSE_PRESSED)
     {
-        objects.SpawnObject(new ParticleFireball(1,1, player->GetLaunchPoint(), player->GetCamera()->getLookAtDir()*5000, Vector3D::Zero(),5));
+        if(player->IsUsingFPSCamera())
+            player->Fire(this);
     }
 }
 
@@ -102,4 +108,9 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             player->StopWalkingForward();
         
     }
+}
+
+GameObjectsContainer* GameWorld::GetObjectsArray()
+{
+    return &objects;
 }

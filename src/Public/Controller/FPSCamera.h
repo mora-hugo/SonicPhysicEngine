@@ -8,7 +8,7 @@ class FPSCamera : public ofCamera
 public:
     FPSCamera(const ofApp * Context);
 
-    void Update(const Vector3D& DeltaRot);
+    void UpdateRotation(const Vector3D& DeltaRot);
 
     void SetSensitivity(float Sensitivity);
 

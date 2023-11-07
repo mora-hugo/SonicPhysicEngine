@@ -4,6 +4,7 @@
 #include "ofPixels.h"
 #include "ofImage.h"
 #include "ofxAssimpModelLoader.h"
+#include "TPSCamera.h"
 #include "../Particle/BlobParticle.h"
 
 class Player : public GameObject
@@ -18,24 +19,45 @@ public:
     void Update(double f) override;
 
     void Jump();
+    void Fire(class GameWorld * Context);
     void StartWalkingForward();
     void StopWalkingForward();
 
-    FPSCamera * GetCamera() const;
+    void StartPlayerSee();
+
+    void SetCameraTarget(GameObject * Target);
+
+    void SwitchCameraToFPS(bool bIsFPSCamera);
+
+    bool IsUsingFPSCamera() const;
+
+    void StopPlayerSee();
+
+    const FPSCamera * GetCamera() const;
+
+    const TPSCamera * GetTPSCamera() const;
 
     Vector3D GetLaunchPoint();
     
 
 private:
-    FPSCamera * Camera;
+    FPSCamera Camera;
+    TPSCamera TPSCamera;
+
+    bool bIsUsingTPSCamera = false;
+    GameObject * CameraTarget = nullptr;
 
     Vector3D CameraOffset{0, 200, 0};
     Vector3D WeaponOffset{0, 10, 0};
-
+    int TPSCameraDistanceBeetweenObject = 100;
+    
     bool bIsGoingForward = false;
 
+    bool bOpacityIsIncreasing = true;
+    float opacity = 0;
     float Speed = 1000;
     float JumpForce = 2000;
     ofxAssimpModelLoader Weapon;
     ofImage WeaponTexture;
+
 };

@@ -73,7 +73,7 @@ public:
 
 	GameWorld GameWorld;
 	Vector3D lastMousePosition;
-	FPSCamera Camera {this};
+
 private:
 	void OnKeyPressed(const KeyboardEvent& event);
 };

@@ -54,7 +54,6 @@ void ofApp::setup(){
 
     // Déplacez la fenêtre au centre de l'écran
     ofSetWindowPosition(ofGetScreenWidth() / 2 - ofGetWidth() / 2, ofGetScreenHeight() / 2 - ofGetHeight() / 2);
-    Camera.setPosition(1100,-700,850);
 
 }
 
@@ -114,12 +113,10 @@ void ofApp::draw(){
     if(!bHide){
         gui.draw();
     }
-    Camera.begin();
 
    // yourModel.drawFaces();
     GameWorld.Draw();
-
-    Camera.end();
+    
 }
 
 ofApp::~ofApp()
