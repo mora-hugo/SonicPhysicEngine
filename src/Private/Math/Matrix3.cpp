@@ -118,6 +118,7 @@ Matrix3 Matrix3::Multiply(Matrix3 m)
 
 Vector3D Matrix3::Multiply(Vector3D v)
 {
+    
     Vector3D res = Vector3D().Zero();
 
     res.SetX(A*v.GetX() + B*v.GetY() +C*v.GetZ());

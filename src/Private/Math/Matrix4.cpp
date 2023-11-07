@@ -3,7 +3,7 @@
 #include <complex>
 
 #include "MathFunctions.h"
-#include "Matrix3.h"
+#include "../../Public/Math/Matrix3.h"
 
 Matrix4::Matrix4()
 {
@@ -148,13 +148,13 @@ double Matrix4::determinant()
      */
 
     //Déclaration des mineurs (determinants des sous matrices)
-    double m11 = Matrix3(F, G, H, J, K, L, N, O, P).determinant();
-    double m21 = Matrix3(B, C, D, J, K, L, N, O, P).determinant();
-    double m31 = Matrix3(B, C, D, F, G, H, N, O, P).determinant();
-    double m41 = Matrix3(B, C, D, F, G, H, J, K, L).determinant();
+    double m11 = Matrix3(MatrixF, MatrixG, MatrixH, MatrixJ, MatrixK, MatrixL, MatrixN, MatrixO, MatrixP).determinant();
+    double m21 = Matrix3(MatrixB, MatrixC, MatrixD, MatrixJ, MatrixK, MatrixL, MatrixN, MatrixO, MatrixP).determinant();
+    double m31 = Matrix3(MatrixB, MatrixC, MatrixD, MatrixF, MatrixG, MatrixH, MatrixN, MatrixO, MatrixP).determinant();
+    double m41 = Matrix3(MatrixB, MatrixC, MatrixD, MatrixF, MatrixG, MatrixH, MatrixJ, MatrixK, MatrixL).determinant();
 
     //Si ça marche pas essayer : de mettre un - sur la puissance de E et de M OU autre formule : A * m11 - E * m21 + I * m31 - M * m41
-    res = A * pow(A , 2) * m11 + E * pow(E, 3) * m21 + I *  pow(I, 4) * m31 + M * pow(M, 5) * m41;
+    res = A * pow(A , 2) * m11 + E * pow(E, 3) * m21 + I *  pow(I, 4) * m31 + MatrixM * pow(MatrixM, 5) * m41;
     
     return res;    
 }
@@ -195,25 +195,25 @@ Matrix4 Matrix4::Reverse()
      */
 
     //Déclaration des mineurs (determinants des sous matrices)
-    double m11 = Matrix3(F,G,H,J,K,L,N,O,P).determinant() * pow(-1, 1+1);
-    double m21 = Matrix3(B,C,D,J,K,L,N,O,P).determinant() * pow(-1, 2+1);
-    double m31 = Matrix3(B,C,D,F,G,H,N,O,P).determinant() * pow(-1, 3+1);
-    double m41 = Matrix3(B,C,D,F,G,H,J,K,L).determinant() * pow(-1, 4+1);
+    double m11 = Matrix3(MatrixF,MatrixG,MatrixH,MatrixJ,MatrixK,MatrixL,MatrixN,MatrixO,MatrixP).determinant() * pow(-1, 1+1);
+    double m21 = Matrix3(MatrixB,MatrixC,MatrixD,MatrixJ,MatrixK,MatrixL,MatrixN,MatrixO,MatrixP).determinant() * pow(-1, 2+1);
+    double m31 = Matrix3(MatrixB,MatrixC,MatrixD,MatrixF,MatrixG,MatrixH,MatrixN,MatrixO,MatrixP).determinant() * pow(-1, 3+1);
+    double m41 = Matrix3(MatrixB,MatrixC,MatrixD,MatrixF,MatrixG,MatrixH,MatrixJ,MatrixK,MatrixL).determinant() * pow(-1, 4+1);
 
-    double m12 = Matrix3(E,G,H,I,K,L,M,O,P).determinant() * pow(-1, 1+2);
-    double m22 = Matrix3(A,C,D,I,K,L,M,O,P).determinant() * pow(-1, 2+2);
-    double m32 = Matrix3(A,C,D,E,G,H,M,O,P).determinant() * pow(-1, 3+2);
-    double m42 = Matrix3(A,C,D,E,G,H,I,K,L).determinant() * pow(-1, 4+2);
+    double m12 = Matrix3(MatrixE,MatrixG,MatrixH,MatrixI,MatrixK,MatrixL,MatrixM,MatrixO,MatrixP).determinant() * pow(-1, 1+2);
+    double m22 = Matrix3(MatrixA,MatrixC,MatrixD,MatrixI,MatrixK,MatrixL,MatrixM,MatrixO,MatrixP).determinant() * pow(-1, 2+2);
+    double m32 = Matrix3(MatrixA,MatrixC,MatrixD,MatrixE,MatrixG,MatrixH,MatrixM,MatrixO,MatrixP).determinant() * pow(-1, 3+2);
+    double m42 = Matrix3(MatrixA,MatrixC,MatrixD,MatrixE,MatrixG,MatrixH,MatrixI,MatrixK,MatrixL).determinant() * pow(-1, 4+2);
 
-    double m13 = Matrix3(E,F,H,I,J,L,M,N,P).determinant() * pow(-1, 1+3);
-    double m23 = Matrix3(A,B,D,I,J,L,M,N,P).determinant() * pow(-1, 2+3);
-    double m33 = Matrix3(A,B,D,E,F,H,M,N,P).determinant() * pow(-1, 3+3);
-    double m43 = Matrix3(A,B,D,E,F,H,I,J,L).determinant() * pow(-1, 4+3);
+    double m13 = Matrix3(MatrixE,MatrixF,MatrixH,MatrixI,MatrixJ,MatrixL,MatrixM,MatrixN,MatrixP).determinant() * pow(-1, 1+3);
+    double m23 = Matrix3(MatrixA,MatrixB,MatrixD,MatrixI,MatrixJ,MatrixL,MatrixM,MatrixN,MatrixP).determinant() * pow(-1, 2+3);
+    double m33 = Matrix3(MatrixA,MatrixB,MatrixD,MatrixE,MatrixF,MatrixH,MatrixM,MatrixN,MatrixP).determinant() * pow(-1, 3+3);
+    double m43 = Matrix3(MatrixA,MatrixB,MatrixD,MatrixE,MatrixF,MatrixH,MatrixI,MatrixJ,MatrixL).determinant() * pow(-1, 4+3);
 
-    double m14 = Matrix3(E,F,G,I,J,K,M,N,O).determinant() * pow(-1, 1+4);
-    double m24 = Matrix3(A,B,C,I,J,K,M,N,O).determinant() * pow(-1, 2+4);
-    double m34 = Matrix3(A,B,C,E,F,G,M,N,O).determinant() * pow(-1, 3+4);
-    double m44 = Matrix3(A,B,C,E,F,G,I,J,K).determinant() * pow(-1, 4+4);
+    double m14 = Matrix3(MatrixE,MatrixF,MatrixG,MatrixI,MatrixJ,MatrixK,MatrixM,MatrixN,MatrixO).determinant() * pow(-1, 1+4);
+    double m24 = Matrix3(MatrixA,MatrixB,MatrixC,MatrixI,MatrixJ,MatrixK,MatrixM,MatrixN,MatrixO).determinant() * pow(-1, 2+4);
+    double m34 = Matrix3(MatrixA,MatrixB,MatrixC,MatrixE,MatrixF,MatrixG,MatrixM,MatrixN,MatrixO).determinant() * pow(-1, 3+4);
+    double m44 = Matrix3(MatrixA,MatrixB,MatrixC,MatrixE,MatrixF,MatrixG,MatrixI,MatrixJ,MatrixK).determinant() * pow(-1, 4+4);
 
     Matrix4 ComplementaryMatrix = Matrix4(m11,m12,m13,m14,m21,m22,m23,m24,m31,m32,m33,m34,m41,m42,m43,m44);
     

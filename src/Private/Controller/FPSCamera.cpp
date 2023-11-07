@@ -8,7 +8,7 @@ FPSCamera::FPSCamera(const ofApp * Context) : ofCamera(), Context(Context)
     
 }
 
-void FPSCamera::Update(const Vector3D& DeltaRot)
+void FPSCamera::UpdateRotation(const Vector3D& DeltaRot)
 {
     float deltaX = DeltaRot.GetX();
     float deltaY = DeltaRot.GetY();

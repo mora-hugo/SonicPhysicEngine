@@ -4,22 +4,22 @@
 #include <string>
 using namespace std;
 
-#define A data[0][0]
-#define B data[0][1]
-#define C data[0][2]
-#define D data[0][3]
-#define E data[1][0]
-#define F data[1][1]
-#define G data[1][2]
-#define H data[1][3]
-#define I data[2][0]
-#define J data[2][1]
-#define K data[2][2]
-#define L data[2][3]
-#define M data[3][0]
-#define N data[3][1]
-#define O data[3][2]
-#define P data[3][3]
+#define MatrixA data[0][0]
+#define MatrixB data[0][1]
+#define MatrixC data[0][2]
+#define MatrixD data[0][3]
+#define MatrixE data[1][0]
+#define MatrixF data[1][1]
+#define MatrixG data[1][2]
+#define MatrixH data[1][3]
+#define MatrixI data[2][0]
+#define MatrixJ data[2][1]
+#define MatrixK data[2][2]
+#define MatrixL data[2][3]
+#define MatrixM data[3][0]
+#define MatrixN data[3][1]
+#define MatrixO data[3][2]
+#define MatrixP data[3][3]
 
 class Matrix4
 {
@@ -51,10 +51,10 @@ public:
     operator std::string() const
     {
         return"        0        1        2       3 \n0 | "
-        +std::to_string(A)+" "+std::to_string(B)+" "+std::to_string(C)+" "+ std::to_string(D)+" |"+"\n"+
-        "1 | "+std::to_string(E)+" "+std::to_string(F)+" "+std::to_string(G)+" "+ std::to_string(H)+" |"+"\n"
-        "2 | "+std::to_string(I)+" "+std::to_string(J)+" "+std::to_string(K)+" "+ std::to_string(L)+ " |"+"\n"
-        "3 | "+std::to_string(M)+" "+std::to_string(N)+" "+std::to_string(O)+" "+ std::to_string(P)+ " |"+"\n";
+        +std::to_string(MatrixA)+" "+std::to_string(MatrixB)+" "+std::to_string(MatrixC)+" "+ std::to_string(MatrixD)+" |"+"\n"+
+        "1 | "+std::to_string(MatrixE)+" "+std::to_string(MatrixF)+" "+std::to_string(MatrixG)+" "+ std::to_string(MatrixH)+" |"+"\n"
+        "2 | "+std::to_string(MatrixI)+" "+std::to_string(MatrixJ)+" "+std::to_string(MatrixK)+" "+ std::to_string(MatrixL)+ " |"+"\n"
+        "3 | "+std::to_string(MatrixM)+" "+std::to_string(MatrixN)+" "+std::to_string(MatrixO)+" "+ std::to_string(MatrixP)+ " |"+"\n";
     }
 
     Matrix4 operator+(Matrix4 m) {

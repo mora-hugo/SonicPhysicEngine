@@ -30,6 +30,8 @@ public:
 
     void OnKeyboardEvent(const KeyboardEvent& event);
 
+    GameObjectsContainer *  GetObjectsArray();
+
 
     
 private:
