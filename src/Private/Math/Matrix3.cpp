@@ -115,3 +115,81 @@ Matrix3 Matrix3::Multiply(Matrix3 m)
     }
     return res;
 }
+
+Vector3D Matrix3::Multiply(Vector3D v)
+{
+    Vector3D res = Vector3D().Zero();
+
+    res.SetX(A*v.GetX() + B*v.GetY() +C*v.GetZ());
+    res.SetX(D*v.GetX() + E*v.GetY() + F*v.GetZ());
+    res.SetX(G*v.GetX() + H*v.GetY() + I*v.GetZ());
+    
+    return res;
+}
+
+double Matrix3::determinant()
+{
+    double res = 0;
+
+    /* Nous allons utiliser la règle de Sarrus
+     *
+     *    | a b c |
+     * det| d e f | = aei + dhc + bfg - (ceg + bdi + fha)
+     *    | g h i |
+     * 
+     */
+    
+    res = A*E*I + D*H*C + B*F*G - (C*E*G + B*D*I + F*H*A);
+    
+    return res;
+}
+
+Matrix3 Matrix3::Transpose()
+{
+    //La i ème colonne de notre matrice est la i ème ligne de la transposé de notre matrice
+    Matrix3 res = Matrix3();
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            res.SetMatrix3Element(i,j, data[j][i]);
+        }
+    }
+    return res;
+}
+Matrix3 Matrix3::Reverse()
+{
+    Matrix3 res = Matrix3();
+    double det = determinant();
+    Matrix3 ComplementaryMatrix = Matrix3();
+    
+    if (det == 0)
+    {
+        std::cerr << "Your matrix isn't reversable" << std::endl;
+        return Matrix3().NullMatrix();
+    }
+
+    /*
+     * Calcul de la matriceComplémentaire
+     *
+     *     | a b c |   | ei-fh ch-bi bf-ce |
+     * comp| d e f | = | fg-di ai-cg cd-af |
+     *     | g h i |   | dh-eg bg-ah ae-bd |
+     *
+     */
+    ComplementaryMatrix = Matrix3(E*I-F*H, C*H-B*I, B*F-C*E, F*G-D*I, A*I-C*G, C*D-A*F, D*H-E*G, B*G-A*H, A*E-B*D);
+
+    res = ComplementaryMatrix * (1/det);
+
+    return res;
+}
+
+//matrice null (en cas d'erreur)
+Matrix3 Matrix3::NullMatrix()
+{
+    Matrix3 res = Matrix3();
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            res.data[i][j] = NULL;
+        }
+    }
+    return res;
+}
