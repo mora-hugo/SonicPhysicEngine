@@ -1,6 +1,6 @@
-﻿#include "Stalk.h"
+﻿#include "../../Public/Math/Stalk.h"
 
-#include "Vector3D.h"
+#include "../../Public/Math/Vector3D.h"
 
 Stalk::Stalk(GameObject* p1, GameObject* p2, double springConstant, double restLength,double damping, double separationDistance)
     : Spring(p1, p2, springConstant, restLength, damping), separationDistance(separationDistance) {}
