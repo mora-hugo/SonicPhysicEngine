@@ -197,7 +197,7 @@ bool RunMatrix3Tests() {
 	}
 
 	if (TestResult) {
-		std::cout << "MatrixTransposeTest passed." << std::endl;
+		std::cout << "Matrix3TransposeTest passed." << std::endl;
 	}
 	else
 	{
@@ -206,31 +206,32 @@ bool RunMatrix3Tests() {
 
 	
 	// Test the Matrix3 reverse method
-	/*
 	Matrix3 matrixC(2, 1, 3, 1, 3, 2, 3, 2, 1);
-	
-	Matrix3 resultReverse = Matrix3(2, 1, 3, 1, 3, 2, 3, 2, 1).Reverse();
-	Matrix3 expectedReverse(
-		0.166667, -1.33333, 0.666667,
-		-1.33333, 0.166667, -0.166667,
-		0.666667, -0.166667, -0.333333
-	);
 
+	Matrix3 resultReverse = matrixC.Reverse();
+	Matrix3 expectedReverse(
+	0.05, -0.27, 0.38,
+	-0.27, 0.38, 0.05,
+	0.38, 0.05, -0.27
+	);
+	
 	// Compare the actual result with the expected result
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			assert(fabs(resultReverse.GetMatrix3Element(i, j) - expectedReverse.GetMatrix3Element(i, j)) < 1e-6);
+			if (fabs(resultReverse.GetMatrix3Element(i, j) - expectedReverse.GetMatrix3Element(i, j)) > 0.01) {
+				std::cerr << "Matrix3ReverseTest failed at element (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
 		}
 	}
 
 	if (TestResult) {
-		std::cout << "MatrixReverseTest passed." << std::endl;
+		std::cout << "Matrix3ReverseTest passed." << std::endl;
 	}
 	else
 	{
 		return false;
 	}
-	*/
 	
 	//return true if all tests are passed
 	return true;
@@ -338,15 +339,70 @@ bool RunMatrix4Tests() {
 
 
 	// Test the Matrix4 determinant method
+	double resultDeterminant = matrixA.determinant();
+	double expectedDeterminant = 0;
+
+	// Compare the actual result with the expected result
+	assert(resultDeterminant == expectedDeterminant);
+	std::cout << "TestMatrix4Determinant passed." << std::endl;
+
+	
 	// Test the Matrix4 transpose method
+	Matrix4 resultTranspose = matrixA.Transpose();
+	Matrix4 expectedTranspose(1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (resultTranspose.GetMatrix4Element(i, j) != expectedTranspose.GetMatrix4Element(i, j)) {
+				std::cerr << "Matrix4TransposeTest failed " << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix4TransposeTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	
 	// Test the Matrix4 reverse method
+	Matrix4 matrixC(
+	0.5, 0.3, 0.7, 0.9,
+	0.1, 0.6, 0.2, 0.8,
+	0.7, 0.5, 0.3, 0.9,
+	0.3, 0.2, 0.1, 0.5
+);
+/*
+	Matrix4 resultReverse = matrixC.Reverse();
+	Matrix4 expectedReverse(
+	-0.51, -1.45, 2.68, -1.59,
+	-0.94, 1.59, 3.55, -7.25,
+	1.78, 0.07, 0.62, -4.42,
+	0.33, 0.22, -3.15, 6.74
+);
 	
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (fabs(resultReverse.GetMatrix4Element(i, j) - expectedReverse.GetMatrix4Element(i, j)) > 0.01) {
+				std::cerr << "Matrix4ReverseTest failed at element (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
 
-
-
-
-	
-	
+	if (TestResult) {
+		std::cout << "Matrix4ReverseTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	*/
 	//return true if all tests are passed
 	return true;
 }
