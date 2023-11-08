@@ -14,14 +14,8 @@ void Player::Setup()
     GameObject::Setup();
     bool bIsloaded = Weapon.load("rocket_launcher_m236.glb",20);
     Weapon.setScale(0.1,0.1,0.1);
-    ofMouseEventArgs m(ofMouseEventArgs::Pressed, ofGetWidth()/2.0f, ofGetHeight()/2.0f, OF_MOUSE_BUTTON_LEFT);
 
-    EventManager::KeyboardEvent.subscribe([=](const KeyboardEvent& event) {
-        if(bIsUsingTPSCamera && event.InputType == KeyboardEventType::KEY_PRESSED && (event.key == Config::getChar("KEY_QUIT_TPS") || event.key == 'F')) 
-        {
-            SwitchCameraToFPS(true);
-        }
-    });
+    
 }
 
 void Player::Draw()
@@ -73,7 +67,6 @@ void Player::Fire(GameWorld * Context)
     
     GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new ParticleFireball(50,1, GetLaunchPoint(), GetCamera()->getLookAtDir()*50, Vector3D::Zero(),5));
     SetCameraTarget(gameobject);
-    SwitchCameraToFPS(false);
     TPSCamera.resetTransform();
 }
 
@@ -119,13 +112,17 @@ void Player::StartPlayerSee()
         
         Vector3D Position = CameraTarget->GetPosition();
 
-        ofDrawBitmapStringHighlight("Switch Camera to the fired object using " + std::string(1,Config::getChar("KEY_QUIT_TPS")) + " or F", 100, 100, ofColor(255, 255, 255, opacity), ofColor(0, 0, 0, opacity));
     }
 }
 
 void Player::SetCameraTarget(GameObject* Target)
 {
    CameraTarget = Target;
+}
+
+void Player::ToggleCamera()
+{
+    bIsUsingTPSCamera = !bIsUsingTPSCamera;
 }
 
 void Player::SwitchCameraToFPS(bool bIsFPSCamera)

@@ -27,6 +27,8 @@ public:
 
     void SetCameraTarget(GameObject * Target);
 
+    void ToggleCamera();
+
     void SwitchCameraToFPS(bool bIsFPSCamera);
 
     bool IsUsingFPSCamera() const;
