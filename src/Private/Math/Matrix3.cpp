@@ -122,8 +122,8 @@ Vector3D Matrix3::Multiply(Vector3D v)
     Vector3D res = Vector3D().Zero();
 
     res.SetX(A*v.GetX() + B*v.GetY() +C*v.GetZ());
-    res.SetX(D*v.GetX() + E*v.GetY() + F*v.GetZ());
-    res.SetX(G*v.GetX() + H*v.GetY() + I*v.GetZ());
+    res.SetY(D*v.GetX() + E*v.GetY() + F*v.GetZ());
+    res.SetZ(G*v.GetX() + H*v.GetY() + I*v.GetZ());
     
     return res;
 }
