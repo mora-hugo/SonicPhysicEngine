@@ -16,11 +16,26 @@ public:
     // Quaternion conjugate
     Quaternion conjugate() const;
 
+    // Function to create and return the identity quaternion
+    static Quaternion identity();
+
     // Quaternion norm (magnitude)
     double norm() const;
 
     // Normalize the quaternion
     void normalize();
+
+    // Function to negate the quaternion
+    Quaternion negate() const;
+
+    // Function to calculate the difference between two quaternions
+    Quaternion difference(const Quaternion& other) const;
+    
+    // Function to compute the scalar (dot) product of two quaternions
+    double scalarProduct(const Quaternion& other) const;
+
+    // Function to exponentiate the quaternion
+    Quaternion exponentiation() const;
 };
 
 #endif

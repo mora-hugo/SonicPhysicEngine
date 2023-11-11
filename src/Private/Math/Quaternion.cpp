@@ -14,6 +14,10 @@ Quaternion Quaternion::conjugate() const {
     return Quaternion(w, -x, -y, -z);
 }
 
+Quaternion Quaternion::identity() {
+    return Quaternion(1.0, 0.0, 0.0, 0.0);
+}
+
 double Quaternion::norm() const {
     return std::sqrt(w * w + x * x + y * y + z * z);
 }
@@ -26,4 +30,27 @@ void Quaternion::normalize() {
         y /= magnitude;
         z /= magnitude;
     }
+}
+
+Quaternion Quaternion::negate() const {
+    return Quaternion(-w, -x, -y, -z);
+}
+
+Quaternion Quaternion::difference(const Quaternion& other) const {
+    // To calculate the difference, we find the quaternion that represents the rotation from "other" to "this".
+    // The difference quaternion is obtained by multiplying "this" with the conjugate of "other".
+    Quaternion conjugateOther = other.conjugate();
+    return (*this) * conjugateOther;
+}
+
+double Quaternion::scalarProduct(const Quaternion& other) const {
+    return w * other.w + x * other.x + y * other.y + z * other.z;
+}
+
+Quaternion Quaternion::exponentiation() const {
+    double norm = this->norm(); //sqrt(w * w + x * x + y * y + z * z);
+    double expReal = cos(norm);
+    double expFactor = (norm > 0.0) ? sin(norm) / norm : 1.0;
+
+    return Quaternion(expReal, x * expFactor, y * expFactor, z * expFactor);
 }
