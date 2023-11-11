@@ -1,4 +1,5 @@
 ﻿#include "../../Public/Math/Quaternion.h"
+#include "../../Public/Math/Vector3D.h"
 
 Quaternion::Quaternion(double real, double i, double j, double k) : w(real), x(i), y(j), z(k) {}
 

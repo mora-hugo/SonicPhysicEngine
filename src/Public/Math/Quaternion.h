@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "./Vector3D.h"
+
 
 class Quaternion {
 public:
@@ -48,7 +48,7 @@ public:
     Quaternion operator*(double scalar) const;
 
     //Function that create a Quaternion with a Vector
-    static Quaternion fromVector(const Vector3D& vector);
+    static Quaternion fromVector(const class Vector3D& vector);
 };
 
 #endif
