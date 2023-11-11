@@ -2,6 +2,7 @@
 #include "../../Public/Particle/ParticleFireball.h"
 #include "../../ofApp.h"
 #include "../../Public/Engine/EventManager.h"
+#include "../../Public/GameObjects/RigidBody.h"
 
 
 Player::Player(ofApp * Context, const double& mass, const Vector3D& position, const Vector3D& velocity, int SphereRadius) :
@@ -64,8 +65,7 @@ void Player::Jump()
 
 void Player::Fire(GameWorld * Context)
 {
-    
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new ParticleFireball(50,1, GetLaunchPoint(), GetCamera()->getLookAtDir()*50, Vector3D::Zero(),5));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),1, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*10, 1, false));
     SetCameraTarget(gameobject);
     TPSCamera.resetTransform();
 }

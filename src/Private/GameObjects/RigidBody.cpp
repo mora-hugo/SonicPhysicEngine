@@ -1,7 +1,7 @@
 ﻿#include "../../Public/GameObjects/RigidBody.h"
 
 RigidBody::RigidBody(const Vector3D& AngularAcceleration, const double& mass, const Vector3D& position,
-    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, bIsUsingGravity), ofBoxPrimitive(100,100,100)
+    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, false), ofBoxPrimitive(5,5,5)
 {
 }
 
@@ -40,10 +40,10 @@ void RigidBody::Update(double f)
     RightVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(RightVector));
     UpVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(UpVector));
 
-    cout << "ForwardVector: " << ForwardVector.Magnitude() << endl;
-    cout << "RightVector: " << RightVector.Magnitude() << endl;
-    cout << "UpVector: " << UpVector.Magnitude() << endl;
-    cout << "-----------" << endl;
+    
+
+
+    rotate(glm::quat(RotationQuat.w, RotationQuat.x, RotationQuat.y, RotationQuat.z));
 
     
 }

@@ -17,7 +17,7 @@ private:
 
     Matrix3 RotationMatrix;
     Quaternion RotationQuat = Quaternion::identity();
-    Vector3D AngularVelocity {0.1,0,0};
+    Vector3D AngularVelocity {0.01,0.01,0.01};
     Vector3D AngularAcceleration;
 
     Vector3D ForwardVector = Vector3D::Forward();
