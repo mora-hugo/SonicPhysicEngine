@@ -174,8 +174,8 @@ bool RunMatrix3Tests() {
 
 	
 	// Test the Matrix3 determinant method
-	double resultDeterminant = matrixA.determinant();
-	double expectedDeterminant = 0;
+	double resultDeterminant = Matrix3(5,3,7,1,6,2,7,5,3).determinant();
+	double expectedDeterminant = -186;
 
 	// Compare the actual result with the expected result
 	assert(resultDeterminant == expectedDeterminant);
@@ -339,8 +339,8 @@ bool RunMatrix4Tests() {
 
 
 	// Test the Matrix4 determinant method
-	double resultDeterminant = matrixA.determinant();
-	double expectedDeterminant = 0;
+	double resultDeterminant = Matrix4(5,3,7,9,1,6,2,8,7,5,3,9,3,2,1,5).determinant();
+	double expectedDeterminant = -276;
 
 	// Compare the actual result with the expected result
 	assert(resultDeterminant == expectedDeterminant);
@@ -371,18 +371,18 @@ bool RunMatrix4Tests() {
 	
 	// Test the Matrix4 reverse method
 	Matrix4 matrixC(
-	0.5, 0.3, 0.7, 0.9,
-	0.1, 0.6, 0.2, 0.8,
-	0.7, 0.5, 0.3, 0.9,
-	0.3, 0.2, 0.1, 0.5
+	5, 3, 7, 9,
+	1, 6, 2, 8,
+	7, 5, 3, 9,
+	3, 2, 1, 5
 );
-/*
+
 	Matrix4 resultReverse = matrixC.Reverse();
 	Matrix4 expectedReverse(
-	-0.51, -1.45, 2.68, -1.59,
-	-0.94, 1.59, 3.55, -7.25,
-	1.78, 0.07, 0.62, -4.42,
-	0.33, 0.22, -3.15, 6.74
+	-0.05, -0.14, 0.27, -0.16,
+	-0.09, 0.16, 0.36, -0.72,
+	0.18, 0.01, 0.06, -0.44,
+	0.03, 0.02, -0.32, 0.67
 );
 	
 	// Compare the actual result with the expected result
@@ -402,7 +402,7 @@ bool RunMatrix4Tests() {
 	{
 		return false;
 	}
-	*/
+	
 	//return true if all tests are passed
 	return true;
 }

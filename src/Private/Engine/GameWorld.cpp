@@ -100,12 +100,16 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
             player->StartWalkingForward();
         if(event.key == Config::getChar("KEY_MOVE_JUMP") || event.key == std::toupper(Config::getChar("KEY_MOVE_JUMP")))
             player->Jump();
+        if(event.key == Config::getChar("KEY_QUIT_TPS") || event.key == std::toupper(event.key == Config::getChar("KEY_QUIT_TPS")))
+            player->SwitchCameraToFPS(false);
         
     }
     if(event.InputType == KeyboardEventType::KEY_RELEASED)
     {
         if(event.key == Config::getChar("KEY_MOVE_FORWARD") || event.key == std::toupper(Config::getChar("KEY_MOVE_FORWARD")))
             player->StopWalkingForward();
+        if(event.key == Config::getChar("KEY_QUIT_TPS") || event.key == std::toupper(event.key == Config::getChar("KEY_QUIT_TPS")))
+            player->SwitchCameraToFPS(true);
         
     }
 }
