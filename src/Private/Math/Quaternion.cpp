@@ -54,3 +54,11 @@ Quaternion Quaternion::exponentiation() const {
 
     return Quaternion(expReal, x * expFactor, y * expFactor, z * expFactor);
 }
+
+Quaternion Quaternion::operator+(const Quaternion& other) const {
+    return Quaternion(w + other.w, x + other.x, y + other.y, z + other.z);
+}
+
+Quaternion Quaternion::operator-(const Quaternion& other) const {
+    return Quaternion(w - other.w, x - other.x, y - other.y, z - other.z);
+}

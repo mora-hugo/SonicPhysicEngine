@@ -36,6 +36,12 @@ public:
 
     // Function to exponentiate the quaternion
     Quaternion exponentiation() const;
+
+    // Function to add two quaternions
+    Quaternion operator+(const Quaternion& other) const;
+
+    // Function to subtract two quaternions
+    Quaternion operator-(const Quaternion& other) const;
 };
 
 #endif
