@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "./Vector3D.h"
 
 class Quaternion {
 public:
@@ -42,6 +43,9 @@ public:
 
     // Function to subtract two quaternions
     Quaternion operator-(const Quaternion& other) const;
+
+    //Function that create a Quaternion with a Vector
+    static Quaternion fromVector(const Vector3D& vector);
 };
 
 #endif

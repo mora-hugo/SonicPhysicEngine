@@ -62,3 +62,7 @@ Quaternion Quaternion::operator+(const Quaternion& other) const {
 Quaternion Quaternion::operator-(const Quaternion& other) const {
     return Quaternion(w - other.w, x - other.x, y - other.y, z - other.z);
 }
+
+Quaternion Quaternion::fromVector(const Vector3D& vector) {
+    return Quaternion(0.0, vector.GetX(), vector.GetY(), vector.GetZ());
+}

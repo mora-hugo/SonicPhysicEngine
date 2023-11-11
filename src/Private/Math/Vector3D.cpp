@@ -91,3 +91,8 @@ Vector3D Vector3D::Zero()
     return Vector3D();
 }
 
+Vector3D Vector3D::fromQuaternion(const Quaternion& quaternion)
+{
+    return Vector3D(quaternion.x, quaternion.y, quaternion.z);
+}
+

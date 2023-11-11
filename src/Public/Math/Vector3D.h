@@ -2,6 +2,7 @@
 #include <string>
 #include <utility>
 #include <glm/glm.hpp>
+#include "./Quaternion.h"
 class Vector3D
 {
 public:
@@ -192,6 +193,9 @@ public:
     Vector3D operator*(const double& Scalar) const {
         return (this->Multiply(Scalar));
     }
+
+ 
+ static Vector3D fromQuaternion(const Quaternion& quaternion);
 
     
     /*
