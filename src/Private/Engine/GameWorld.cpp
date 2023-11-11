@@ -75,11 +75,11 @@ void GameWorld::OnMouseEvent(const MouseEvent& event)
     if(event.EventType == MouseEventType::MOUSE_MOVE)
     {
         // Obtenez la différence de position de la souris depuis la dernière frame
-        int MouseXPos = event.x;
-        int MouseYPos = event.y;
-        
-        int deltaX = MouseXPos - LastMousePosition.GetX();
-        int deltaY = MouseYPos -  LastMousePosition.GetY();
+        const int MouseXPos = event.x;
+        const int MouseYPos = event.y;
+
+        const int deltaX = MouseXPos - LastMousePosition.GetX();
+        const int deltaY = MouseYPos -  LastMousePosition.GetY();
 
         player->OnRotate(Vector3D(deltaX, deltaY, 0));
     
