@@ -153,9 +153,8 @@ double Matrix4::determinant()
     double m31 = Matrix3(MatrixB, MatrixC, MatrixD, MatrixF, MatrixG, MatrixH, MatrixN, MatrixO, MatrixP).determinant();
     double m41 = Matrix3(MatrixB, MatrixC, MatrixD, MatrixF, MatrixG, MatrixH, MatrixJ, MatrixK, MatrixL).determinant();
 
-    //Si ça marche pas essayer : de mettre un - sur la puissance de E et de M OU autre formule : A * m11 - E * m21 + I * m31 - M * m41
-    res = A * pow(A , 2) * m11 + E * pow(E, 3) * m21 + I *  pow(I, 4) * m31 + MatrixM * pow(MatrixM, 5) * m41;
-    
+    //A * m11 - E * m21 + I * m31 - M * m41
+    res = MatrixA * m11 - MatrixE * m21 + MatrixI * m31 - MatrixM * m41;
     return res;    
 }
 
@@ -215,7 +214,7 @@ Matrix4 Matrix4::Reverse()
     double m34 = Matrix3(MatrixA,MatrixB,MatrixC,MatrixE,MatrixF,MatrixG,MatrixM,MatrixN,MatrixO).determinant() * pow(-1, 3+4);
     double m44 = Matrix3(MatrixA,MatrixB,MatrixC,MatrixE,MatrixF,MatrixG,MatrixI,MatrixJ,MatrixK).determinant() * pow(-1, 4+4);
 
-    Matrix4 ComplementaryMatrix = Matrix4(m11,m12,m13,m14,m21,m22,m23,m24,m31,m32,m33,m34,m41,m42,m43,m44);
+    Matrix4 ComplementaryMatrix = Matrix4(m11,m12,m13,m14,m21,m22,m23,m24,m31,m32,m33,m34,m41,m42,m43,m44).Transpose();
     
     res = ComplementaryMatrix * (1/det);
     
