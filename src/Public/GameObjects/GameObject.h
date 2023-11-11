@@ -57,6 +57,13 @@ public:
 
     void AddImpulse(Vector3D ImpulseVector);
 
+    //Tags
+    void AddTag(const std::string& Tag);
+
+    void RemoveTag(const std::string& Tag);
+
+    bool HasTag(const std::string& Tag) const;
+
 protected:
     
 
@@ -77,4 +84,6 @@ private:
     Vector3D AccumForce;
     int radius= 0;
     bool bUsingGravity = true;
+
+    std::vector<std::string> Tags;
 };

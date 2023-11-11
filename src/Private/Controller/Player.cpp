@@ -65,7 +65,7 @@ void Player::Jump()
 
 void Player::Fire(GameWorld * Context)
 {
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),1, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*10, 1, false));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),1, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*50, 1, true));
     SetCameraTarget(gameobject);
     TPSCamera.resetTransform();
 }

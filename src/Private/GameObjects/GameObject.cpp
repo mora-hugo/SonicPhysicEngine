@@ -145,6 +145,30 @@ void GameObject::AddImpulse(Vector3D ImpulseVector)
     velocity = velocity + ImpulseVector.Multiply(GetReverseMass());
 }
 
+void GameObject::AddTag(const std::string& Tag)
+{
+    Tags.push_back(Tag);
+}
+
+void GameObject::RemoveTag(const std::string& Tag)
+{
+    //remove an occurrence of Tag in
+    for(auto it = Tags.begin(); it != Tags.end(); ++it)
+    {
+        if(*it == Tag)
+        {
+            Tags.erase(it);
+            break;
+        }
+    }
+
+}
+
+bool GameObject::HasTag(const std::string& Tag) const
+{
+    return std::find(Tags.begin(), Tags.end(), Tag) != Tags.end();
+}
+
 
 void GameObject::ApplyPhysics(double DeltaTimes)
 {

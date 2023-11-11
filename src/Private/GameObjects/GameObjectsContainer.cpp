@@ -1,4 +1,6 @@
 #include "../../Public/GameObjects/GameObjectsContainer.h"
+#include "../../Public/GameObjects/Wall.h"
+#include "../../Public/Controller/Player.h"
 #include "../../Public/Config/Config.h"
 
 #include <array>
@@ -23,6 +25,23 @@ void GameObjectsContainer::Update(double f)
         objects[i]->Update(f);
         for(unsigned int j = i + 1; j < objects.size(); j++)
         {
+            //If there is a wall and a player
+            if((objects[i]->HasTag("Player") || objects[j]->HasTag("Player")) && (objects[i]->HasTag("Wall") || objects[j]->HasTag("Wall")))
+            {
+                Player * player;
+                Wall * wall;
+                if(objects[i]->HasTag("Player"))
+                    player = dynamic_cast<Player*>(objects[i]);
+                else
+                    player = dynamic_cast<Player*>(objects[j]);
+
+                if(objects[i]->HasTag("Wall"))
+                    wall = dynamic_cast<Wall*>(objects[i]);
+                else
+                    wall = dynamic_cast<Wall*>(objects[j]);
+
+            }
+            
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others
             {
                 GameObject * p1 = objects[i];

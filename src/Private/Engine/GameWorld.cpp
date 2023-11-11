@@ -8,6 +8,7 @@
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
 #include "../../Public/GameObjects/RigidBody.h"
+#include "../../Public/GameObjects/Wall.h"
 #include "../../Public/Particle/BlobParticle.h"
 #include "../../Public/Math/ClassicSpring.h"
 #include "../../Public/Math/Cable.h"
@@ -32,6 +33,7 @@ void GameWorld::BeginPlay(ofApp * Context)
     //Rock generation
     
     rockTexture.load("rock_albedo.jpg");
+    /*
     for(int i = -10; i < 10; i++)
     {
         for(int j = -10; j < 10; j++)
@@ -43,7 +45,9 @@ void GameWorld::BeginPlay(ofApp * Context)
             objects.SpawnObject(rock);
         }
     }
+    */
     player->Setup();
+    CreateMap();
 }
 
 void GameWorld::Update(double DeltaTimes)
@@ -118,4 +122,9 @@ void GameWorld::OnKeyboardEvent(const KeyboardEvent& event)
 GameObjectsContainer* GameWorld::GetObjectsArray()
 {
     return &objects;
+}
+
+void GameWorld::CreateMap()
+{
+    objects.SpawnObject(new Wall(&rockTexture,200,1000,200, Vector3D(400,200,0)));
 }

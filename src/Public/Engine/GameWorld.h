@@ -49,6 +49,8 @@ private:
     ofImage rockTexture;
     ofImage sky;
 
+    void CreateMap();
+
 
 };
 
