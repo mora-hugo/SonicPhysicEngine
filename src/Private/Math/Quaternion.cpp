@@ -10,6 +10,10 @@ Quaternion Quaternion::operator*(const Quaternion& other) const {
     return Quaternion(realPart, iPart, jPart, kPart);
 }
 
+Quaternion Quaternion::operator*(double scalar) const {
+    return Quaternion(w * scalar, x * scalar, y * scalar, z * scalar);
+}
+
 Quaternion Quaternion::conjugate() const {
     return Quaternion(w, -x, -y, -z);
 }

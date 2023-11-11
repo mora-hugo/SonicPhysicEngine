@@ -44,6 +44,9 @@ public:
     // Function to subtract two quaternions
     Quaternion operator-(const Quaternion& other) const;
 
+    // Function to multiply with Scalar
+    Quaternion operator*(double scalar) const;
+
     //Function that create a Quaternion with a Vector
     static Quaternion fromVector(const Vector3D& vector);
 };
