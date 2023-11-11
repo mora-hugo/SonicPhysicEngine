@@ -7,6 +7,7 @@
 #include "../../ofApp.h"
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
+#include "../../Public/GameObjects/RigidBody.h"
 #include "../../Public/Particle/BlobParticle.h"
 #include "../../Public/Math/ClassicSpring.h"
 #include "../../Public/Math/Cable.h"
@@ -42,6 +43,7 @@ void GameWorld::BeginPlay(ofApp * Context)
             objects.SpawnObject(rock);
         }
     }
+    objects.SpawnObject(new RigidBody(Vector3D(1,1,1), 10, player->GetPosition().Add(Vector3D(0,300,0)), Vector3D::Zero(), 10));
     player->Setup();
 }
 

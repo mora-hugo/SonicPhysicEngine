@@ -16,7 +16,12 @@ public:
      *
      */
 
-    
+
+    static Vector3D Up() {  return Vector3D(0, 1, 0); };
+
+    static Vector3D Forward() { return Vector3D(0, 0, 1); };
+
+    static Vector3D Right() { return Vector3D(1, 0, 0); };
     /**
     * \brief Vector addition.
     * 

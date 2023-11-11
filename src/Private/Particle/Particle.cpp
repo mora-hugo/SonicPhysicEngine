@@ -14,6 +14,7 @@ Particle::Particle(const double& _mass, const float lifetime, const Vector3D& _p
 void Particle::Setup()
 {
     GameObject::Setup();
+    
 }
 
 void Particle::Draw()
