@@ -127,10 +127,15 @@ GameObjectsContainer* GameWorld::GetObjectsArray()
 void GameWorld::CreateMap()
 {
     wallTexture.load("StoneTileTexture/Stone_2k_Albedo.jpg");
+
+    //Nb de wall dans une direction global
     const int NbWall = 3;
+
+    //largeur du mur pour un bon tiling
     const int WidthWall = 600;
 
     //========================= First Room
+    //Carte symétrique à partir de 0;0;0 donc on fait des - et des + pour construire la map de chaque côté
     //back spawn 0;0;0
     for (int i= -4 ; i< NbWall+1; i++) //8 wall au total avec 4 de chaque côté
     {
