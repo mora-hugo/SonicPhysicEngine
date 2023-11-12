@@ -8,6 +8,7 @@
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
 #include "../../Public/GameObjects/Object3d.h"
+#include "../../Public/GameObjects/Painting.h"
 #include "../../Public/GameObjects/RigidBody.h"
 #include "../../Public/GameObjects/Wall.h"
 #include "../../Public/Particle/BlobParticle.h"
@@ -199,9 +200,19 @@ void GameWorld::CreateMap()
 
     //======================= Decoration Painting
     paintingTexture.load("MinecraftTexture/minecraft.jpg");
-    objects.SpawnObject(new Wall(&paintingTexture,300,300,10, Vector3D(0,-250,-1950)));
+    objects.SpawnObject(new Painting(&paintingTexture,300,300,10, Vector3D(0,-250,-1950)));
 
 
     //======================= 3D Props
-    objects.SpawnObject(new Object3d("Props/chair.glb",Vector3D(0,-100,0),Vector3D(0,0,90),Vector3D(0.5,0.5,0.5),Vector3D(100,100,100)));
+    //objects.SpawnObject(new Object3d("ObjectAsset/elon_musk.glb",Vector3D(1500,-100,-2500),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100))); // Elon Musk Easter Egg
+
+    objects.SpawnObject(new Object3d("Props/chair.glb",Vector3D(2000,0,-2180),Vector3D(0,0,0),Vector3D(0.28,0.28,0.28),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/computer.glb",Vector3D(2000,0,-2150),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/Table.glb",Vector3D(1500,0,-2150),Vector3D(0,0,0),Vector3D(0.35,0.35,0.35),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/old_wooden_table.glb",Vector3D(1500,-150,-2500),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/microvax-ii.glb",Vector3D(1500,0,-2800),Vector3D(0,90,0),Vector3D(0.3,0.3,0.3),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/old_table_fan.glb",Vector3D(1200,0,-2800),Vector3D(0,180,0),Vector3D(0.2,0.2,0.2),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(1100,0,-3000),Vector3D(0,0,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/old_bed.glb",Vector3D(900,0,-3000),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
+    objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(500,60,-2300),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
 }

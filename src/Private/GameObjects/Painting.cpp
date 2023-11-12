@@ -4,6 +4,7 @@ Painting::Painting(ofImage* image, float Width, float Height, float Depth, const
 {
     texture->getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     this->mapTexCoordsFromTexture(texture->getTexture());
+    rotateDeg(180,0,0,1);
 }
 
 void Painting::Setup()
