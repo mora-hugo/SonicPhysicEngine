@@ -426,9 +426,7 @@ bool RunQuaternionTests() {
 	
 
 	//Test the Quaternion conjugate method
-	Quaternion q(1, 2, 3, 4);
-
-	Quaternion resultConjugate = q.conjugate();
+	Quaternion resultConjugate = q1.conjugate();
 
 	// Define the expected result manually
 	Quaternion expectedConjugate(1, -2, -3, -4);
@@ -442,9 +440,7 @@ bool RunQuaternionTests() {
 	
 
 	//Test the Quaternion norm method
-	Quaternion q3(1, 2, 3, 4);
-
-	double resultNorm = q3.norm();
+	double resultNorm = q1.norm();
 
 	// Define the expected result manually
 	double expectedNorm = 5.477225575051661;
@@ -457,7 +453,6 @@ bool RunQuaternionTests() {
 	
 	//Test the Quaternion normalize method
 	Quaternion q4(1, 2, 3, 4);
-
 	q4.normalize();
 
 	// Define the expected result manually
@@ -470,6 +465,122 @@ bool RunQuaternionTests() {
 	assert(std::abs(q4.y - expectedNormalize.y) < toleranceNormalize);
 	assert(std::abs(q4.z - expectedNormalize.z) < toleranceNormalize);
 	std::cout << "TestQuaternionNormalize passed." << std::endl;
+
+
+	//Test the Quaternion negate method
+	Quaternion resultNegate = q1.negate();
+	Quaternion expectedNegate(-1, -2, -3, -4);
+
+	// Compare the actual result with the expected result
+	assert(resultNegate.w == expectedNegate.w);
+	assert(resultNegate.x == expectedNegate.x);
+	assert(resultNegate.y == expectedNegate.y);
+	assert(resultNegate.z == expectedNegate.z);
+	std::cout << "TestQuaternionNegate passed." << std::endl;
+	
+	
+	//Test the Quaternion difference method
+	Quaternion q5(1, 2, 3, 4);
+	Quaternion q6(2, 3, 4, 5);
+
+	Quaternion resultDifference = q5.difference(q6);
+
+	// Define the expected result manually
+	Quaternion expectedDifference(40, 2, 0, 4);
+
+	// Compare the actual result with the expected result
+	assert(resultDifference.w == expectedDifference.w);
+	assert(resultDifference.x == expectedDifference.x);
+	assert(resultDifference.y == expectedDifference.y);
+	assert(resultDifference.z == expectedDifference.z);
+	std::cout << "TestQuaternionDifference passed." << std::endl;
+
+	
+	//Test the Quaternion scalarProduct method
+	double resultScalarProduct = q5.scalarProduct(q6);
+	double expectedScalarProduct = 1*2 + 2*3 + 3*4 + 4*5; // 2 + 6 + 12 + 20 = 40
+
+	// Compare the actual result with the expected result
+	assert(resultScalarProduct == expectedScalarProduct);
+	std::cout << "TestQuaternionScalarProduct passed." << std::endl;
+
+	
+	//Test the Quaternion exponentiation method
+	Quaternion resultExponentiation = q1.exponentiation();
+
+	// Calculate the expected result manually
+	double norm = q1.norm();
+	double expReal = cos(norm);
+	double expFactor = (norm > 0.0) ? sin(norm) / norm : 1.0;
+	Quaternion expectedExponentiation(expReal, 2 * expFactor, 3 * expFactor, 4 * expFactor);
+
+	// Compare the actual result with the expected result
+	double toleranceExponentiation = 1e-9;
+	assert(std::abs(resultExponentiation.w - expectedExponentiation.w) < toleranceExponentiation);
+	assert(std::abs(resultExponentiation.x - expectedExponentiation.x) < toleranceExponentiation);
+	assert(std::abs(resultExponentiation.y - expectedExponentiation.y) < toleranceExponentiation);
+	assert(std::abs(resultExponentiation.z - expectedExponentiation.z) < toleranceExponentiation);
+
+	std::cout << "TestQuaternionExponentiation passed." << std::endl;
+	
+	//Test the Quaternion add method
+	Quaternion resultAddition = q1+q2;
+	Quaternion expectedAddition(6, 8, 10, 12);
+
+	// Compare the actual result with the expected result
+	assert(resultAddition.w == expectedAddition.w);
+	assert(resultAddition.x == expectedAddition.x);
+	assert(resultAddition.y == expectedAddition.y);
+	assert(resultAddition.z == expectedAddition.z);
+	std::cout << "TestQuaternionAddition passed." << std::endl;
+	
+	
+	//Test the Quaternion subtract method
+	Quaternion resultSubtraction = q1 - q2;
+	Quaternion expectedSubtraction(-4, -4, -4, -4);
+
+	// Compare the actual result with the expected result
+	assert(resultSubtraction.w == expectedSubtraction.w);
+	assert(resultSubtraction.x == expectedSubtraction.x);
+	assert(resultSubtraction.y == expectedSubtraction.y);
+	assert(resultSubtraction.z == expectedSubtraction.z);
+	std::cout << "TestQuaternionSubtraction passed." << std::endl;
+
+	
+	//Test the Quaternion multiply with scalar method
+	double scalar = 2.5;
+
+	Quaternion resultScalarMultiplication = q1 * scalar;
+
+	// Define the expected result manually
+	Quaternion expectedScalarMultiplication(2.5, 5, 7.5, 10);
+
+	// Compare the actual result with the expected result
+	double toleranceScalarMultiplication = 1e-9;
+	assert(std::abs(resultScalarMultiplication.w - expectedScalarMultiplication.w) < toleranceScalarMultiplication);
+	assert(std::abs(resultScalarMultiplication.x - expectedScalarMultiplication.x) < toleranceScalarMultiplication);
+	assert(std::abs(resultScalarMultiplication.y - expectedScalarMultiplication.y) < toleranceScalarMultiplication);
+	assert(std::abs(resultScalarMultiplication.z - expectedScalarMultiplication.z) < toleranceScalarMultiplication);
+
+	std::cout << "TestQuaternionScalarMultiplication passed." << std::endl;
+
+	
+	//Test the Quaternion from vector method
+	Vector3D v1(1.0, 2.0, 3.0);
+
+	Quaternion resultFromVector = Quaternion::fromVector(v1);
+
+	// Define the expected result manually
+	Quaternion expectedFromVector(0, 1.0, 2.0, 3.0);
+
+	// Compare the actual result with the expected result
+	double toleranceFromVector = 1e-9;
+	assert(std::abs(resultFromVector.w - expectedFromVector.w) < toleranceFromVector);
+	assert(std::abs(resultFromVector.x - expectedFromVector.x) < toleranceFromVector);
+	assert(std::abs(resultFromVector.y - expectedFromVector.y) < toleranceFromVector);
+	assert(std::abs(resultFromVector.z - expectedFromVector.z) < toleranceFromVector);
+
+	std::cout << "TestQuaternionFromVector passed." << std::endl;
 	
 
 	//return true if all tests are passed
