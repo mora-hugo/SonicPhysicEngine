@@ -72,6 +72,7 @@ void GameObject::cleanAccumForce()
             Forces.erase(Forces.begin()+i);
         }
     }
+    
     //A la fin de la simulation on ajoute la force de friction avec l'air et la force de gravité qui s'appliqe à chaque pas de simulation
     Forces.push_back(Force(Vector3D(0.8,0.4,0),1,Friction));
     AccumForce = Vector3D().Zero();
@@ -167,6 +168,11 @@ void GameObject::RemoveTag(const std::string& Tag)
 bool GameObject::HasTag(const std::string& Tag) const
 {
     return std::find(Tags.begin(), Tags.end(), Tag) != Tags.end();
+}
+
+void GameObject::SetPosition(Vector3D NewPosition)
+{
+    position = NewPosition;
 }
 
 

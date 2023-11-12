@@ -1,7 +1,7 @@
 ﻿#include "../../Public/GameObjects/RigidBody.h"
 
 RigidBody::RigidBody(const Vector3D& AngularAcceleration, const double& mass, const Vector3D& position,
-    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, false), ofBoxPrimitive(5,5,5)
+    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, true), ofBoxPrimitive(5,5,5)
 {
 }
 

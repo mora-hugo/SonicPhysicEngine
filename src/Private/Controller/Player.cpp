@@ -6,7 +6,7 @@
 
 
 Player::Player(ofApp * Context, const double& mass, const Vector3D& position, const Vector3D& velocity, int SphereRadius) :
-    GameObject(mass, position, velocity, SphereRadius), Camera{Context}
+    GameObject(mass, position, velocity, SphereRadius, false), Camera{Context}
 {
 }
 
@@ -15,6 +15,7 @@ void Player::Setup()
     GameObject::Setup();
     bool bIsloaded = Weapon.load("rocket_launcher_m236.glb",20);
     Weapon.setScale(0.1,0.1,0.1);
+    SetPosition(Vector3D(0,0,0));
 
     
 }
@@ -60,12 +61,11 @@ void Player::Update(double f)
 
 void Player::Jump()
 {
-    AddImpulse(Vector3D(0, -JumpForce, 0));
 }
 
 void Player::Fire(GameWorld * Context)
 {
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),1, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*50, 1, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),100, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*50, 1, true));
     SetCameraTarget(gameobject);
     TPSCamera.resetTransform();
 }

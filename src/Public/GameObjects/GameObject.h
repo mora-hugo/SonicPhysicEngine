@@ -64,10 +64,13 @@ public:
 
     bool HasTag(const std::string& Tag) const;
 
+    void SetPosition(Vector3D NewPosition);
+
 protected:
     
 
 private:
+
     void ApplyPhysics(double DeltaTimes);
 
     virtual void UpdateVelocity(double Deltatimes);
