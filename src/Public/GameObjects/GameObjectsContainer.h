@@ -13,6 +13,7 @@ public:
     void Draw();
 
 
+    bool CheckCollision(class Player * player,class Wall * wall);
     
     GameObject* SpawnObject(GameObject * object);
 private:

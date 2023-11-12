@@ -39,7 +39,9 @@ void GameObjectsContainer::Update(double f)
                     wall = dynamic_cast<Wall*>(objects[i]);
                 else
                     wall = dynamic_cast<Wall*>(objects[j]);
-
+                CheckCollision(player,wall);
+            
+                continue;
             }
             
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others
@@ -120,6 +122,26 @@ void GameObjectsContainer::Draw()
         object->Draw();
     }
 }
+
+bool GameObjectsContainer::CheckCollision(Player* player, Wall* wall)
+{
+    const Vector3D playerPosition = player->GetPosition();
+    const float playerRadius = player->GetRadius();
+
+    Vector3D wallPosition = wall->GetPosition();
+    const float wallWidth = wall->GetWidth();
+    const float wallDepth =  wall->GetDepth();
+
+    std::cout << "Position joueur : " << std::string(playerPosition) << std::endl;
+    std::cout << "Position mur : " << std::string(wallPosition) << std::endl;
+
+
+    // Collision si les deux conditions sont vraies
+    return false;
+}
+
+    
+
 
 GameObject* GameObjectsContainer::SpawnObject(GameObject* object)
 {

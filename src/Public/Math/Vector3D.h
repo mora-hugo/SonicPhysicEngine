@@ -236,8 +236,9 @@ public:
     inline void SetY(const double y) {this->Y = y;}
     
     inline void SetZ(const double z) {this->Z = z;}
-
-private:
+public:
     double X, Y, Z, W;
+private:
+    
     
 };
