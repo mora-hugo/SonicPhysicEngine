@@ -7,6 +7,7 @@
 #include "../../ofApp.h"
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
+#include "../../Public/GameObjects/Object3d.h"
 #include "../../Public/GameObjects/RigidBody.h"
 #include "../../Public/GameObjects/Wall.h"
 #include "../../Public/Particle/BlobParticle.h"
@@ -46,6 +47,7 @@ void GameWorld::BeginPlay(ofApp * Context)
         }
     }
     */
+    
     player->Setup();
     CreateMap();
 }
@@ -200,4 +202,6 @@ void GameWorld::CreateMap()
     objects.SpawnObject(new Wall(&paintingTexture,300,300,10, Vector3D(0,-250,-1950)));
 
 
+    //======================= 3D Props
+    objects.SpawnObject(new Object3d("Props/chair.glb",Vector3D(0,-100,0),Vector3D(0,0,90),Vector3D(0.5,0.5,0.5),Vector3D(100,100,100)));
 }

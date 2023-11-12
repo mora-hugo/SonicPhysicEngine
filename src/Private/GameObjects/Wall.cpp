@@ -27,3 +27,18 @@ void Wall::Update(double f)
     GameObject::Update(f);
     ofBoxPrimitive::setPosition(GetPosition());
 }
+
+float Wall::GetWidth() const
+{
+    return ofBoxPrimitive::getWidth();
+}
+
+float Wall::GetHeight() const
+{
+    return ofBoxPrimitive::getHeight();
+}
+
+float Wall::GetDepth() const
+{
+    return ofBoxPrimitive::getDepth();
+}

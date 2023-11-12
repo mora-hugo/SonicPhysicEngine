@@ -12,6 +12,10 @@ public:
     void Setup() override;
     void Draw() override;
     void Update(double f) override;
+
+    float GetWidth() const;
+    float GetHeight() const;
+    float GetDepth() const;
 private:
     ofImage * texture;
 };
