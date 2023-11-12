@@ -6,7 +6,7 @@ Ground::Ground() : ofPlanePrimitive(1000,1000,100,OF_PRIMITIVE_TRIANGLES)
     this->set(10000,10000,1000,1000);
     setPosition(0,0,0);
     
-    img.load("ground_albedo.jpg");
+    img.load("GroundTexture/Ground_2k_Albedo.jpg");
     img.getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     this->mapTexCoordsFromTexture(img.getTexture());
     

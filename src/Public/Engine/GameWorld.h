@@ -47,7 +47,10 @@ private:
     Player * player = nullptr;
 
     ofImage rockTexture;
+    ofImage wallTexture;
     ofImage sky;
+    ofImage paintingTexture;
+
 
     void CreateMap();
 

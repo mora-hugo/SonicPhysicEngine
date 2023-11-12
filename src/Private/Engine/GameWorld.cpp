@@ -126,5 +126,73 @@ GameObjectsContainer* GameWorld::GetObjectsArray()
 
 void GameWorld::CreateMap()
 {
-    objects.SpawnObject(new Wall(&rockTexture,200,1000,200, Vector3D(400,200,0)));
+    wallTexture.load("StoneTileTexture/Stone_2k_Albedo.jpg");
+    const int NbWall = 3;
+    const int WidthWall = 600;
+
+    //========================= First Room
+    //back spawn 0;0;0
+    for (int i= -4 ; i< NbWall+1; i++) //8 wall au total avec 4 de chaque côté
+    {
+        objects.SpawnObject(new Wall(&wallTexture,WidthWall,1000,100, Vector3D(i*WidthWall,0,1000)));
+    }
+
+    //front spawn 0;0;0
+    for (int i= -5 ; i< NbWall+2; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,WidthWall,1000,100, Vector3D(i*WidthWall,0,-2000)));
+    }
+
+    //left spawn 0;0;0
+    for (int i= -2 ; i< NbWall; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,100,1000,WidthWall, Vector3D(-2000,0,i*WidthWall)));
+    }
+
+    //right spawn 0;0;0
+    for (int i= -2 ; i< NbWall; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,100,1000,WidthWall, Vector3D(2000,0,i*WidthWall)));
+    }
+
+    //======================== Corridors
+    //corridor 1
+    for (int i=0 ; i < 4 ; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,WidthWall,1000,100, Vector3D((-2050 +(i*-WidthWall)-(WidthWall/2)),0,-850 -WidthWall)));
+    }
+
+    for (int i=0 ; i <= 4 ; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,100,1000,WidthWall, Vector3D(-3950,0,-1800 + (i*-WidthWall))));
+    }
+
+    //corridor 2
+    for (int i=0 ; i < 4 ; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,WidthWall,1000,100, Vector3D(2050 + i*WidthWall + (WidthWall/2), 0, -850 - WidthWall)));
+    }
+
+    for (int i=0 ; i <= 4 ; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,100,1000,WidthWall, Vector3D(3950,0,-1800 + (i*-WidthWall))));
+    }
+
+    //======================= Second Zone 2 rooms
+    for (int i= -6 ; i< NbWall+4; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,WidthWall,1000,100, Vector3D(i*WidthWall,0,-4000)));
+    }
+
+    for (int i=-3 ; i <= 0 ; i++)
+    {
+        objects.SpawnObject(new Wall(&wallTexture,100,1000,WidthWall, Vector3D(0,0,-2300 + (i*WidthWall))));
+    }
+
+
+    //======================= Decoration Painting
+    paintingTexture.load("MinecraftTexture/minecraft.jpg");
+    objects.SpawnObject(new Wall(&paintingTexture,300,300,10, Vector3D(0,-250,-1950)));
+
+
 }
