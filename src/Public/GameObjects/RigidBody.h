@@ -12,16 +12,21 @@ public:
     void Draw() override;
     void Update(double f) override;
 
-private:
-
-
-    Matrix3 RotationMatrix;
-    Quaternion RotationQuat = Quaternion::identity();
-    Vector3D AngularVelocity {0.01,0.01,0.01};
-    Vector3D AngularAcceleration;
-
+protected:
     Vector3D ForwardVector = Vector3D::Forward();
     Vector3D RightVector = Vector3D::Right();
     Vector3D UpVector = Vector3D::Up();
+
+    Matrix3 RotationMatrix;
+    Quaternion RotationQuat = Quaternion::identity();
+    Vector3D AngularVelocity {0.01,0.5,0.01};
+    EulerAngle EulerAngles;
+    Vector3D AngularAcceleration;
+private:
+
+
+
+
+    
     
 };

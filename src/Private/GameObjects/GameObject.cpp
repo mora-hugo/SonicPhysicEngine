@@ -175,6 +175,30 @@ void GameObject::SetPosition(Vector3D NewPosition)
     position = NewPosition;
 }
 
+void GameObject::OnCollision(GameObject* other, CollisionData& Data)
+{
+}
+
+void GameObject::SetCollision(bool bAllowCollision)
+{
+    bCanCollide = bAllowCollision;   
+}
+
+bool GameObject::CanCollide() const
+{
+    return bCanCollide;
+}
+
+bool GameObject::NeedToBeDestroyed() const
+{
+    return bNeedToBeDestroyed;
+}
+
+void GameObject::Destroy()
+{
+    bNeedToBeDestroyed = true;
+}
+
 
 void GameObject::ApplyPhysics(double DeltaTimes)
 {
@@ -208,7 +232,7 @@ void GameObject::UpdateVelocity(double Deltatimes)
             break;
         case Friction:
             //Ne prend en compte que le frottement de l'air à modifier quand on aura les collisions
-            AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
+            //AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
             break;
         case Ressort:
             AccumForce = AccumForce + Forces[i].movement;

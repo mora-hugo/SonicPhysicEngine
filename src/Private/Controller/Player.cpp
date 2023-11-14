@@ -65,8 +65,10 @@ void Player::Jump()
 
 void Player::Fire(GameWorld * Context)
 {
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),100, GetLaunchPoint()-GetCamera()->getLookAtDir()*10, GetCamera()->getLookAtDir()*50, 1, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 1, true));
     SetCameraTarget(gameobject);
+    gameobject->SetCollision(false);
+    gameobject->AddTag("Bullet");
     TPSCamera.resetTransform();
 }
 

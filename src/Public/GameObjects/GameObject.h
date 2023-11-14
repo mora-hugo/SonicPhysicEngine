@@ -66,15 +66,27 @@ public:
 
     void SetPosition(Vector3D NewPosition);
 
-protected:
-    
+    virtual void OnCollision(GameObject * other, CollisionData& Data);
+
+    void SetCollision(bool bAllowCollision);
+
+    bool CanCollide() const;
+
+    bool NeedToBeDestroyed() const;
+
+    void Destroy();
 
 private:
 
+    Vector3D AccumForce;
+
+    std::vector<Force> Forces;
+    
+    bool bCanCollide = true;
+    
     void ApplyPhysics(double DeltaTimes);
 
     virtual void UpdateVelocity(double Deltatimes);
-    std::vector<Force> Forces;
 
     void UpdatePosition(double Deltatimes);
 
@@ -84,9 +96,10 @@ private:
     double mass = 5;
     bool bSimulatePhysics = true;
     
-    Vector3D AccumForce;
     int radius= 0;
     bool bUsingGravity = true;
 
     std::vector<std::string> Tags;
+
+    bool bNeedToBeDestroyed = false;
 };

@@ -7,6 +7,7 @@
 #include "../../ofApp.h"
 #include "../../Public/Config/Config.h"
 #include "../../Public/Controller/Player.h"
+#include "../../Public/GameObjects/Ennemi.h"
 #include "../../Public/GameObjects/Object3d.h"
 #include "../../Public/GameObjects/Painting.h"
 #include "../../Public/GameObjects/RigidBody.h"
@@ -50,6 +51,10 @@ void GameWorld::BeginPlay(ofApp * Context)
     */
     
     player->Setup();
+    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,100), Vector3D(0.4,0.4,0.4));
+    ennemi->SetTargetGameObject(player);
+    ennemi->FollowTargetOn(true);
+    objects.SpawnObject(ennemi);
     CreateMap();
 }
 

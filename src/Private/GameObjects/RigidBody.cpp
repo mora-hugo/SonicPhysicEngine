@@ -20,8 +20,10 @@ void RigidBody::Draw()
 
 void RigidBody::Update(double f)
 {
+
     GameObject::Update(f);
     this->setPosition(GetPosition());
+    
     
     // Update angular velocity W = Wo + Wt
     //AngularVelocity = AngularVelocity + AngularAcceleration * f;
