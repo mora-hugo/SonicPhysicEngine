@@ -203,32 +203,18 @@ void GameWorld::CreateMap()
     Painting* painting = new Painting(&paintingTexture,300,300,10, Vector3D(0,-250,-1950));
     objects.SpawnObject(painting);
     painting->Rotate(180,0,0,1);
-    //
-    //
-    // paintingTexture2.load("CarpetTexture/CarpetTexture.jpeg");
-    // painting = new Painting(&paintingTexture2,400,1300,5, Vector3D(0,-2,-100));
-    // objects.SpawnObject(painting);
-    // painting->Rotate(90,1,0,0);
-    //
-    // paintingPropa0.load("PropagandaTexture/propa_young.jpg");
-    // painting = new Painting(&paintingPropa0,100,200,5, Vector3D(-2000,-200,-2100));
-    // objects.SpawnObject(painting);
-    // painting->Rotate(180,0,0,1);
-    //
-    // paintingPropa1.load("PropagandaTexture/propa_genie.jpg");
-    // painting = new Painting(&paintingPropa1,100,200,5, Vector3D(-2300,-200,-2100));
-    // objects.SpawnObject(painting);
-    // painting->Rotate(180,0,0,1);
-    //
-    // paintingPropa2.load("PropagandaTexture/propa_wcdi.jpg");
-    // painting = new Painting(&paintingPropa2,100,200,5, Vector3D(-2600,-200,-2100));
-    // objects.SpawnObject(painting);
-    // painting->Rotate(180,0,0,1);
-    //
-    // paintingPropa3.load("PropagandaTexture/propa_work.jpg");
-    // painting = new Painting(&paintingPropa3,400,200,5, Vector3D(-1400,-250,-3920));
-    // objects.SpawnObject(painting);
-    // painting->Rotate(180,0,0,1);
+
+
+    paintingTexture2.load("CarpetTexture/CarpetTexture.jpeg");
+    painting = new Painting(&paintingTexture2,400,1300,5, Vector3D(0,-2,-100));
+    objects.SpawnObject(painting);
+    painting->Rotate(90,1,0,0);
+
+
+
+
+
+
 
 
 
@@ -243,51 +229,113 @@ void GameWorld::CreateMap()
     //     objects.SpawnObject(new Object3d("Props/chair.glb",Vector3D(500,0,-2180),Vector3D(0,0,0),Vector3D(0.28,0.28,0.28),Vector3D(100,100,100)));
     //
     // objects.SpawnObject(new Object3d("ObjectAsset/carbon_server_console.glb",Vector3D(1100,-280,-2120),Vector3D(0,0,0),Vector3D(0.5,0.5,0.5),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/carbon_server_console.glb",Vector3D(1400,-280,-3850),Vector3D(0,180,0),Vector3D(0.5,0.5,0.5),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/server_armoir.glb",Vector3D(1400,0,-2120),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
-    // objects.SpawnObject(new Object3d("ObjectAsset/server_armoir.glb",Vector3D(2500,0,-3850),Vector3D(0,180,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/sewrver_armoir.glb",Vector3D(2500,0,-3850),Vector3D(0,180,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/server_armoir.glb",Vector3D(1100,0,-3850),Vector3D(0,180,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
     // //
     // objects.SpawnObject(new Object3d("ObjectAsset/school_board.glb",Vector3D(3000,-150,-3950),Vector3D(0,-90,0),Vector3D(1.2,1.2,1.2),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/school_board.glb",Vector3D(3900,-150,-3000),Vector3D(0,0,0),Vector3D(1.2,1.2,1.2),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/coat_rack.glb",Vector3D(3700,-150,-3850),Vector3D(0,0,0),Vector3D(0.8,0.8,0.8),Vector3D(100,100,100)));
-    // //
-    // // objects.SpawnObject(new Object3d("ObjectAsset/Table.glb",Vector3D(1500,0,-3870),Vector3D(0,0,0),Vector3D(0.35,0.35,0.35),Vector3D(100,100,100)));
     //
     // objects.SpawnObject(new Object3d("ObjectAsset/old_wooden_table.glb",Vector3D(2000,-140,-3800),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
     //     objects.SpawnObject(new Object3d("ObjectAsset/oscillograph.glb",Vector3D(1900,-150,-3800),Vector3D(0,160,0),Vector3D(0.25,0.25,0.25),Vector3D(100,100,100)));
     //     objects.SpawnObject(new Object3d("ObjectAsset/power_supply_device.glb",Vector3D(2130,-150,-3820),Vector3D(0,200,0),Vector3D(0.25,0.25,0.25),Vector3D(100,100,100)));
     //
     // objects.SpawnObject(new Object3d("ObjectAsset/old_wooden_table.glb",Vector3D(500,-140,-3800),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
-    //     objects.SpawnObject(new Object3d("ObjectAsset/wood_chair.glb",Vector3D(500,-30,-3500),Vector3D(0,20,0),Vector3D(0.4,0.4,0.4),Vector3D(100,100,100)));
+    //     objects.SpawnObject(new Object3d("ObjectAsset/wood_chair.glb",Vector3D(500,0,-3500),Vector3D(0,20,0),Vector3D(0.4,0.4,0.4),Vector3D(100,100,100)));
     //     objects.SpawnObject(new Object3d("ObjectAsset/old_table_fan.glb",Vector3D(620,-150,-3800),Vector3D(0,-50,0),Vector3D(0.3,0.3,0.3),Vector3D(100,100,100)));
     //     objects.SpawnObject(new Object3d("ObjectAsset/paper_tablet.glb",Vector3D(480,-150,-3820),Vector3D(270,180,180),Vector3D(0.2,0.2,0.2),Vector3D(100,100,100)));
 
 
-    //======================= Rest Room (-3950 max x | -4000 max z)
+    //======================= Employee Room (-3950 max x | -4000 max z)
 
     // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(-2500,0,-2180),Vector3D(0,0,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(-1500,0,-2180),Vector3D(0,0,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(-1500,0,-3850),Vector3D(0,180,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
     //
-    // objects.SpawnObject(new Object3d("ObjectAsset/old_bed.glb",Vector3D(-450,0,-2750),Vector3D(0,90,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
-    // objects.SpawnObject(new Object3d("ObjectAsset/old_bed.glb",Vector3D(-450,0,-3350),Vector3D(0,90,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_bed.glb",Vector3D(-450,0,-2650),Vector3D(0,90,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_bed.glb",Vector3D(-450,0,-3450),Vector3D(0,90,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
     //
     // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-2000,60,-2200),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-3000,60,-2200),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-1000,60,-2200),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-1000,60,-3850),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-2700,60,-3850),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
     //
     // objects.SpawnObject(new Object3d("ObjectAsset/retro_coca-cola_fridge.glb",Vector3D(-2500,0,-3950),Vector3D(0,180,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/sempai_coffee_machine.glb",Vector3D(-2000,-180,-3850),Vector3D(0,-90,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
-
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/steel_locker.glb",Vector3D(-3800,-280,-3600),Vector3D(0,90,0),Vector3D(0.55,0.55,0.55),Vector3D(100,100,100)));
     // objects.SpawnObject(new Object3d("ObjectAsset/steel_locker.glb",Vector3D(-3800,-280,-3500),Vector3D(0,90,0),Vector3D(0.55,0.55,0.55),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/steel_locker.glb",Vector3D(-3800,-280,-3400),Vector3D(0,90,0),Vector3D(0.55,0.55,0.55),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/steel_locker.glb",Vector3D(-3800,-280,-3300),Vector3D(0,90,0),Vector3D(0.55,0.55,0.55),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/steel_locker.glb",Vector3D(-3800,-280,-3200),Vector3D(0,90,0),Vector3D(0.55,0.55,0.55),Vector3D(100,100,100)));
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_wooden_table.glb",Vector3D(-3300,-140,-3800),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/wood_chair.glb",Vector3D(-3350,0,-3700),Vector3D(0,20,0),Vector3D(0.4,0.4,0.4),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/wood_chair.glb",Vector3D(-3200,0,-3600),Vector3D(0,-20,0),Vector3D(0.4,0.4,0.4),Vector3D(100,100,100)));
 
-
-
-
-    //objects.SpawnObject(new Object3d("ObjectAsset/machine_lab.glb",Vector3D(3000,-200,-2500),Vector3D(0,0,0),Vector3D(0.5,0.5,0.5),Vector3D(100,100,100)));
+    //======================= Propaganda
+    // paintingPropa0.load("PropagandaTexture/propa_young.jpg");
+    // painting = new Painting(&paintingPropa0,100,200,5, Vector3D(-50,-300,-3370));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    // painting->Rotate(90,0,1,0);
+    //
+    // paintingPropa1.load("PropagandaTexture/propa_genie.jpg");
+    // painting = new Painting(&paintingPropa1,100,200,5, Vector3D(-50,-300,-2570));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    // painting->Rotate(90,0,1,0);
+    //
+    // paintingPropa2.load("PropagandaTexture/propa_wcdi.jpg"); //we can do it
+    // painting = new Painting(&paintingPropa2,100,200,5, Vector3D(-2500,-300,-2070));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    //
+    // paintingPropa4.load("PropagandaTexture/propa_monkey.jpg");
+    // painting = new Painting(&paintingPropa4,100,200,5, Vector3D(-1500,-300,-2070));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    //
+    // paintingPropa3.load("PropagandaTexture/propa_work.jpg"); //medecine
+    // painting = new Painting(&paintingPropa3,400,200,5, Vector3D(-1500,-300,-3920));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    //
+    // paintingPropa5.load("PropagandaTexture/propa_medecine.jpg");
+    // painting = new Painting(&paintingPropa5,100,200,5, Vector3D(-3900,-300,-2500));
+    // objects.SpawnObject(painting);
+    // painting->Rotate(180,0,0,1);
+    // painting->Rotate(90,0,1,0);
 
     // ======================= Reception
-     // objects.SpawnObject(new Object3d("ObjectAsset/reception_desk.glb",Vector3D(0,-150,-1600),Vector3D(0,180,0),Vector3D(2,2,2),Vector3D(100,100,100)));
-     // objects.SpawnObject(new Object3d("ObjectAsset/reception_door_metal.glb",Vector3D(0,-180,950),Vector3D(0,0,0),Vector3D(0.8,0.8,0.8),Vector3D(100,100,100)));
-     // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-1800,60,750),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
-     // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(1800,60,750),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
-     // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(1800,0,-100),Vector3D(0,-90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
-     // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(-1800,0,-100),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/reception_desk.glb",Vector3D(0,-150,-1600),Vector3D(0,180,0),Vector3D(2,2,2),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/reception_door_metal.glb",Vector3D(0,-180,950),Vector3D(0,0,0),Vector3D(0.8,0.8,0.8),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(-1800,60,750),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/plant.glb",Vector3D(1800,60,750),Vector3D(0,0,0),Vector3D(0.6,0.6,0.6),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(1800,0,-100),Vector3D(0,-90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/old_couch.glb",Vector3D(-1800,0,-100),Vector3D(0,90,0),Vector3D(0.9,0.9,0.9),Vector3D(100,100,100)));
+    //
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/retro_coca-cola_fridge.glb",Vector3D(-500,0,950),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/sempai_coffee_machine.glb",Vector3D(-1200,-180,850),Vector3D(0,90,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/retro_coca-cola_fridge.glb",Vector3D(1900,0,-1000),Vector3D(0,-90,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/sempai_coffee_machine.glb",Vector3D(1800,-180,-1050),Vector3D(0,0,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-100,150,0),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-950,150,0),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-100,150,700),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-950,150,700),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-100,150,-700),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/greek_pillar.glb",Vector3D(-950,150,-700),Vector3D(0,0,0),Vector3D(1,1,1),Vector3D(100,100,100)));
+    //
+    //
+    // objects.SpawnObject(new Object3d("ObjectAsset/globe.glb",Vector3D(-1700,0,-1000),Vector3D(0,0,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
+    // objects.SpawnObject(new Object3d("ObjectAsset/marble_statue.glb",Vector3D(1100,0,800),Vector3D(0,0,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
+
+
+
 }

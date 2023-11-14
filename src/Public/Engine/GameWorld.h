@@ -57,6 +57,8 @@ private:
     ofImage paintingPropa1;
     ofImage paintingPropa2;
     ofImage paintingPropa3;
+    ofImage paintingPropa4;
+    ofImage paintingPropa5;
 
 
     void CreateMap();
