@@ -49,7 +49,14 @@ private:
     ofImage rockTexture;
     ofImage wallTexture;
     ofImage sky;
+
     ofImage paintingTexture;
+    ofImage paintingTexture2;
+
+    ofImage paintingPropa0;
+    ofImage paintingPropa1;
+    ofImage paintingPropa2;
+    ofImage paintingPropa3;
 
 
     void CreateMap();

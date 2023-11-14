@@ -12,6 +12,7 @@ public:
     void Setup() override;
     void Draw() override;
     void Update(double f) override;
+    void Rotate(const int degrees, const int x, const int y, const int z);
 
 private:
     ofImage * texture;

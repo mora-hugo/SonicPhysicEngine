@@ -4,7 +4,7 @@ Painting::Painting(ofImage* image, float Width, float Height, float Depth, const
 {
     texture->getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     this->mapTexCoordsFromTexture(texture->getTexture());
-    rotateDeg(180,0,0,1);
+
 }
 
 void Painting::Setup()
@@ -24,4 +24,9 @@ void Painting::Update(double f)
 {
     GameObject::Update(f);
     ofBoxPrimitive::setPosition(GetPosition());
+}
+
+void Painting::Rotate(const int degrees, const int x, const int y, const int z)
+{
+    rotateDeg(degrees, x, y, z);
 }
