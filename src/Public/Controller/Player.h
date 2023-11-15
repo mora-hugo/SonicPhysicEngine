@@ -3,6 +3,7 @@
 #include "ofCamera.h"
 #include "ofPixels.h"
 #include "ofImage.h"
+#include "ofTrueTypeFont.h"
 #include "ofxAssimpModelLoader.h"
 #include "TPSCamera.h"
 #include "../Particle/BlobParticle.h"
@@ -19,9 +20,19 @@ public:
     void Update(double f) override;
 
     void Jump();
+    void Reload();
     void Fire(class GameWorld * Context);
     void StartWalkingForward();
     void StopWalkingForward();
+
+    void StartWalkingBackward();
+    void StopWalkingBackward();
+
+    void StartStrafingLeft();
+    void StopStrafingLeft();
+
+    void StartStrafingRight();
+    void StopStrafingRight();
 
     void StartPlayerSee();
 
@@ -54,6 +65,9 @@ private:
     int TPSCameraDistanceBeetweenObject = 100;
     
     bool bIsGoingForward = false;
+    bool bISGoingBackward = false;
+    bool bIsStrafingLeft = false;
+    bool bIsStrafingRight = false;
 
     bool bOpacityIsIncreasing = true;
     float opacity = 0;
@@ -61,5 +75,14 @@ private:
     float JumpForce = 2000;
     ofxAssimpModelLoader Weapon;
     ofImage WeaponTexture;
+
+
+
+    const  int MaxAmmo = 3;
+    int ammo = MaxAmmo;
+
+    ofTrueTypeFont AmmoText;
+    ofTrueTypeFont AmmoTextAmount;
+
 
 };

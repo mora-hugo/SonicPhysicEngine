@@ -34,24 +34,15 @@ void Ennemi::Update(double f)
         Destroy();
     if(bIsDead)
     {
-        CurrentRotation.yaw += 3;
-        Scale = Scale.Sub(Vector3D(0.001,0.001,0.001));
+        CurrentRotation.yaw += 8;
+        Scale = Scale.Sub(Vector3D(0.005,0.005,0.005));
     }
 
-    if(bIsFollowingTarget)
-    {
-        
-        Vector3D Direction;
-        if(TargetGameObject)
-            Direction = TargetGameObject->GetPosition() - GetPosition();
-        else
-            Direction = CurrentTarget - GetPosition();
-        
-        
-        AddPosition(Direction.Normalize() * speed);
-    }
+    ProcessIA();
     
     GameObject::Update(f);
+    //TODO
+    SetPosition(Vector3D(GetPosition().X, 0, GetPosition().Z));
     modelLoaded.setPosition(GetPosition().X + ModelOffset.X, GetPosition().Y + ModelOffset.Y, GetPosition().Z + ModelOffset.Z);
     modelLoaded.setRotation(0, CurrentRotation.pitch, 1, 0, 0);
     modelLoaded.setRotation(1, CurrentRotation.yaw, 0, 1, 0);
@@ -66,6 +57,21 @@ void Ennemi::Draw()
 {
     //RigidBody::Draw();
     modelLoaded.drawFaces();
+    ofPushMatrix();
+
+    // Translate to the center of the rectangle
+    ofTranslate(GetPosition().X, GetPosition().Y - 300, GetPosition().Z);
+
+    // Apply the rotation around the Y axis
+    ofRotateYDeg(-CurrentRotation.yaw);
+
+    // Draw the rectangle centered around the translated point
+    ofSetColor(ofColor::red);
+    ofDrawRectangle(-160, 0, std::max<float>((Life/Maxlife)*300,0), 20);
+    ofSetColor(ofColor::white);
+    
+
+    ofPopMatrix();
 }
 
 void Ennemi::AddRotation(const EulerAngle& rotation)
@@ -88,7 +94,18 @@ void Ennemi::SetRotation(const EulerAngle& rotation)
 
 void Ennemi::ProcessIA()
 {
-    if(!bIsFollowingTarget) return;
+    if(!bIsFollowingTarget || bIsDead) return;
+
+    Vector3D Direction;
+    if(TargetGameObject)
+        Direction =  GetPosition() - TargetGameObject->GetPosition();
+    else
+        Direction = GetPosition() - CurrentTarget;
+
+    AddPosition(Direction.Normalize().Negate());
+
+    //Set Yaw to direction
+    CurrentRotation.yaw = (-atan2(Direction.X, Direction.Z) * RAD_TO_DEG);
 
     
     
@@ -98,5 +115,13 @@ void Ennemi::OnCollision(GameObject* other, CollisionData& Data)
 {
     RigidBody::OnCollision(other, Data);
     if(other->HasTag("Bullet"))
-        bIsDead = true;
+    {
+        other->Destroy();
+        Life-= 30;
+        if(Life <= 0)
+        {
+            bIsDead = true;
+        }
+    }
+
 }

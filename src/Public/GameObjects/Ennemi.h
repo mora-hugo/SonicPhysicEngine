@@ -33,9 +33,11 @@ private:
     Quaternion quat = Quaternion::identity();
     GameObject * TargetGameObject = nullptr;
     Vector3D ModelOffset {0,50,0};
-    float speed = 1;
+    float Speed = 5;
 
     bool bIsDead = false;
+    float Life = 100;
+    const float Maxlife = 100;
     
 };
 

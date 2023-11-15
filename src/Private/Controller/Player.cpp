@@ -17,6 +17,10 @@ void Player::Setup()
     Weapon.setScale(0.1,0.1,0.1);
     SetPosition(Vector3D(0,0,0));
 
+    AmmoText.load("leadcoat.ttf", 30);
+    AmmoTextAmount.load("leadcoat.ttf", 30);
+
+
     
 }
 
@@ -29,7 +33,11 @@ void Player::Draw()
 
 void Player::Update(double f)
 {
+    
     GameObject::Update(f);
+    //TODO
+    SetPosition(Vector3D(GetPosition().X, 0, GetPosition().Z));
+
     const float offsetX = WeaponOffset.GetX();
     const float offsetY = WeaponOffset.GetY();
     const float offsetZ = WeaponOffset.GetZ();
@@ -54,6 +62,27 @@ void Player::Update(double f)
         ForwardVector.SetY(0);
         AddPosition(ForwardVector.Normalize()*Speed*ofGetLastFrameTime());
     }
+
+    if(bISGoingBackward)
+    {
+        Vector3D ForwardVector = -Camera.getLookAtDir();
+        ForwardVector.SetY(0);
+        AddPosition(ForwardVector.Normalize()*Speed*ofGetLastFrameTime());
+    }
+
+    if(bIsStrafingLeft)
+    {
+        Vector3D RightVector = -Camera.getSideDir();
+        RightVector.SetY(0);
+        AddPosition(RightVector.Normalize()*Speed*ofGetLastFrameTime());
+    }
+
+    if(bIsStrafingRight)
+    {
+        Vector3D RightVector = Camera.getSideDir();
+        RightVector.SetY(0);
+        AddPosition(RightVector.Normalize()*Speed*ofGetLastFrameTime());
+    }
     
 
     
@@ -63,13 +92,20 @@ void Player::Jump()
 {
 }
 
+void Player::Reload()
+{
+    ammo = MaxAmmo;
+}
+
 void Player::Fire(GameWorld * Context)
 {
+    if(ammo <= 0) return;
     GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(Vector3D(1,1,1),5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 1, true));
     SetCameraTarget(gameobject);
     gameobject->SetCollision(false);
     gameobject->AddTag("Bullet");
     TPSCamera.resetTransform();
+    ammo--;
 }
 
 
@@ -83,38 +119,57 @@ void Player::StopWalkingForward()
    bIsGoingForward = false; 
 }
 
+void Player::StartWalkingBackward()
+{
+    bISGoingBackward = true;
+}
+
+void Player::StopWalkingBackward()
+{
+    bISGoingBackward = false;
+}
+
+void Player::StartStrafingLeft()
+{
+    bIsStrafingLeft = true;
+}
+
+void Player::StopStrafingLeft()
+{
+    bIsStrafingLeft = false;
+}
+
+void Player::StartStrafingRight()
+{
+    bIsStrafingRight = true;
+}
+
+void Player::StopStrafingRight()
+{
+    bIsStrafingRight = false;
+}
+
 void Player::StartPlayerSee()
 {
+    /* Before Camera Rendering */
     if(CameraTarget)
         TPSCamera.setTarget(CameraTarget->GetPosition());
+
+    //Draw bigger string
+    AmmoText.drawString("Ammo",60, ofGetWindowSize().y - 60);
+    const std::string ammotext = std::to_string(ammo) + " / " + std::to_string(MaxAmmo);
+    AmmoTextAmount.drawString(ammotext,60, ofGetWindowSize().y - 30);
+
+    
+
 
     
     TPSCamera.setDistance(TPSCameraDistanceBeetweenObject);
     if(!CameraTarget && bIsUsingTPSCamera)
         std::cout << "WARNING : Camera target is null" << std::endl;
+
+    /* Before Camera Rendering End */
     bIsUsingTPSCamera ? TPSCamera.begin() : Camera.begin();
-
-    if(bOpacityIsIncreasing)
-        opacity++;
-    else
-        opacity--;
-    
-    if(opacity >= 255)
-    {
-        bOpacityIsIncreasing = false;
-    }
-    else if(opacity <= 0)
-    {
-        bOpacityIsIncreasing = true;
-    }
-        
-    
-    if(CameraTarget)
-    {
-        
-        Vector3D Position = CameraTarget->GetPosition();
-
-    }
 }
 
 void Player::SetCameraTarget(GameObject* Target)
