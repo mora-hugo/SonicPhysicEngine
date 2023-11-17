@@ -72,9 +72,8 @@ void GameObject::cleanAccumForce()
             Forces.erase(Forces.begin()+i);
         }
     }
-    
-    //A la fin de la simulation on ajoute la force de friction avec l'air et la force de gravité qui s'appliqe à chaque pas de simulation
-    Forces.push_back(Force(Vector3D(0.8,0.4,0),1,Friction));
+    //On peut modifier les valeurs de la friction la c'est à 90%
+    Forces.push_back(Force(Vector3D(0.9,0.9,0.9),1,Friction));
     AccumForce = Vector3D().Zero();
     if(bUsingGravity)
         Forces.push_back(Force(Config::GRAVITY, 1, Constant));
@@ -231,8 +230,7 @@ void GameObject::UpdateVelocity(double Deltatimes)
             velocity.SetY(Forces[i].movement.GetY());
             break;
         case Friction:
-            //Ne prend en compte que le frottement de l'air à modifier quand on aura les collisions
-            //AccumForce = AccumForce + velocity.Negate().ComponentProduct(velocity.Normalize() * Forces[i].movement.GetX() + velocity.Normalize().ComponentProduct(velocity.Normalize())* Forces[i].movement.GetY());
+            AccumForce = AccumForce + velocity.Multiply(-Forces[i].movement.GetX());
             break;
         case Ressort:
             AccumForce = AccumForce + Forces[i].movement;
@@ -241,7 +239,6 @@ void GameObject::UpdateVelocity(double Deltatimes)
             break;
         }
     }
-    
     acceleration = AccumForce * GetReverseMass();
     
     //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
