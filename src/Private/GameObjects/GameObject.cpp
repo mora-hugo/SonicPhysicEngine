@@ -241,7 +241,7 @@ void GameObject::UpdateVelocity(double Deltatimes)
     }
     acceleration = AccumForce * GetReverseMass();
     
-    //velocité instant k+1 = (coefficient damping)^longueur d'une frame  * velocité + longueur d'une frame (en secondes) * accélération
+    //velocité instant k+1 = velocité + longueur d'une frame (en secondes) * accélération
     velocity = velocity + acceleration.Multiply(Deltatimes);
 }
 
