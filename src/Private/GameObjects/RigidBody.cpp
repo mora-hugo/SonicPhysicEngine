@@ -26,7 +26,7 @@ void RigidBody::Update(double f)
     
     
     // Update angular velocity W = Wo + Wt
-    //AngularVelocity = AngularVelocity + AngularAcceleration * f;
+    AngularVelocity = AngularVelocity + AngularAcceleration * f;
 
     
     // Update rotation
