@@ -1,5 +1,7 @@
 ﻿#include "./../../Public/Math/Matrix3.h"
 
+#include <valarray>
+
 Matrix3::Matrix3()
 {
     for (int i = 0; i < 3; i++) {
@@ -180,6 +182,21 @@ Matrix3 Matrix3::Reverse()
 
     res = ComplementaryMatrix * (1/det);
 
+    return res;
+}
+
+Matrix3 Matrix3::CreateRotationMatrix(Quaternion q)
+{
+    Matrix3 res = Matrix3();
+    res.data[0][0] = 1-2*(pow(q.y,2) + pow(q.z, 2));
+    res.data[0][1] = 2*(q.x * q.y + q.z * q.w);
+    res.data[0][2] = 2*(q.x * q.z - q.y * q.w);
+    res.data[1][0] = 2*(q.x * q.y - q.z * q.w);
+    res.data[1][1] = 1-2*(pow(q.x,2) + pow(q.z, 2));
+    res.data[1][2] = 2*(q.y * q.z + q.x * q.w);
+    res.data[2][0] = 2*(q.x * q.z + q.y * q.w);
+    res.data[2][1] = 2*(q.y * q.z - q.x * q.w);
+    res.data[2][2] = 1-2*(pow(q.x,2) + pow(q.y, 2));
     return res;
 }
 

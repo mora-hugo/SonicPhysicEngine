@@ -66,6 +66,8 @@ public:
         return (this->Multiply(v));
     }
 
+    Matrix3 CreateRotationMatrix(Quaternion q);
+
 private:
     double data[3][3];
 
