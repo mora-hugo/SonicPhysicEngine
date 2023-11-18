@@ -12,16 +12,24 @@ public:
     void Draw() override;
     void Update(double f) override;
 
+    void OnCollision(GameObject* other, CollisionData& Data) override;
+    
+
 protected:
+    void ApplyTorque();
     Vector3D ForwardVector = Vector3D::Forward();
     Vector3D RightVector = Vector3D::Right();
     Vector3D UpVector = Vector3D::Up();
 
     Matrix3 RotationMatrix;
     Quaternion RotationQuat = Quaternion::identity();
-    Vector3D AngularVelocity {0.01,0.5,0.01};
+    Vector3D AngularVelocity;
     EulerAngle EulerAngles;
     Vector3D AngularAcceleration;
+    Vector3D AccumTorque;
+    Matrix3 InertialTensor;
+    
+    
 private:
 
 

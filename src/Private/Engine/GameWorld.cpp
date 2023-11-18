@@ -55,13 +55,17 @@ void GameWorld::BeginPlay(ofApp * Context)
     ennemi->SetTargetGameObject(player);
     ennemi->FollowTargetOn(true);
     objects.SpawnObject(ennemi);
+    
     CreateMap();
+    particle = new Particle(10, 1, Vector3D(0,-200,0), Vector3D::Zero(), 10, false);
+    GameObject * p2 = objects.SpawnObject(new RigidBody(Vector3D::Zero(), 10, Vector3D(0,-150,0), Vector3D::Zero(), 10, false));
+    spring = StaticSpring(particle, p2, 1, 50, -2);
 }
 
 void GameWorld::Update(double DeltaTimes)
 {
     objects.Update(DeltaTimes);
-    
+    spring.applyForce();
     
 }
 

@@ -59,6 +59,8 @@ private:
     ofImage paintingPropa3;
     ofImage paintingPropa4;
     ofImage paintingPropa5;
+    StaticSpring spring;
+    Particle * particle;
 
 
     void CreateMap();

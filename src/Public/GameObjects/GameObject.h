@@ -76,23 +76,27 @@ public:
 
     void Destroy();
 
-private:
-
+    
     Vector3D AccumForce;
 
     std::vector<Force> Forces;
+
+    Vector3D position = Vector3D::Zero();
+    Vector3D velocity = Vector3D::Zero();
+    Vector3D acceleration = Vector3D::Zero();
+    void ApplyPhysics(double DeltaTimes);
+private:
+
     
     bool bCanCollide = true;
     
-    void ApplyPhysics(double DeltaTimes);
+    
 
     virtual void UpdateVelocity(double Deltatimes);
 
     void UpdatePosition(double Deltatimes);
 
-    Vector3D position = Vector3D::Zero();
-    Vector3D velocity = Vector3D::Zero();
-    Vector3D acceleration = Vector3D::Zero();
+    
     double mass = 5;
     bool bSimulatePhysics = true;
     

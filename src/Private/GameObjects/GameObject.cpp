@@ -70,6 +70,7 @@ void GameObject::cleanAccumForce()
         if (Forces[i].lifetime <=0)
         {
             Forces.erase(Forces.begin()+i);
+            
         }
     }
     //On peut modifier les valeurs de la friction la c'est à 90%

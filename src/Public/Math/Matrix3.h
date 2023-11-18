@@ -37,6 +37,12 @@ public:
     double determinant();
     Matrix3 Transpose();
     Matrix3 Reverse();
+    static Matrix3 Identity()
+    {
+       return Matrix3( 1, 0, 0
+            , 0, 1, 0,
+            0, 0, 1);
+    };
 
     operator std::string() const
     {
