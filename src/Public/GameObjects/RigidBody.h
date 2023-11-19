@@ -7,7 +7,8 @@
 class RigidBody : public GameObject, public ofBoxPrimitive
 {
 public:
-    RigidBody(const Vector3D & AngularAcceleration, const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const int radius = 10, const bool bIsUsingGravity = true);
+    RigidBody(const float size, const double& mass, const Vector3D& position,
+    const Vector3D& velocity = Vector3D::Zero(), const int radius = 1, const bool bIsUsingGravity = true);
     void Setup() override;
     void Draw() override;
     void Update(double f) override;

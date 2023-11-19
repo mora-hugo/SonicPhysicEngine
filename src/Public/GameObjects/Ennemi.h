@@ -2,7 +2,7 @@
 #include "ofxAssimpModelLoader.h"
 #include "RigidBody.h"
 
-class Ennemi : public RigidBody
+class Ennemi : public GameObject
 {
 public:
     Ennemi(const std::string &filepath,const Vector3D &position, const Vector3D& scale = Vector3D(1, 1, 1));

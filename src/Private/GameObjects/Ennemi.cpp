@@ -4,7 +4,7 @@
 #include "ofxColorPicker.h"
 
 
-Ennemi::Ennemi(const std::string &filepath,const Vector3D& position, const Vector3D& scale) : RigidBody(Vector3D::Zero(), 10, position, Vector3D::Zero(), 200, true)
+Ennemi::Ennemi(const std::string &filepath,const Vector3D& position, const Vector3D& scale) : GameObject( 100, position, Vector3D::Zero(), 200, true)
 {
     modelLoaded.load(filepath, ofxAssimpModelLoader::OPTIMIZE_HIGH);
     Scale = scale;
@@ -113,7 +113,7 @@ void Ennemi::ProcessIA()
 
 void Ennemi::OnCollision(GameObject* other, CollisionData& Data)
 {
-    RigidBody::OnCollision(other, Data);
+    GameObject::OnCollision(other, Data);
     if(other->HasTag("Bullet"))
     {
         other->Destroy();

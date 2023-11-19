@@ -1,10 +1,10 @@
 ﻿#include "../../Public/GameObjects/RigidBody.h"
 #include "../../Public/Generator/Force.h"
 
-RigidBody::RigidBody(const Vector3D& AngularAcceleration, const double& mass, const Vector3D& position,
-    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, true), ofBoxPrimitive(5,5,5)
+RigidBody::RigidBody(const float size, const double& mass, const Vector3D& position,
+    const Vector3D& velocity, const int radius, const bool bIsUsingGravity) : GameObject(mass, position, velocity, radius, true), ofBoxPrimitive(size,size,size)
 {
-    InertialTensor =  Matrix3::Identity().Multiply(GetMass()* (5*5)/6);
+    InertialTensor =  Matrix3::Identity().Multiply(GetMass()* (size*size)/6);
 }
 
 void RigidBody::Setup()
@@ -16,6 +16,7 @@ void RigidBody::Setup()
 
 void RigidBody::Draw()
 {
+    if(NeedToBeDestroyed()) return;
     GameObject::Draw();
     draw();
 }
@@ -42,7 +43,6 @@ void RigidBody::Update(double f)
     RightVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(RightVector));
     UpVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(UpVector));
 
-    cout << "AccumTorque " << RotationQuat.x << " " << RotationQuat.y << " " << RotationQuat.z << " " << RotationQuat.w << endl;
     
 
 
@@ -58,18 +58,23 @@ void RigidBody::Update(double f)
     InertialTensor = RotationMatrix * InertialTensor.Reverse() * RotationMatrix.Reverse();
     AccumTorque = Vector3D::Zero();
     
-    
 }
 
 void RigidBody::OnCollision(GameObject* other, CollisionData& Data)
 {
     GameObject::OnCollision(other, Data);
     if(!HasTag("Lantern")) return;
-    Vector3D BrasDeLevier = Data.CollisionPoint - GetPosition();
+    Vector3D BrasDeLevier = (Data.CollisionPoint + other->GetVelocity()).Normalize();
     Vector3D NormalForce = Data.CollisionNormal;
 
-    Force force(NormalForce*Data.PenetrationDepth, 1, Constant,BrasDeLevier);
+    Force force(NormalForce.Normalize()*1 , 1, Constant,BrasDeLevier);
+    std::cout << "BrasDeLevier: " << string(BrasDeLevier) << std::endl;
+    std::cout << "NormalForce: " << string(NormalForce) << std::endl;
     this->AddForce(force);
+
+    if(other->HasTag("Bullet"))
+        other->Destroy();
+   
 }
 
 
@@ -81,8 +86,12 @@ void RigidBody::ApplyTorque()
         switch (Forces[i].type)
         {
         case Constant:
-            AccumForce = AccumForce + Forces[i].movement;
             AccumTorque = AccumTorque + Forces[i].leverArm.CrossProduct(Forces[i].movement);
+            break;
+        
+        case Friction:
+            Vector3D airResistanceForce = AngularVelocity.Negate() * Forces[i].movement.GetX();
+            AccumTorque = AccumTorque + Forces[i].leverArm.CrossProduct(airResistanceForce);
             break;
         }
     }

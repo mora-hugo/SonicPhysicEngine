@@ -11,7 +11,7 @@ void StaticSpring::applyForce()
     double distance = displacement.Magnitude();
 
     // Hooke's Law: F = -k * (x - L)
-    double forceMagnitude = -springConstant * (distance - restLength);
+    double forceMagnitude = springConstant * (distance - restLength);
 
     // Calculate damping force
     Vector3D relativeVelocity = secondGameObject->GetVelocity();

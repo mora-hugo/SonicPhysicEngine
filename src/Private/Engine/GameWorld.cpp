@@ -51,15 +51,16 @@ void GameWorld::BeginPlay(ofApp * Context)
     */
     
     player->Setup();
-    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,100), Vector3D(0.4,0.4,0.4));
+    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,10000), Vector3D(0.4,0.4,0.4));
     ennemi->SetTargetGameObject(player);
     ennemi->FollowTargetOn(true);
     objects.SpawnObject(ennemi);
     
     CreateMap();
-    particle = new Particle(10, 1, Vector3D(0,-200,0), Vector3D::Zero(), 10, false);
-    GameObject * p2 = objects.SpawnObject(new RigidBody(Vector3D::Zero(), 10, Vector3D(0,-150,0), Vector3D::Zero(), 10, false));
-    spring = StaticSpring(particle, p2, 1, 50, -2);
+    particle = new Particle(10, 1, Vector3D(0,-350,200), Vector3D::Zero(), 10, false);
+    object = objects.SpawnObject(new RigidBody(100, 1, Vector3D(0,-300,200), Vector3D::Zero(), 100, true));
+    object->AddTag("Lantern");
+    spring = StaticSpring(particle, object, 100, 50, -5);
 }
 
 void GameWorld::Update(double DeltaTimes)
@@ -84,7 +85,7 @@ void GameWorld::Draw()
 
 void GameWorld::EndPlay()
 {
-
+    delete particle;
 }
 
 void GameWorld::OnMouseEvent(const MouseEvent& event)

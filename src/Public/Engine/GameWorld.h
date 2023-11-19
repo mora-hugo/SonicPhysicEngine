@@ -61,6 +61,7 @@ private:
     ofImage paintingPropa5;
     StaticSpring spring;
     Particle * particle;
+    GameObject * object;
 
 
     void CreateMap();
