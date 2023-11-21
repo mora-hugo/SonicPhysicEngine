@@ -38,6 +38,8 @@ private:
     bool bIsDead = false;
     float Life = 100;
     const float Maxlife = 100;
+    int rangeOfdetection = 1000;
+
     
 };
 

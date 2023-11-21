@@ -1,7 +1,9 @@
 ﻿#include "../../Public/GameObjects/Cube.h"
 
-Cube::Cube(int size, const double& mass, const Vector3D& position, const Vector3D& velocity, const int radius,
-    const bool bIsUsingGravity) : RigidBody(mass, position, velocity, radius, bIsUsingGravity), ofBoxPrimitive(size,size,size)
+
+
+Cube::Cube(int size,const ofColor& color, const double& mass, const Vector3D& position, const Vector3D& velocity, const int radius,
+           const bool bIsUsingGravity) : RigidBody(mass, position, velocity, radius, bIsUsingGravity), ofBoxPrimitive(size,size,size), Cubecolor(color)
 {
     InertialTensor =  Matrix3::Identity().Multiply(GetMass()* (size*size)/6);
 
@@ -10,7 +12,10 @@ Cube::Cube(int size, const double& mass, const Vector3D& position, const Vector3
 void Cube::Draw()
 {
     RigidBody::Draw();
+    ofSetColor(Cubecolor);
     draw();
+    ofSetColor(ofColor::white);
+    
     
 }
 

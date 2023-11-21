@@ -78,7 +78,7 @@ private:
 
 
 
-    const  int MaxAmmo = 3;
+    const  int MaxAmmo = 10;
     int ammo = MaxAmmo;
 
     ofTrueTypeFont AmmoText;

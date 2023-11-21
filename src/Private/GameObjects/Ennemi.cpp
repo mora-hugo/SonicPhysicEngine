@@ -40,7 +40,7 @@ void Ennemi::Update(double f)
     ProcessIA();
     
     GameObject::Update(f);
-    //TODO
+    //Not using quat because they were not implemented yet
     SetPosition(Vector3D(GetPosition().X, 0, GetPosition().Z));
     modelLoaded.setPosition(GetPosition().X + ModelOffset.X, GetPosition().Y + ModelOffset.Y, GetPosition().Z + ModelOffset.Z);
     modelLoaded.setRotation(0, CurrentRotation.pitch, 1, 0, 0);
@@ -95,12 +95,18 @@ void Ennemi::ProcessIA()
 {
     if(!bIsFollowingTarget || bIsDead) return;
 
+    
+    
     Vector3D Direction;
     if(TargetGameObject)
         Direction =  GetPosition() - TargetGameObject->GetPosition();
     else
         Direction = GetPosition() - CurrentTarget;
 
+    //Checking if the player is in range
+    if(Direction.Magnitude() > rangeOfdetection) return;
+
+    
     AddPosition(Direction.Normalize().Negate());
 
     //Set Yaw to direction

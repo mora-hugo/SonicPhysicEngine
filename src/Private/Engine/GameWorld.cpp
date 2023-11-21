@@ -51,7 +51,7 @@ void GameWorld::BeginPlay(ofApp * Context)
     */
     
     player->Setup();
-    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,10000), Vector3D(0.4,0.4,0.4));
+    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,100), Vector3D(0.4,0.4,0.4));
     ennemi->SetTargetGameObject(player);
     ennemi->FollowTargetOn(true);
     objects.SpawnObject(ennemi);
@@ -66,7 +66,7 @@ void GameWorld::BeginPlay(ofApp * Context)
 
         GameObject * support = new Particle(10, 1, Vector3D(0+(i * 1000),-550,200), Vector3D::Zero(), 10, false);
         lanternsupport.push_back(support);
-        GameObject * object = objects.SpawnObject(new Cube(200, 1, Vector3D(0+(i * 1000),-500,200), Vector3D::Zero(), 200, true));
+        GameObject * object = objects.SpawnObject(new Cube(200, ofColor::blue, 1, Vector3D(0+(i * 1000),-500,200), Vector3D::Zero(), 200, true));
         object->AddTag("Lantern");
         springs.push_back(new StaticSpring(support, object, 30, 50, -5));
     }
