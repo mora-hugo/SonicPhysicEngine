@@ -10,7 +10,7 @@
 #include "../../Public/GameObjects/Ennemi.h"
 #include "../../Public/GameObjects/Object3d.h"
 #include "../../Public/GameObjects/Painting.h"
-#include "../../Public/GameObjects/RigidBody.h"
+#include "../../Public/GameObjects/Cube.h"
 #include "../../Public/GameObjects/Wall.h"
 #include "../../Public/Particle/BlobParticle.h"
 #include "../../Public/Math/ClassicSpring.h"
@@ -57,16 +57,30 @@ void GameWorld::BeginPlay(ofApp * Context)
     objects.SpawnObject(ennemi);
     
     CreateMap();
-    particle = new Particle(10, 1, Vector3D(0,-350,200), Vector3D::Zero(), 10, false);
-    object = objects.SpawnObject(new RigidBody(100, 1, Vector3D(0,-300,200), Vector3D::Zero(), 100, true));
-    object->AddTag("Lantern");
-    spring = StaticSpring(particle, object, 100, 50, -5);
+
+
+    //make the same for other lantern separated by 300 px (for loops)
+    
+    for(int i = -2; i < 2; i++)
+    {
+
+        GameObject * support = new Particle(10, 1, Vector3D(0+(i * 1000),-550,200), Vector3D::Zero(), 10, false);
+        lanternsupport.push_back(support);
+        GameObject * object = objects.SpawnObject(new Cube(200, 1, Vector3D(0+(i * 1000),-500,200), Vector3D::Zero(), 200, true));
+        object->AddTag("Lantern");
+        springs.push_back(new StaticSpring(support, object, 30, 50, -5));
+    }
+    
+
 }
 
 void GameWorld::Update(double DeltaTimes)
 {
     objects.Update(DeltaTimes);
-    spring.applyForce();
+    for(auto spring : springs)
+    {
+        spring->applyForce();
+    }
     
 }
 
@@ -85,7 +99,9 @@ void GameWorld::Draw()
 
 void GameWorld::EndPlay()
 {
-    delete particle;
+    
+    lanternsupport.clear();
+    springs.clear();
 }
 
 void GameWorld::OnMouseEvent(const MouseEvent& event)

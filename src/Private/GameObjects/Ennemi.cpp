@@ -26,7 +26,6 @@ void Ennemi::FollowTargetOn(bool bFollow)
 
 void Ennemi::Update(double f)
 {
-    //RigidBody::Update(f);
     if(TargetGameObject)
         CurrentTarget = TargetGameObject->GetPosition();
 

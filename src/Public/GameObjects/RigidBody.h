@@ -4,16 +4,15 @@
 #include "../Math/Matrix3.h"
 #include "../Math/Quaternion.h"
 
-class RigidBody : public GameObject, public ofBoxPrimitive
+class RigidBody : public GameObject
 {
 public:
-    RigidBody(const float size, const double& mass, const Vector3D& position,
+    RigidBody(const double& mass, const Vector3D& position,
     const Vector3D& velocity = Vector3D::Zero(), const int radius = 1, const bool bIsUsingGravity = true);
     void Setup() override;
     void Draw() override;
     void Update(double f) override;
 
-    void OnCollision(GameObject* other, CollisionData& Data) override;
     
 
 protected:
@@ -25,7 +24,6 @@ protected:
     Matrix3 RotationMatrix;
     Quaternion RotationQuat = Quaternion::identity();
     Vector3D AngularVelocity;
-    EulerAngle EulerAngles;
     Vector3D AngularAcceleration;
     Vector3D AccumTorque;
     Matrix3 InertialTensor;

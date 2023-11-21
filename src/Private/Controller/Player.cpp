@@ -2,7 +2,7 @@
 #include "../../Public/Particle/ParticleFireball.h"
 #include "../../ofApp.h"
 #include "../../Public/Engine/EventManager.h"
-#include "../../Public/GameObjects/RigidBody.h"
+#include "../../Public/GameObjects/Cube.h"
 
 
 Player::Player(ofApp * Context, const double& mass, const Vector3D& position, const Vector3D& velocity, int SphereRadius) :
@@ -101,7 +101,7 @@ void Player::Fire(GameWorld * Context)
 {
     if(ammo <= 0) return;
     
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new RigidBody(5,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 1, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(5,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 5, true));
     SetCameraTarget(gameobject);
     gameobject->AddForce(Force(Vector3D(0,0,0), 1, Constant));
     Force force = Force((-GetCamera()->getLookAtDir()*100), 1, Constant, Vector3D(0,1,0));
