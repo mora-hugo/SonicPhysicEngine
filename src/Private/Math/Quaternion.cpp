@@ -5,30 +5,6 @@
 #include "../../Public/Math/Vector3D.h"
 #include "ofMathConstants.h"
 
-EulerAngle EulerAngle::FromQuaternion(const Quaternion& quaternion)
-{
-    // Call the quaternion_to_euler function
-    auto euler = quaternion_to_euler({quaternion.x, quaternion.y, quaternion.z, quaternion.w});
-    return {euler[2], euler[1], euler[0]}; // Adjust the order if necessary
-}
-
-std::array<double, 3> quaternion_to_euler(const std::array<double, 4>& q)
-{
-    double t0 = +2.0 * (q[3] * q[0] + q[1] * q[2]);
-    double t1 = +1.0 - 2.0 * (q[0] * q[0] + q[1] * q[1]);
-    double roll = std::atan2(t0, t1);
-
-    double t2 = +2.0 * (q[3] * q[1] - q[2] * q[0]);
-    t2 = +1.0 > +t2 ? +1.0 : t2;
-    t2 = -1.0 > -t2 ? -1.0 : t2;
-    double pitch = std::asin(t2);
-
-    double t3 = +2.0 * (q[3] * q[2] + q[0] * q[1]);
-    double t4 = +1.0 - 2.0 * (q[1] * q[1] + q[2] * q[2]);
-    double yaw = std::atan2(t3, t4);
-
-    return {yaw, pitch, roll};
-}
 
 Quaternion::Quaternion(double real, double i, double j, double k) : w(real), x(i), y(j), z(k) {}
 
@@ -99,25 +75,4 @@ Quaternion Quaternion::operator-(const Quaternion& other) const {
 
 Quaternion Quaternion::fromVector(const Vector3D& vector) {
     return Quaternion(0, vector.GetX(), vector.GetY(), vector.GetZ());
-}
-
-Quaternion Quaternion::fromEulerAngle(const EulerAngle& eulerAngle)
-{
-    double yaw = eulerAngle.yaw;
-    double pitch = eulerAngle.pitch;
-    double roll = eulerAngle.roll;
-
-    double cy = std::cos(yaw * 0.5);
-    double sy = std::sin(yaw * 0.5);
-    double cp = std::cos(pitch * 0.5);
-    double sp = std::sin(pitch * 0.5);
-    double cr = std::cos(roll * 0.5);
-    double sr = std::sin(roll * 0.5);
-
-    double qw = cr * cp * cy + sr * sp * sy;
-    double qx = sr * cp * cy - cr * sp * sy;
-    double qy = cr * sp * cy + sr * cp * sy;
-    double qz = cr * cp * sy - sr * sp * cy;
-
-    return Quaternion(qw, qx, qy, qz);
 }

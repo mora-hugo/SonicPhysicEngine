@@ -8,11 +8,8 @@ struct EulerAngle
     double roll = 0;
     double pitch = 0;
     double yaw = 0;
-
-    static EulerAngle FromQuaternion(const class Quaternion& quaternion);
 };
 
-std::array<double, 3> quaternion_to_euler(const std::array<double, 4>& q);
 class Quaternion {
 public:
     
@@ -58,9 +55,6 @@ public:
 
     //Function that create a Quaternion with a Vector
     static Quaternion fromVector(const class Vector3D& vector);
-
-    //Function that create a Quaternion with a EulerAngle
-    static Quaternion fromEulerAngle(const EulerAngle& eulerAngle);
 
     
 };

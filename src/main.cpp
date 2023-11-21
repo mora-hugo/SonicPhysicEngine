@@ -232,6 +232,56 @@ bool RunMatrix3Tests() {
 	{
 		return false;
 	}
+
+	// Test the Matrix3 CreateRotationMatrix method
+	Quaternion q1(0.7071f, 0.0f, 0.7071f, 0.0f);  // 90-degree rotation around y-axis
+	Matrix3 result1 = Matrix3().CreateRotationMatrix(q1);
+	Matrix3 expected1(
+		0, 0, 1,
+		0, 1, 0,
+		-1, 0, 0
+	);
+	const float epsilon = 0.001f;
+	for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < 3; ++j) {
+			if (std::fabs(result1.GetMatrix3Element(i, j) - expected1.GetMatrix3Element(i, j)) > epsilon) {
+				std::cerr << "Matrix3 CreateRotationTest failed at element (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix3 CreateRotationTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	
+	// Test the Matrix3 NullMatrix method
+	Matrix3 resultNull = Matrix3().NullMatrix();
+
+	// Define the expected null matrix
+	Matrix3 expectedNullMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (std::fabs(resultNull.GetMatrix3Element(i, j) - expectedNullMatrix.GetMatrix3Element(i, j)) > epsilon) {
+				std::cerr << "Matrix3 NullMatrixTest failed at element (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix3 NullMatrixTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
 	
 	//return true if all tests are passed
 	return true;
@@ -397,6 +447,30 @@ bool RunMatrix4Tests() {
 
 	if (TestResult) {
 		std::cout << "Matrix4ReverseTest passed." << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+
+	// Test the Matrix4 NullMatrix method
+	Matrix4 resultNull = Matrix4().NullMatrix();
+
+	// Define the expected null matrix
+	Matrix4 expectedNullMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	// Compare the actual result with the expected result
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (std::fabs(resultNull.GetMatrix4Element(i, j) - expectedNullMatrix.GetMatrix4Element(i, j))  > 0.01) {
+				std::cerr << "Matrix3 NullMatrixTest failed at element (" << i << ", " << j << ")" << std::endl;
+				TestResult = false;
+			}
+		}
+	}
+
+	if (TestResult) {
+		std::cout << "Matrix4 NullMatrixTest passed." << std::endl;
 	}
 	else
 	{

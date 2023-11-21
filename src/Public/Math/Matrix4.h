@@ -73,8 +73,9 @@ public:
         return (this->Multiply(m));
     }
 
+    Matrix4 NullMatrix();
+    
 private:
     double data[4][4];
 
-    Matrix4 NullMatrix();
 };

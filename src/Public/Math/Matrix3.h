@@ -74,8 +74,9 @@ public:
 
     Matrix3 CreateRotationMatrix(Quaternion q);
 
+    Matrix3 NullMatrix();
+    
 private:
     double data[3][3];
 
-    Matrix3 NullMatrix();
 };
