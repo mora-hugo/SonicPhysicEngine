@@ -66,6 +66,7 @@ public:
 
     void SetPosition(Vector3D NewPosition);
 
+    //Call by GameObjectContainer on collision
     virtual void OnCollision(GameObject * other, CollisionData& Data);
 
     void SetCollision(bool bAllowCollision);

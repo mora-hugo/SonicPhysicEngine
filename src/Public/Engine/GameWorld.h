@@ -63,7 +63,7 @@ private:
     std::vector<StaticSpring* > springs;
     std::vector<GameObject* > lanternsupport;
 
-    void CreateMap();
+    void CreateMap(bool bFullmap = false);
 
 
 };

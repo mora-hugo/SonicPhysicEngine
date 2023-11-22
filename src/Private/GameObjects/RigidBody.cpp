@@ -35,7 +35,6 @@ void RigidBody::Update(double f)
     RotationQuat = RotationQuat + Quaternion::fromVector(AngularVelocity) * RotationQuat * 0.5f * f;
 
     // Normalization
-    // Check for potential normalization issues
     RotationQuat.normalize();
 
     ForwardVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(ForwardVector));
@@ -44,7 +43,7 @@ void RigidBody::Update(double f)
     
     GameObject::Update(f);
    
-
+    //Update our rotation matrix and intertial tensor
     RotationMatrix = Matrix3().CreateRotationMatrix(RotationQuat);
     InertialTensor = RotationMatrix * InertialTensor.Reverse() * RotationMatrix.Reverse();
     AccumTorque = Vector3D::Zero();

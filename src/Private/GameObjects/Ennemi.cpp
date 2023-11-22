@@ -54,7 +54,6 @@ void Ennemi::Update(double f)
 
 void Ennemi::Draw()
 {
-    //RigidBody::Draw();
     modelLoaded.drawFaces();
     ofPushMatrix();
 

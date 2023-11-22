@@ -91,6 +91,8 @@ void GameObjectsContainer::Update(double f)
                 }
                 
             }
+
+            //Simulate collision for the ground
             GameObject * p1 = objects[i];
         
             if(p1->GetPosition().GetY() > 0) // collision with ground

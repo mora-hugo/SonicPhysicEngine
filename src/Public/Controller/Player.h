@@ -14,6 +14,7 @@ class Player : public GameObject
 public:
     
     Player(ofApp * Context, const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), int SphereRadius = 10);
+    //When the player rotate the camera
     void OnRotate(const Vector3D& DeltaRot);
     void Setup() override;
     void Draw() override;

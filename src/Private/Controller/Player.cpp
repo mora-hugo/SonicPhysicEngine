@@ -15,7 +15,7 @@ void Player::Setup()
     GameObject::Setup();
     bool bIsloaded = Weapon.load("rocket_launcher_m236.glb",20);
     Weapon.setScale(0.1,0.1,0.1);
-    SetPosition(Vector3D(0,0,0));
+    
 
     AmmoText.load("leadcoat.ttf", 30);
     AmmoTextAmount.load("leadcoat.ttf", 30);
@@ -90,6 +90,7 @@ void Player::Update(double f)
 
 void Player::Jump()
 {
+    //Not implemented this phase
 }
 
 void Player::Reload()
@@ -99,6 +100,7 @@ void Player::Reload()
 
 void Player::Fire(GameWorld * Context)
 {
+    //Call when the player fire
     if(ammo <= 0) return;
     
     GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(5,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 5, true));

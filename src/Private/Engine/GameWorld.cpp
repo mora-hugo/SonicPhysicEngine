@@ -32,7 +32,7 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 10, Vector3D(0,-1000,0), Vector3D::Zero(), 10)));
+    player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 10, Vector3D(0,0,-800), Vector3D::Zero(), 10)));
     //Rock generation
     
     rockTexture.load("rock_albedo.jpg");
@@ -51,12 +51,9 @@ void GameWorld::BeginPlay(ofApp * Context)
     */
     
     player->Setup();
-    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,100), Vector3D(0.4,0.4,0.4));
-    ennemi->SetTargetGameObject(player);
-    ennemi->FollowTargetOn(true);
-    objects.SpawnObject(ennemi);
     
-    CreateMap();
+    
+    CreateMap(true);
 
 
     //make the same for other lantern separated by 300 px (for loops)
@@ -167,7 +164,7 @@ GameObjectsContainer* GameWorld::GetObjectsArray()
     return &objects;
 }
 
-void GameWorld::CreateMap()
+void GameWorld::CreateMap(bool bFullmap)
 {
     wallTexture.load("StoneTileTexture/Stone_2k_Albedo.jpg");
 
@@ -250,8 +247,20 @@ void GameWorld::CreateMap()
     objects.SpawnObject(painting);
     painting->Rotate(90,1,0,0);
 
+    Ennemi * ennemi = new Ennemi("Ennemis/WallE.glb", Vector3D(0,-2000,-400), Vector3D(0.4,0.4,0.4));
+    ennemi->SetTargetGameObject(player);
+    ennemi->FollowTargetOn(true);
+    objects.SpawnObject(ennemi);
 
+    Ennemi * ennemi2 = new Ennemi("Ennemis/WallE.glb", Vector3D(2000,-2000,-3000), Vector3D(0.4,0.4,0.4));
+    ennemi2->SetTargetGameObject(player);
+    ennemi2->FollowTargetOn(true);
+    objects.SpawnObject(ennemi2);
 
+    Ennemi * ennemi3 = new Ennemi("Ennemis/WallE.glb", Vector3D(-2000,-2000,-3000), Vector3D(0.4,0.4,0.4));
+    ennemi3->SetTargetGameObject(player);
+    ennemi3->FollowTargetOn(true);
+    objects.SpawnObject(ennemi3);
 
 
 
@@ -261,7 +270,7 @@ void GameWorld::CreateMap()
     //======================= 3D Props
     // objects.SpawnObject(new Object3d("ObjectAsset/elon_musk.glb",Vector3D(1500,-20,-2500),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100))); // Elon Musk Easter Egg
 
-    /*
+    if(!bFullmap) return;
     //======================= Lab Room
     objects.SpawnObject(new Object3d("ObjectAsset/computer.glb",Vector3D(2000,0,-2150),Vector3D(0,0,0),Vector3D(0.7,0.7,0.7),Vector3D(100,100,100)));
         objects.SpawnObject(new Object3d("Props/chair.glb",Vector3D(2000,0,-2180),Vector3D(0,0,0),Vector3D(0.28,0.28,0.28),Vector3D(100,100,100)));
@@ -376,7 +385,6 @@ void GameWorld::CreateMap()
     
     objects.SpawnObject(new Object3d("ObjectAsset/globe.glb",Vector3D(-1700,0,-1000),Vector3D(0,0,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
     objects.SpawnObject(new Object3d("ObjectAsset/marble_statue.glb",Vector3D(1100,0,800),Vector3D(0,0,0),Vector3D(0.65,0.65,0.65),Vector3D(100,100,100)));
-    */
 
 
 }
