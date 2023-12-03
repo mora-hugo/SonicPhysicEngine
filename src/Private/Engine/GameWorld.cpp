@@ -33,47 +33,20 @@ void GameWorld::BeginPlay(ofApp * Context)
     });
 
     player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 10, Vector3D(0,0,-800), Vector3D::Zero(), 10)));
-    //Rock generation
-    
     rockTexture.load("rock_albedo.jpg");
-    /*
-    for(int i = -10; i < 10; i++)
-    {
-        for(int j = -10; j < 10; j++)
-        {
-            const int randomRadius = ofRandom(20, 150);
-            if(ofRandom(0,10) < 3) continue;
-            Rock * rock = new Rock(&rockTexture,Vector3D(i * 500, 0, j * 500), randomRadius);
-            rock->SetFaces(10);
-            objects.SpawnObject(rock);
-        }
-    }
-    */
-    
     player->Setup();
-    
-    
-    CreateMap(true);
+    CreateMap(false);
 
-
-    //make the same for other lantern separated by 300 px (for loops)
-    
-    for(int i = -2; i < 2; i++)
-    {
-
-        GameObject * support = new Particle(10, 1, Vector3D(0+(i * 1000),-550,200), Vector3D::Zero(), 10, false);
-        lanternsupport.push_back(support);
-        GameObject * object = objects.SpawnObject(new Cube(200, ofColor::blue, 1, Vector3D(0+(i * 1000),-500,200), Vector3D::Zero(), 200, true));
-        object->AddTag("Lantern");
-        springs.push_back(new StaticSpring(support, object, 30, 50, -5));
-    }
-    
+   
+    octree = new Octree(Vector3D::Zero(), 10000, objects.GetObjectsArray());
+    std::cout << "octree created" << std::endl;
 
 }
 
 void GameWorld::Update(double DeltaTimes)
 {
     objects.Update(DeltaTimes);
+    octree->Build();
     for(auto spring : springs)
     {
         spring->applyForce();
@@ -89,6 +62,7 @@ void GameWorld::Draw()
     objects.Draw();
     ground.Draw();
     player->Draw();
+    octree->Draw();
 
     //IMPORTANT
     player->StopPlayerSee();
@@ -99,6 +73,7 @@ void GameWorld::EndPlay()
     
     lanternsupport.clear();
     springs.clear();
+    delete octree;
 }
 
 void GameWorld::OnMouseEvent(const MouseEvent& event)

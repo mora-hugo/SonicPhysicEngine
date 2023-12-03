@@ -1,6 +1,7 @@
 #pragma once
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
+#include "Octree.h"
 #include "../GameObjects/GameObjectsContainer.h"
 #include "../GameObjects/Ground.h"
 #include "../Controller/Player.h"
@@ -62,6 +63,9 @@ private:
     Particle * particle;
     std::vector<StaticSpring* > springs;
     std::vector<GameObject* > lanternsupport;
+
+    Octree * octree;
+
 
     void CreateMap(bool bFullmap = false);
 

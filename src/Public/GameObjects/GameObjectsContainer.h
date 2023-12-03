@@ -1,4 +1,4 @@
-#pragma onceD
+#pragma once
 #include "GameObject.h"
 
 class GameObjectsContainer
@@ -12,7 +12,7 @@ public:
 
     void Draw();
 
-
+    std::vector<GameObject*>& GetObjectsArray() { return objects; }
     
     GameObject* SpawnObject(GameObject * object);
 private:
