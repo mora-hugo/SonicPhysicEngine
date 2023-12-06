@@ -51,6 +51,10 @@ void GameObjectsContainer::Update(double f)
                     collisionData2.PenetrationDepth = collisionData.PenetrationDepth;
                     
 
+                    collisionData.CollisionNormal;
+                    //Tracer axe de séparation
+
+                    
 
                     //Snap the targets
 
@@ -87,7 +91,7 @@ void GameObjectsContainer::Update(double f)
                     p1->SetVelocity(ImpulseVectorP1);
                     p2->SetVelocity(ImpulseVectorP2);
                     
-                    //std::cout << "collision ! " << std::endl;
+                    std::cout << "collision ! " << std::endl;
                 }
                 
             }
