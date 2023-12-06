@@ -62,7 +62,7 @@ void GameWorld::Draw()
     objects.Draw();
     ground.Draw();
     player->Draw();
-    octree->Draw();
+    octree->Draw(); //Comment this to hide the lines of the octree (prevent the draw)
 
     //IMPORTANT
     player->StopPlayerSee();
