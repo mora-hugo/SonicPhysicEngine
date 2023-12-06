@@ -4,15 +4,15 @@
 class Box
 {
 public:
-    Box(float lengthBase, float lengthHeight);
+    Box(float width, float height, float depth);
     void Draw();
     void Update(double f);
 
    
     bool IsCollidingWithRectangle();
     //note perso:produit scalaire, method iscolliding with rectangle
-
-private:
-    float LenghtBase = 10;
-    float LenghtHeight = 10;
+    static Box InitBox();
+    float Width = 200;
+    float Height = 200;
+    float Depth = 200;
 };

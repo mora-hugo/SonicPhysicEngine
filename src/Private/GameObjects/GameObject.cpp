@@ -3,9 +3,10 @@
 #include <iostream>
 #include <ostream>
 
+#include "of3dGraphics.h"
 #include "../../Public/Engine/GameWorld.h"
 
-GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass), bUsingGravity(bIsUsingGravity)
+GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity, Box boxCollision) : radius(radius), position(position), velocity(velocity), mass(mass), bUsingGravity(bIsUsingGravity), boxCollision(boxCollision)
 {
     
 }
@@ -16,6 +17,10 @@ void GameObject::Setup()
 
 void GameObject::Draw()
 {
+    ofSetColor(ofColor::yellow);
+    ofFill();
+    ofDrawBox(GetPosition(), boxCollision.Width);
+    
 }
 
 void GameObject::Update(double f)

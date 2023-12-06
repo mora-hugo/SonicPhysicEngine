@@ -53,8 +53,8 @@ void GameObjectsContainer::Update(double f)
 
                     collisionData.CollisionNormal;
                     //Tracer axe de séparation
-
-                    
+                    bool returnCheckCollision = CheckCollision(*p1, *p2);
+                    std::cout << "Collision: " << (returnCheckCollision ? "true" : "false") << std::endl;
 
                     //Snap the targets
 
@@ -91,7 +91,7 @@ void GameObjectsContainer::Update(double f)
                     p1->SetVelocity(ImpulseVectorP1);
                     p2->SetVelocity(ImpulseVectorP2);
                     
-                    std::cout << "collision ! " << std::endl;
+                    //std::cout << "collision ! " << std::endl;
                 }
                 
             }
@@ -120,6 +120,15 @@ void GameObjectsContainer::Update(double f)
     }
 }
 
+bool GameObjectsContainer::CheckCollision(const GameObject& p1, const GameObject& p2) {
+    const bool xCollision = std::abs(p1.GetPosition().X - p2.GetPosition().X) * 2 < (p1.boxCollision.Width + p2.boxCollision.Width);
+    const bool yCollision = std::abs(p1.GetPosition().Y - p2.GetPosition().Y) * 2 < (p1.boxCollision.Height + p2.boxCollision.Height);
+    const bool zCollision = std::abs(p1.GetPosition().Z - p2.GetPosition().Z) * 2 < (p1.boxCollision.Depth + p2.boxCollision.Depth);
+
+    std::cout << xCollision << " / " << yCollision << " / " << zCollision << std::endl;
+    return xCollision || yCollision || zCollision;
+}
+
 void GameObjectsContainer::Draw()
 {
     for(GameObject * object: objects)
@@ -127,11 +136,6 @@ void GameObjectsContainer::Draw()
         object->Draw();
     }
 }
-
-
-
-    
-
 
 GameObject* GameObjectsContainer::SpawnObject(GameObject* object)
 {

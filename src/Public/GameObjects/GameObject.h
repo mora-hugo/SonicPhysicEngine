@@ -7,13 +7,14 @@
 #include "../../Public/Generator/Force.h"
 #include "../../Public/Config/Config.h"
 #include "Structs/CollisionData.h"
+#include "Box.h"
 
 class Force;
 
 class GameObject
 {
 public:
-    GameObject(const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const int radius = 10, const bool bIsUsingGravity = true);
+    GameObject(const double &mass = 1, const Vector3D &position = Vector3D::Zero(), const Vector3D &velocity = Vector3D::Zero(), const int radius = 10, const bool bIsUsingGravity = true, Box boxCollision = Box::InitBox());
 
     virtual void Setup();
     
@@ -86,6 +87,9 @@ public:
     Vector3D velocity = Vector3D::Zero();
     Vector3D acceleration = Vector3D::Zero();
     void ApplyPhysics(double DeltaTimes);
+
+
+    Box boxCollision;
 private:
 
     
@@ -96,7 +100,6 @@ private:
     virtual void UpdateVelocity(double Deltatimes);
 
     void UpdatePosition(double Deltatimes);
-
     
     double mass = 5;
     bool bSimulatePhysics = true;

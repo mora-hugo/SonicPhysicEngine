@@ -1,15 +1,18 @@
 ﻿#include "../../Public/GameObjects/Box.h"
 
+#include "of3dGraphics.h"
+#include "../../Public/GameObjects/GameObject.h"
 
-Box::Box(float lengthBase, float lengthHeight)
+Box::Box(float width, float height, float depth)
 {
-    lengthBase = LenghtBase;
-    lengthHeight = LenghtHeight;
+    width = Width;
+    height = Height;
+    depth = Depth;
 }
 
 void Box::Draw()
 {
-    ofSetColor(ofColor::white);
+    
 }
 
 void Box::Update(double f)
@@ -25,4 +28,9 @@ bool Box::IsCollidingWithRectangle()
 
     //retrun false if is not colliding with rectangle.
     return false;
+}
+
+Box Box::InitBox()
+{
+    return Box(200, 200, 200);
 }

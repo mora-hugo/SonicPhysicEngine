@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Box.h"
 
 class GameObjectsContainer
 {
@@ -9,6 +10,8 @@ public:
     void Setup();
     
     void Update(double f);
+
+    bool CheckCollision(const GameObject& box1, const GameObject& box2);
 
     void Draw();
 
