@@ -13,12 +13,14 @@ GameObject::GameObject(const double& mass, const Vector3D& position, const Vecto
 
 void GameObject::Setup()
 {
+    boxCollision = Box::InitBox();
 }
 
 void GameObject::Draw()
 {
     ofSetColor(ofColor::yellow);
     ofFill();
+    ofSetColor(ofColor::white);
     ofDrawBox(GetPosition(), boxCollision.Width);
     
 }
@@ -121,10 +123,6 @@ bool GameObject::IsCollidingWith(const GameObject& other) const
     const float distance = GetPosition().Distance(other.GetPosition());
     return (distance <= radius);
 }
-
-
-
-
 
 void GameObject::SetVelocity(Vector3D NewVelocity)
 {
