@@ -18,6 +18,7 @@ void GameObject::Draw()
 {
     
     boxCollision.Draw();
+ 
    
     
 }

@@ -19,9 +19,9 @@ public:
     double Height = 200;
     double Depth = 200;
 
-    Vector3D ForwardVector = Vector3D(1,0,0);
-    Vector3D UpVector = Vector3D(0,1,0);
-    Vector3D RightVector = Vector3D(0,0,1);
+    Vector3D ForwardVector = Vector3D::Forward();
+    Vector3D UpVector = Vector3D::Up();
+    Vector3D RightVector = Vector3D::Right();
     ofColor color;
     Vector3D position;
     Quaternion rotation = Quaternion::identity();

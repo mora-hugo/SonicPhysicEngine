@@ -25,7 +25,7 @@ void Box::Draw()
     ofNoFill();
     ofBoxPrimitive PrimBox = ofBoxPrimitive(Width, Height, Depth);
     PrimBox.setPosition(position);
-    PrimBox.setGlobalOrientation(glm::quat(rotation.w, rotation.x, rotation.y, rotation.z));
+    //PrimBox.setGlobalOrientation(glm::quat(rotation.w, rotation.x, rotation.y, rotation.z));
     PrimBox.drawWireframe();
     ofFill();
     ofSetColor(ofColor::white);
@@ -39,37 +39,49 @@ void Box::Update(double f)
 
 bool Box::IsCollidingWithRectangle(Box& p2)
 {
-   
-    Vector3D Middle1 = position;
-    Vector3D upperMiddle1 = position + UpVector * Height;
-    Vector3D rightMiddle1 = position + RightVector * Width;
-    Vector3D forwardMiddle1 = position + ForwardVector * Depth;
+    // Vecteurs représentant les axes de chaque boîte
+    Vector3D axes[15] = {
+        ForwardVector,
+        UpVector,
+        RightVector,
+        p2.ForwardVector,
+        p2.UpVector,
+        p2.RightVector,
+        ForwardVector.CrossProduct(p2.ForwardVector),
+        ForwardVector.CrossProduct(p2.UpVector),
+        ForwardVector.CrossProduct(p2.RightVector),
+        UpVector.CrossProduct(p2.ForwardVector),
+        UpVector.CrossProduct(p2.UpVector),
+        UpVector.CrossProduct(p2.RightVector),
+        RightVector.CrossProduct(p2.ForwardVector),
+        RightVector.CrossProduct(p2.UpVector),
+        RightVector.CrossProduct(p2.RightVector)
+    };
 
-    Vector3D Middle2 = p2.position;
-    Vector3D upperMiddle2 = p2.position + p2.UpVector * p2.Height;
-    Vector3D rightMiddle2 = p2.position + p2.RightVector * p2.Width;
-    Vector3D forwardMiddle2 = p2.position + p2.ForwardVector * p2.Depth;
+    for (int i = 0; i < 15; ++i)
+    {
+        // Projetter les boîtes sur l'axe
+        double projection1 = position.DotProduct(axes[i]);
+        double projection2 = p2.position.DotProduct(axes[i]);
 
-    const Vector3D L = position.Sub(p2.position);
+        // Calculer la distance entre les projections
+        double distance = std::abs(projection1 - projection2);
 
-    const double L_x = abs(L.X);
-    const double L_y = abs(L.Y);
-    const double L_z = abs(L.Z);
+        // Calculer la somme des demi-largeurs le long de l'axe
+        double sumHalfWidths = (Width / 2) + (p2.Width / 2);
 
-    Vector3D rayon1 = Vector3D(fabs(upperMiddle1.X - Middle1.X), fabs(upperMiddle1.Y - Middle1.Y), fabs(upperMiddle1.Z - Middle1.Z));
-    Vector3D rayon2 = Vector3D(fabs(upperMiddle2.X - Middle2.X), fabs(upperMiddle2.Y - Middle2.Y), fabs(upperMiddle2.Z - Middle2.Z));
+        // Vérifier la séparation le long de l'axe
+        if (distance > sumHalfWidths)
+        {
+            // Les boîtes sont séparées le long de cet axe, donc pas de collision
+            return false;
+        }
+    }
 
-    double rA_X = rayon1.X;
-    double rA_Y = rayon1.Y;
-    double rA_Z = rayon1.Z;
-
-    double rB_X = rayon2.X;
-    double rB_Y = rayon2.Y;
-    double rB_Z = rayon2.Z;
-
-    return rA_X + rB_X > L_x && rA_Y + rB_Y > L_y && rA_Z + rB_Z > L_z;
-
+    // Aucune séparation le long de tous les axes, donc collision
+    return true;
 }
+
 
 Box Box::InitBox()
 {

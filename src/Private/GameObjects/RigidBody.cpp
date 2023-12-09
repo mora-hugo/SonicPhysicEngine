@@ -1,4 +1,6 @@
 ﻿#include "../../Public/GameObjects/RigidBody.h"
+
+#include "of3dGraphics.h"
 #include "../../Public/Generator/Force.h"
 
 RigidBody::RigidBody(const double& mass, const Vector3D& position,
@@ -18,6 +20,8 @@ void RigidBody::Draw()
 {
     if(NeedToBeDestroyed()) return;
     GameObject::Draw();
+    ofDrawSphere(position.X, position.Y, position.Z, GetRadius());
+   
 }
 
 void RigidBody::Update(double f)
@@ -37,14 +41,16 @@ void RigidBody::Update(double f)
     // Normalization
     RotationQuat.normalize();
 
-    ForwardVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(ForwardVector));
+    ForwardVector = Vector3D::fromQuaternion((RotationQuat * Quaternion::fromVector(ForwardVector)));
     RightVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(RightVector));
     UpVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(UpVector));
 
+    /*
     boxCollision.ForwardVector = ForwardVector;
     boxCollision.RightVector = RightVector;
     boxCollision.UpVector = UpVector;
 
+        */
     boxCollision.rotation = RotationQuat;
     
     GameObject::Update(f);
