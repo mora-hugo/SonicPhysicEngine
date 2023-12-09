@@ -2,11 +2,10 @@
 
 #include <iostream>
 #include <ostream>
-
 #include "of3dGraphics.h"
 #include "../../Public/Engine/GameWorld.h"
 
-GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity, Box boxCollision) : radius(radius), position(position), velocity(velocity), mass(mass), bUsingGravity(bIsUsingGravity), boxCollision(boxCollision)
+GameObject::GameObject(const double& mass, const Vector3D& position, const Vector3D& velocity,const int radius, const bool bIsUsingGravity) : radius(radius), position(position), velocity(velocity), mass(mass), bUsingGravity(bIsUsingGravity)
 {
     
 }
@@ -17,16 +16,15 @@ void GameObject::Setup()
 
 void GameObject::Draw()
 {
-    ofSetColor(ofColor::yellow);
-    ofFill();
-    ofDrawBox(GetPosition(), boxCollision.Width);
-    
+    boxCollision.Draw();
 }
 
 void GameObject::Update(double f)
 {
     if(bSimulatePhysics)
         this->ApplyPhysics(f);
+    
+    boxCollision.position = this->position;
 }
 
 double GameObject::GetMass() const
@@ -121,10 +119,6 @@ bool GameObject::IsCollidingWith(const GameObject& other) const
     const float distance = GetPosition().Distance(other.GetPosition());
     return (distance <= radius);
 }
-
-
-
-
 
 void GameObject::SetVelocity(Vector3D NewVelocity)
 {

@@ -33,7 +33,12 @@ void GameObjectsContainer::Update(double f)
             {
                 GameObject * p1 = objects[i];
                 GameObject * p2 = objects[j];
-                if(p1->IsCollidingWith(*p2))
+
+                if (CheckCollision(*p1, *p2))
+                {
+                    
+                }
+                /*if(p1->IsCollidingWith(*p2))
                 {
                     // P1 is A / P2 is B
                     CollisionData collisionData;
@@ -92,7 +97,7 @@ void GameObjectsContainer::Update(double f)
                     p2->SetVelocity(ImpulseVectorP2);
                     
                     //std::cout << "collision ! " << std::endl;
-                }
+                }*/
                 
             }
 
@@ -121,11 +126,13 @@ void GameObjectsContainer::Update(double f)
 }
 
 bool GameObjectsContainer::CheckCollision(const GameObject& p1, const GameObject& p2) {
+    bool res = false;
+
     const bool xCollision = std::abs(p1.GetPosition().X - p2.GetPosition().X) * 2 < (p1.boxCollision.Width + p2.boxCollision.Width);
     const bool yCollision = std::abs(p1.GetPosition().Y - p2.GetPosition().Y) * 2 < (p1.boxCollision.Height + p2.boxCollision.Height);
     const bool zCollision = std::abs(p1.GetPosition().Z - p2.GetPosition().Z) * 2 < (p1.boxCollision.Depth + p2.boxCollision.Depth);
 
-    std::cout << xCollision << " / " << yCollision << " / " << zCollision << std::endl;
+    //std::cout << xCollision << " / " << yCollision << " / " << zCollision << std::endl;
     return xCollision || yCollision || zCollision;
 }
 

@@ -40,6 +40,10 @@ void RigidBody::Update(double f)
     ForwardVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(ForwardVector));
     RightVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(RightVector));
     UpVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(UpVector));
+
+    boxCollision.ForwardVector = ForwardVector;
+    boxCollision.RightVector = RightVector;
+    boxCollision.UpVector = UpVector;
     
     GameObject::Update(f);
    
