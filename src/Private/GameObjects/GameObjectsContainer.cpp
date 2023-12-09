@@ -18,7 +18,10 @@ void GameObjectsContainer::Setup()
 
 void GameObjectsContainer::Update(double f)
 {
-    
+    for(GameObject * object: objects)
+    {
+        object->boxCollision.color = ofColor::white;
+    }
     for(unsigned int i = 0; i < objects.size();i++)
     {
         if(objects[i]->NeedToBeDestroyed())
@@ -31,12 +34,14 @@ void GameObjectsContainer::Update(double f)
         {
             if(i != j && i < objects.size() * 2 ) // If there is more than 2n collisions, then abandon the others
             {
+                
                 GameObject * p1 = objects[i];
                 GameObject * p2 = objects[j];
 
-                if (CheckCollision(*p1, *p2))
+                if (p1->boxCollision.IsCollidingWithRectangle(p2->boxCollision))
                 {
-                    
+                    p1->boxCollision.color = ofColor::red;
+                    p2->boxCollision.color = ofColor::red;
                 }
                 /*if(p1->IsCollidingWith(*p2))
                 {

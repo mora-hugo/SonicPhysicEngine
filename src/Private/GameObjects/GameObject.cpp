@@ -16,7 +16,10 @@ void GameObject::Setup()
 
 void GameObject::Draw()
 {
+    
     boxCollision.Draw();
+   
+    
 }
 
 void GameObject::Update(double f)

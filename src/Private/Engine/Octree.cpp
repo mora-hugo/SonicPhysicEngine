@@ -98,7 +98,6 @@ Octree::~Octree()
 void Octree::Build()
 {
     Reset();
-    std::cout << "Number of objects :" << objects.size() << std::endl;
     rootNode = new OctreeNode(nullptr,0,BasePosition,Size,objects);
 }
 

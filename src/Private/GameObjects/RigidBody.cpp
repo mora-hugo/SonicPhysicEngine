@@ -44,6 +44,8 @@ void RigidBody::Update(double f)
     boxCollision.ForwardVector = ForwardVector;
     boxCollision.RightVector = RightVector;
     boxCollision.UpVector = UpVector;
+
+    boxCollision.rotation = RotationQuat;
     
     GameObject::Update(f);
    

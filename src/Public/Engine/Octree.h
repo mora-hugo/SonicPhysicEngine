@@ -26,28 +26,7 @@ struct OctreeNode
     OctreeNode(OctreeNode * parent, float penetration_depth, const Vector3D & center, float size, const std::vector<GameObject*>& objects);
 
     void Draw();
-
-    inline ofColor GetRandomColor()
-    {
-        const unsigned int Color = ofRandom(1,5);
-        switch (Color)
-        {
-        case 1:
-            return ofColor::orange;
-        case 2:
-            return ofColor::orangeRed;
-        case 3:
-            return ofColor::darkOrange;
-        case 4:
-            return ofColor::yellow;
-        case 5:
-            return ofColor::darkRed;
-        default:
-            break;
-        }
-        return ofColor::orange;
-
-    }
+    
 };
 
 
