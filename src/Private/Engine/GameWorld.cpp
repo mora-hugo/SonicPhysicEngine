@@ -213,9 +213,10 @@ void GameWorld::CreateMap(bool bFullmap)
     //======================= Decoration Painting
     paintingTexture.load("MinecraftTexture/minecraft.jpg");
     Painting* painting = new Painting(&paintingTexture,300,300,10, Vector3D(0,-250,-1950));
+    /*
     objects.SpawnObject(painting);
     painting->Rotate(180,0,0,1);
-
+*/
 
     paintingTexture2.load("CarpetTexture/CarpetTexture.jpeg");
     painting = new Painting(&paintingTexture2,400,1300,5, Vector3D(0,-2,-100));

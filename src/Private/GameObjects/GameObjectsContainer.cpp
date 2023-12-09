@@ -131,7 +131,7 @@ void GameObjectsContainer::Update(double f)
 }
 
 bool GameObjectsContainer::CheckCollision(const GameObject& p1, const GameObject& p2) {
-    bool res = false;
+    //bool res = false;
 
     const bool xCollision = std::abs(p1.GetPosition().X - p2.GetPosition().X) * 2 < (p1.boxCollision.Width + p2.boxCollision.Width);
     const bool yCollision = std::abs(p1.GetPosition().Y - p2.GetPosition().Y) * 2 < (p1.boxCollision.Height + p2.boxCollision.Height);

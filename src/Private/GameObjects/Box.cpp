@@ -51,13 +51,13 @@ bool Box::IsCollidingWithRectangle(Box& p2)
     Vector3D forwardMiddle2 = p2.position + p2.ForwardVector * p2.Depth;
 
     const Vector3D L = position.Sub(p2.position);
-    
+
     const double L_x = abs(L.X);
     const double L_y = abs(L.Y);
     const double L_z = abs(L.Z);
 
-    Vector3D rayon1 = position + upperMiddle1 + rightMiddle1 + forwardMiddle1;
-    Vector3D rayon2 = p2.position + upperMiddle2 + rightMiddle2 + forwardMiddle2;
+    Vector3D rayon1 = Vector3D(fabs(upperMiddle1.X - Middle1.X), fabs(upperMiddle1.Y - Middle1.Y), fabs(upperMiddle1.Z - Middle1.Z));
+    Vector3D rayon2 = Vector3D(fabs(upperMiddle2.X - Middle2.X), fabs(upperMiddle2.Y - Middle2.Y), fabs(upperMiddle2.Z - Middle2.Z));
 
     double rA_X = rayon1.X;
     double rA_Y = rayon1.Y;
@@ -67,7 +67,7 @@ bool Box::IsCollidingWithRectangle(Box& p2)
     double rB_Y = rayon2.Y;
     double rB_Z = rayon2.Z;
 
-   return  rA_X + rB_X < L_x && rA_Y + rB_Y < L_y && rA_Z + rB_Z < L_z;
+    return rA_X + rB_X > L_x && rA_Y + rB_Y > L_y && rA_Z + rB_Z > L_z;
 
 }
 
