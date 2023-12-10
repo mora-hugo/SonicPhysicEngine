@@ -6,5 +6,5 @@ struct CollisionData
 {
     Vector3D CollisionNormal;
     Vector3D CollisionPoint;
-    double PenetrationDepth;
+    double PenetrationDepth = 0;
 };
