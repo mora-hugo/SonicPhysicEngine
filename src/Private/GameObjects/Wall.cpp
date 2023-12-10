@@ -6,6 +6,7 @@ Wall::Wall(ofImage * image,float Width, float Height, float Depth, const Vector3
 {
     texture->getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     this->mapTexCoordsFromTexture(texture->getTexture());
+    AddTag("Wall");
 }
 
 void Wall::Setup()

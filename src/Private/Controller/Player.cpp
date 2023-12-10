@@ -56,6 +56,7 @@ void Player::Update(double f)
     Weapon.setRotation(0, rotationY + 180, 0, 1, 0);
     Weapon.setRotation(1, rotationX, 1, 0, 0);
 
+    /*
     boxCollision.ForwardVector = Camera.getLookAtDir();
     boxCollision.RightVector = Camera.getSideDir();
     boxCollision.UpVector = Camera.getUpDir();
@@ -64,7 +65,7 @@ void Player::Update(double f)
 
 
     boxCollision.rotation =  RotationQuat;
-    
+    */
     if(bIsGoingForward)
     {
         Vector3D ForwardVector = Camera.getLookAtDir();

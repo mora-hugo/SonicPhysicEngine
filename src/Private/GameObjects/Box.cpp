@@ -2,12 +2,16 @@
 #include "../../Public/Math/Matrix3.h"
 
 #include "of3dGraphics.h"
+#include "../../Public/GameObjects/Structs/CollisionData.h"
 
 Box::Box()
 {
     Width = 200;
     Height = 200;
     Depth = 200;
+    ForwardVector = rotation.RotateVector(Vector3D::Forward());
+    UpVector = rotation.RotateVector(Vector3D::Up());
+    RightVector = rotation.RotateVector(Vector3D::Right());
 }
 void Box::SetColor(ofColor color2)
 {
@@ -23,7 +27,7 @@ Box::Box(float width, float height, float depth)
 void Box::Draw()
 {
     ofSetColor(color);
-    ofNoFill();
+    
     ofBoxPrimitive PrimBox = ofBoxPrimitive(Width, Height, Depth);
     PrimBox.setPosition(position);
     PrimBox.setGlobalOrientation(glm::quat(rotation.w, rotation.x, rotation.y, rotation.z));
@@ -34,6 +38,12 @@ void Box::Draw()
     {
         ofSetColor(planeColors[i]);
         ofDrawLine(planes[i].Point, planes[i].Point + planes[i].Normal * 100);
+    }
+    std::vector<Vector3D> vertices = GetVertices();
+    for (size_t i = 0; i < vertices.size(); ++i)
+    {
+        ofSetColor(ofColor::orange);
+        ofDrawSphere(vertices[i], 20);
     }
     // Draw the axes
    
@@ -105,59 +115,26 @@ void Box::Update(double f)
     
 }
 
-bool Box::IsCollidingWithRectangle(Box& p2)
+bool Box::IsCollidingWithRectangle(Box& p2, CollisionData & data1)
 {
-    // Box 1
-    std::vector<Plane> box_planes_A = GetPlanes();
+    auto vertices_A = GetVertices();
+    auto planes_B = p2.GetPlanes();
 
-    // Box 2
-    std::vector<Vector3D> box_vertices_B = p2.GetVertices();
-
-    for (const Plane& plane : box_planes_A)
+    for(const Vector3D& vertex : vertices_A)
     {
-        bool allVerticesOnSameSide = true;
-
-        for (const Vector3D& vertex : box_vertices_B)
+        bool collision = true;
+        for(const Plane& plane : planes_B)
         {
             const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
-            if (interpenetration < 0)
-            {
-                allVerticesOnSameSide = false;
-                break;
-            }
+            collision = collision && interpenetration <= 0;
+
         }
 
-        if (allVerticesOnSameSide)
-        {
-            return false;
-        }
+        if(collision)
+            return true;
     }
-
-    std::vector<Plane> box_planes_B = p2.GetPlanes();
-
-    for (const Plane& plane : box_planes_B)
-    {
-        bool allVerticesOnSameSide = true;
-
-        for (const Vector3D& vertex : GetVertices())
-        {
-            const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
-            if (interpenetration < 0)
-            {
-                allVerticesOnSameSide = false;
-                break;
-            }
-        }
-
-        if (allVerticesOnSameSide)
-        {
-            return false;
-        }
-    }
-
-    return true;
+    return false;
 }
-
 
 Box Box::InitBox()
 {

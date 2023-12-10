@@ -17,7 +17,7 @@ public:
     std::vector<Plane> GetPlanes() const;
 
 
-    bool IsCollidingWithRectangle(Box &p2);
+    bool IsCollidingWithRectangle(Box &p2, class CollisionData & data1);
     //note perso:produit scalaire, method iscolliding with rectangle
     static Box InitBox();
     double Width = 200;
