@@ -60,6 +60,22 @@ OctreeNode::OctreeNode(OctreeNode * parent, float penetration_depth, const Vecto
     else if(objects.size() >= 2)
     {
         // Check collision
+        for (size_t i = 0; i < objects.size(); ++i)
+        {
+            for (size_t j = i + 1; j < objects.size(); ++j)
+            {
+                GameObject* obj1 = objects[i];
+                GameObject* obj2 = objects[j];
+
+                // Vérifier la collision entre obj1 et obj2
+                if (obj1->IsCollidingWith(*obj2))
+                {
+                    // Gérer la collision entre obj1 et obj2
+                    // Vous pouvez appeler une fonction de gestion de collision ici
+                    // par exemple : obj1->HandleCollision(obj2);
+                }
+            }
+        }
     }
 }
 
