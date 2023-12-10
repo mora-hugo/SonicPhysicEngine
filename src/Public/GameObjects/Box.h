@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "ofxColorPicker.h"
 #include "../../Public/Math/Vector3D.h"
+#include "../../Public/Math/Plane.h"
 
 class Box
 {
@@ -10,6 +11,10 @@ public:
     void SetColor(ofColor color);
     void Draw();
     void Update(double f);
+
+    //Calculer les sommets de la boite
+    std::vector<Vector3D> GetVertices() const;
+    std::vector<Plane> GetPlanes() const;
 
 
     bool IsCollidingWithRectangle(Box &p2);

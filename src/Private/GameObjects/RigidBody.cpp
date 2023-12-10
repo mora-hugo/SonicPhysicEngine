@@ -21,6 +21,14 @@ void RigidBody::Draw()
     if(NeedToBeDestroyed()) return;
     GameObject::Draw();
     ofDrawSphere(position.X, position.Y, position.Z, GetRadius());
+
+    //Draw the axis
+    ofSetColor(ofColor::red);
+    ofDrawLine(position.X, position.Y, position.Z, position.X + ForwardVector.X * 100, position.Y + ForwardVector.Y * 100, position.Z + ForwardVector.Z * 100);
+    ofSetColor(ofColor::green);
+    ofDrawLine(position.X, position.Y, position.Z, position.X + RightVector.X * 100, position.Y + RightVector.Y * 100, position.Z + RightVector.Z * 100);
+    ofSetColor(ofColor::blue);
+    ofDrawLine(position.X, position.Y, position.Z, position.X + UpVector.X * 100, position.Y + UpVector.Y * 100, position.Z + UpVector.Z * 100);
    
 }
 
@@ -41,16 +49,17 @@ void RigidBody::Update(double f)
     // Normalization
     RotationQuat.normalize();
 
-    ForwardVector = Vector3D::fromQuaternion((RotationQuat * Quaternion::fromVector(ForwardVector)));
-    RightVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(RightVector));
-    UpVector = Vector3D::fromQuaternion(RotationQuat * Quaternion::fromVector(UpVector));
+    ForwardVector = RotationQuat.RotateVector(Vector3D::Forward());
+    RightVector = RotationQuat.RotateVector(Vector3D::Right());
+    UpVector = RotationQuat.RotateVector(Vector3D::Up());
+    
 
-    /*
+
     boxCollision.ForwardVector = ForwardVector;
     boxCollision.RightVector = RightVector;
     boxCollision.UpVector = UpVector;
 
-        */
+
     boxCollision.rotation = RotationQuat;
     
     GameObject::Update(f);

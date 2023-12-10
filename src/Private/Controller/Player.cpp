@@ -55,6 +55,15 @@ void Player::Update(double f)
 
     Weapon.setRotation(0, rotationY + 180, 0, 1, 0);
     Weapon.setRotation(1, rotationX, 1, 0, 0);
+
+    boxCollision.ForwardVector = Camera.getLookAtDir();
+    boxCollision.RightVector = Camera.getSideDir();
+    boxCollision.UpVector = Camera.getUpDir();
+    
+    Quaternion RotationQuat(Camera.getOrientationQuat().w, Camera.getOrientationQuat().x, Camera.getOrientationQuat().y, Camera.getOrientationQuat().z);
+
+
+    boxCollision.rotation =  RotationQuat;
     
     if(bIsGoingForward)
     {

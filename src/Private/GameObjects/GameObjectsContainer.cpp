@@ -37,8 +37,9 @@ void GameObjectsContainer::Update(double f)
                 
                 GameObject * p1 = objects[i];
                 GameObject * p2 = objects[j];
-
-                if (p1->boxCollision.IsCollidingWithRectangle(p2->boxCollision))
+                const bool collision = p1->boxCollision.IsCollidingWithRectangle(p2->boxCollision);
+                
+                if (collision)
                 {
                     p1->boxCollision.color = ofColor::red;
                     p2->boxCollision.color = ofColor::red;

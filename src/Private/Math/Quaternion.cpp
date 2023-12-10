@@ -31,6 +31,16 @@ Quaternion Quaternion::identity() {
 double Quaternion::norm() const {
     return std::sqrt(w * w + x * x + y * y + z * z);
 }
+Vector3D Quaternion::RotateVector(const Vector3D& v) const {
+    // Convert the vector to a pure quaternion
+    Quaternion vectorQuat(0, v.GetX(), v.GetY(), v.GetZ());
+
+    // Quaternion multiplication to rotate the vector
+    Quaternion rotatedVector = (*this) * vectorQuat * this->conjugate();
+
+    // Extract the rotated vector from the result quaternion
+    return Vector3D(rotatedVector.x, rotatedVector.y, rotatedVector.z);
+}
 
 void Quaternion::normalize() {
     double magnitude = norm();

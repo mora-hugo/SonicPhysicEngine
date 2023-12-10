@@ -1,4 +1,5 @@
 ﻿#include "../../Public/GameObjects/Box.h"
+#include "../../Public/Math/Matrix3.h"
 
 #include "of3dGraphics.h"
 
@@ -25,10 +26,77 @@ void Box::Draw()
     ofNoFill();
     ofBoxPrimitive PrimBox = ofBoxPrimitive(Width, Height, Depth);
     PrimBox.setPosition(position);
-    //PrimBox.setGlobalOrientation(glm::quat(rotation.w, rotation.x, rotation.y, rotation.z));
+    PrimBox.setGlobalOrientation(glm::quat(rotation.w, rotation.x, rotation.y, rotation.z));
     PrimBox.drawWireframe();
+    std::vector<ofColor> planeColors = {ofColor::red, ofColor::green, ofColor::blue, ofColor::yellow, ofColor::cyan, ofColor::magenta};
+    std::vector<Plane> planes = GetPlanes();
+    for (size_t i = 0; i < planes.size(); ++i)
+    {
+        ofSetColor(planeColors[i]);
+        ofDrawLine(planes[i].Point, planes[i].Point + planes[i].Normal * 100);
+    }
+    // Draw the axes
+   
+    
     ofFill();
     ofSetColor(ofColor::white);
+}
+std::vector<Vector3D> Box::GetVertices() const
+{
+    // Calculer les demi-dimensions
+    double halfWidth = Width / 2.0;
+    double halfHeight = Height / 2.0;
+    double halfDepth = Depth / 2.0;
+
+    // Rotation de la boîte
+    Matrix3 rotationMatrix = Matrix3().CreateRotationMatrix(rotation);
+
+    // Calculer les sommets non transformés de la boîte
+    std::vector<Vector3D> vertices;
+    vertices.push_back(Vector3D(-halfWidth, -halfHeight, -halfDepth));
+    vertices.push_back(Vector3D(halfWidth, -halfHeight, -halfDepth));
+    vertices.push_back(Vector3D(halfWidth, halfHeight, -halfDepth));
+    vertices.push_back(Vector3D(-halfWidth, halfHeight, -halfDepth));
+    vertices.push_back(Vector3D(-halfWidth, -halfHeight, halfDepth));
+    vertices.push_back(Vector3D(halfWidth, -halfHeight, halfDepth));
+    vertices.push_back(Vector3D(halfWidth, halfHeight, halfDepth));
+    vertices.push_back(Vector3D(-halfWidth, halfHeight, halfDepth));
+
+    // Appliquer la position et la rotation à chaque sommet
+    for (Vector3D& vertex : vertices)
+    {
+        vertex = position + rotationMatrix * vertex;
+    }
+
+    return vertices;
+}
+
+std::vector<Plane> Box::GetPlanes() const
+{
+    const Vector3D upNormal = UpVector;
+    const Vector3D frontNormal = ForwardVector;
+    const Vector3D backNormal = ForwardVector.Negate();
+    const Vector3D leftNormal = RightVector.Negate();
+    const Vector3D rightNormal = RightVector;
+    const Vector3D downNormal = UpVector.Negate();
+
+    const Vector3D upPoint =  position + upNormal * (Height / 2.0);
+    const Vector3D frontPoint = position + frontNormal * (Depth / 2.0);
+    const Vector3D backPoint = position + backNormal * (Depth / 2.0);
+    const Vector3D leftPoint = position + leftNormal * (Width / 2.0);
+    const Vector3D rightPoint = position + rightNormal * (Width / 2.0);
+    const Vector3D downPoint = position + downNormal * (Height / 2.0);
+
+    std::vector<Plane> planes;
+    planes.push_back(Plane(upNormal, upPoint));
+    planes.push_back(Plane(frontNormal, frontPoint));
+    planes.push_back(Plane(backNormal, backPoint));
+    planes.push_back(Plane(leftNormal, leftPoint));
+    planes.push_back(Plane(rightNormal, rightPoint));
+    planes.push_back(Plane(downNormal, downPoint));
+    return planes;
+    
+
 }
 
 void Box::Update(double f)
@@ -39,46 +107,54 @@ void Box::Update(double f)
 
 bool Box::IsCollidingWithRectangle(Box& p2)
 {
-    // Vecteurs représentant les axes de chaque boîte
-    Vector3D axes[15] = {
-        ForwardVector,
-        UpVector,
-        RightVector,
-        p2.ForwardVector,
-        p2.UpVector,
-        p2.RightVector,
-        ForwardVector.CrossProduct(p2.ForwardVector),
-        ForwardVector.CrossProduct(p2.UpVector),
-        ForwardVector.CrossProduct(p2.RightVector),
-        UpVector.CrossProduct(p2.ForwardVector),
-        UpVector.CrossProduct(p2.UpVector),
-        UpVector.CrossProduct(p2.RightVector),
-        RightVector.CrossProduct(p2.ForwardVector),
-        RightVector.CrossProduct(p2.UpVector),
-        RightVector.CrossProduct(p2.RightVector)
-    };
+    // Box 1
+    std::vector<Plane> box_planes_A = GetPlanes();
 
-    for (int i = 0; i < 15; ++i)
+    // Box 2
+    std::vector<Vector3D> box_vertices_B = p2.GetVertices();
+
+    for (const Plane& plane : box_planes_A)
     {
-        // Projetter les boîtes sur l'axe
-        double projection1 = position.DotProduct(axes[i]);
-        double projection2 = p2.position.DotProduct(axes[i]);
+        bool allVerticesOnSameSide = true;
 
-        // Calculer la distance entre les projections
-        double distance = std::abs(projection1 - projection2);
-
-        // Calculer la somme des demi-largeurs le long de l'axe
-        double sumHalfWidths = (Width / 2) + (p2.Width / 2);
-
-        // Vérifier la séparation le long de l'axe
-        if (distance > sumHalfWidths)
+        for (const Vector3D& vertex : box_vertices_B)
         {
-            // Les boîtes sont séparées le long de cet axe, donc pas de collision
+            const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
+            if (interpenetration < 0)
+            {
+                allVerticesOnSameSide = false;
+                break;
+            }
+        }
+
+        if (allVerticesOnSameSide)
+        {
             return false;
         }
     }
 
-    // Aucune séparation le long de tous les axes, donc collision
+    std::vector<Plane> box_planes_B = p2.GetPlanes();
+
+    for (const Plane& plane : box_planes_B)
+    {
+        bool allVerticesOnSameSide = true;
+
+        for (const Vector3D& vertex : GetVertices())
+        {
+            const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
+            if (interpenetration < 0)
+            {
+                allVerticesOnSameSide = false;
+                break;
+            }
+        }
+
+        if (allVerticesOnSameSide)
+        {
+            return false;
+        }
+    }
+
     return true;
 }
 

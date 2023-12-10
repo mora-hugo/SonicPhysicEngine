@@ -29,6 +29,7 @@ public:
     // Quaternion norm (magnitude)
     double norm() const;
 
+    class Vector3D RotateVector(const Vector3D& v) const;
     // Normalize the quaternion
     void normalize();
 
