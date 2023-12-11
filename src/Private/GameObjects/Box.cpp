@@ -1,4 +1,7 @@
 ﻿#include "../../Public/GameObjects/Box.h"
+
+#include <valarray>
+
 #include "../../Public/Math/Matrix3.h"
 
 #include "of3dGraphics.h"
@@ -115,8 +118,16 @@ void Box::Update(double f)
     
 }
 
-bool Box::IsCollidingWithRectangle(Box& p2, CollisionData & data1)
+bool Box::IsCollidingWithRectangle(Box& p2, CollisionData& data1)
 {
+    /*if(collision && abs(data1.PenetrationDepth) < abs(interpenetration))
+    {
+        data1.PenetrationDepth = abs(interpenetration);
+        data1.CollisionNormal = plane.Normal;
+        data1.CollisionPoint = vertex - plane.Normal.Multiply(plane.Normal.DotProduct(vertex - plane.Point));
+    }*/
+    std::vector<CollisionData> collisions;
+    
     auto vertices_A = GetVertices();
     auto planes_B = p2.GetPlanes();
 
@@ -129,10 +140,13 @@ bool Box::IsCollidingWithRectangle(Box& p2, CollisionData & data1)
             collision = collision && interpenetration <= 0;
         }
         if(collision)
-            return true;
+        {
+            CollisionData data = CollisionData();
+            
+            collisions.push_back(CollisionData());
+        }
     }
-    
-    return false;
+    return collisions.size()>0;
 }
 
 Box Box::InitBox()
