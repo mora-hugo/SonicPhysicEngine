@@ -54,7 +54,7 @@ void ofApp::setup(){
 
     // Déplacez la fenêtre au centre de l'écran
     ofSetWindowPosition(ofGetScreenWidth() / 2 - ofGetWidth() / 2, ofGetScreenHeight() / 2 - ofGetHeight() / 2);
-
+    
 }
 
 //--------------------------------------------------------------

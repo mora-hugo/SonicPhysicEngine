@@ -66,13 +66,57 @@ OctreeNode::OctreeNode(OctreeNode * parent, float penetration_depth, const Vecto
             {
                 GameObject* obj1 = objects[i];
                 GameObject* obj2 = objects[j];
-
-                // Vérifier la collision entre obj1 et obj2
+                if(obj1->HasTag("Wall") && obj2->HasTag("Wall"))
+                    continue;
+                // Vérifier la collision entre les sphères englobantes
                 if (obj1->IsCollidingWith(*obj2))
                 {
-                    // Gérer la collision entre obj1 et obj2
-                    // Vous pouvez appeler une fonction de gestion de collision ici
-                    // par exemple : obj1->HandleCollision(obj2);
+                    CollisionData collisionData;
+
+                    /*const float radius = obj1->GetRadius() + obj2->GetRadius();
+                    const float distance = obj1->GetPosition().Distance(obj2->GetPosition());
+                    
+                    const Vector3D Penetration = obj1->GetPosition().Sub(obj2->GetPosition());
+                    collisionData.CollisionNormal = Penetration.Normalize();
+                    collisionData.CollisionPoint = obj1->GetPosition().Add(collisionData.CollisionNormal.Multiply(obj1->GetRadius()));
+                    collisionData.PenetrationDepth = abs(radius-distance);
+    
+                    CollisionData collisionData2;
+                    collisionData2.CollisionNormal = collisionData.CollisionNormal.Negate();
+                    collisionData2.CollisionPoint = collisionData.CollisionPoint;
+                    collisionData2.PenetrationDepth = collisionData.PenetrationDepth;*/
+
+                    //vérifie la collision entre les boites de collisions des objets
+                    if (obj1->boxCollision.IsCollidingWithRectangle(obj2->boxCollision, collisionData))
+                    {
+                        //Snap the targets
+                        Vector3D PositionOffsetP1 = collisionData.CollisionNormal.Multiply(collisionData.PenetrationDepth);
+                        PositionOffsetP1 = PositionOffsetP1.Multiply(obj2->GetMass()/(obj1->GetMass()+obj2->GetMass()));
+
+                        Vector3D PositionOffsetP2 = collisionData.CollisionNormal.Multiply(collisionData.PenetrationDepth);
+                        PositionOffsetP2 = PositionOffsetP2.Multiply(obj1->GetMass()/(obj2->GetMass()+obj1->GetMass())).Negate();
+
+                        if(!obj1->CanCollide() || !obj2->CanCollide())
+                            continue;
+                    
+                        obj1->AddPosition(PositionOffsetP1);
+                        obj2->AddPosition(PositionOffsetP2);
+
+                        // Add the impulse
+                        Vector3D ImpulseVectorP1;
+                        obj1->GetImpulseFromCollision(obj2,collisionData.CollisionNormal,ImpulseVectorP1,true);
+
+                        Vector3D ImpulseVectorP2;
+                        obj2->GetImpulseFromCollision(obj1,collisionData.CollisionNormal,ImpulseVectorP2,false);
+                        
+                        if(ImpulseVectorP1.GetY() > Config::GRAVITY.GetY())
+                            ImpulseVectorP1.SetY(0);
+                        if(ImpulseVectorP2.GetY() >Config::GRAVITY.GetY())
+                            ImpulseVectorP2.SetY(0);
+                    
+                        obj1->SetVelocity(ImpulseVectorP1);
+                        obj2->SetVelocity(ImpulseVectorP2);
+                    }
                 }
             }
         }

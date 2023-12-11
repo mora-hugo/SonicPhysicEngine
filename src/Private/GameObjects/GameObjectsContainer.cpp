@@ -18,11 +18,6 @@ void GameObjectsContainer::Setup()
 
 void GameObjectsContainer::Update(double f)
 {
-    for(GameObject * object: objects)
-    {
-        object->boxCollision.color = ofColor::white;
-    }
-    std::vector<GameObject*> objectsColliding;
     for(unsigned int i = 0; i < objects.size();i++)
     {
         if(objects[i]->NeedToBeDestroyed())
@@ -31,29 +26,6 @@ void GameObjectsContainer::Update(double f)
             continue;
         }
         objects[i]->Update(f);
-        for(unsigned int j = i + 1; j < objects.size(); j++)
-        {
-            if(i != j) // If there is more than 2n collisions, then abandon the others
-            {
-                GameObject * p1 = objects[i];
-                GameObject * p2 = objects[j];
-
-
-                CollisionData data;
-                CollisionData data2;
-                const bool collision1 = p2->boxCollision.IsCollidingWithRectangle(p1->boxCollision,data);
-                
-
-                if(collision1)
-                {
-
- 
-                   p2->boxCollision.color = ofColor::red;
-                    p1->boxCollision.color = ofColor::red;
-                    //std::cout << "collision ! " << std::endl;
-                }
-                
-            }
 
             //Simulate collision for the ground
             GameObject * p1 = objects[i];
@@ -71,11 +43,7 @@ void GameObjectsContainer::Update(double f)
 
                 p1->AddPosition(Vector3D(0,Penetration.Negate().GetY(),0));
             
-            
                 }
-        }
-        
-       
     }
 }
 

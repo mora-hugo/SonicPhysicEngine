@@ -46,7 +46,7 @@ void GameWorld::BeginPlay(ofApp * Context)
 void GameWorld::Update(double DeltaTimes)
 {
     objects.Update(DeltaTimes);
-   // octree->Build();
+    octree->Build();
     for(auto spring : springs)
     {
         spring->applyForce();
@@ -62,7 +62,7 @@ void GameWorld::Draw()
     objects.Draw();
     ground.Draw();
     player->Draw();
-    //octree->Draw(); //Comment this to hide the lines of the octree (prevent the draw)
+    octree->Draw(); //Comment this to hide the lines of the octree (prevent the draw)
 
     //IMPORTANT
     player->StopPlayerSee();

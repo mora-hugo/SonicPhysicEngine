@@ -127,9 +127,7 @@ bool Box::IsCollidingWithRectangle(Box& p2, CollisionData & data1)
         {
             const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
             collision = collision && interpenetration <= 0;
-
         }
-
         if(collision)
             return true;
     }
