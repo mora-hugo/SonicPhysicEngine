@@ -66,12 +66,14 @@ OctreeNode::OctreeNode(OctreeNode * parent, float penetration_depth, const Vecto
             {
                 GameObject* obj1 = objects[i];
                 GameObject* obj2 = objects[j];
-                if(obj1->HasTag("Wall") && obj2->HasTag("Wall"))
-                    continue;
+
                 // Vérifier la collision entre les sphères englobantes
                 if (obj1->IsCollidingWith(*obj2))
                 {
                     CollisionData collisionData;
+
+                    obj1->boxCollision.color = ofColor::orange;
+                    obj2->boxCollision.color = ofColor::orange;
 
                     /*const float radius = obj1->GetRadius() + obj2->GetRadius();
                     const float distance = obj1->GetPosition().Distance(obj2->GetPosition());
@@ -89,6 +91,8 @@ OctreeNode::OctreeNode(OctreeNode * parent, float penetration_depth, const Vecto
                     //vérifie la collision entre les boites de collisions des objets
                     if (obj1->boxCollision.IsCollidingWithRectangle(obj2->boxCollision, collisionData))
                     {
+                        obj1->boxCollision.color = ofColor::red;
+                        obj2->boxCollision.color = ofColor::red;
                         //Snap the targets
                         Vector3D PositionOffsetP1 = collisionData.CollisionNormal.Multiply(collisionData.PenetrationDepth);
                         PositionOffsetP1 = PositionOffsetP1.Multiply(obj2->GetMass()/(obj1->GetMass()+obj2->GetMass()));
@@ -101,6 +105,9 @@ OctreeNode::OctreeNode(OctreeNode * parent, float penetration_depth, const Vecto
                     
                         obj1->AddPosition(PositionOffsetP1);
                         obj2->AddPosition(PositionOffsetP2);
+
+                        obj1->OnCollision(obj2, collisionData);
+                        obj2->OnCollision(obj1, collisionData);
 
                         // Add the impulse
                         Vector3D ImpulseVectorP1;

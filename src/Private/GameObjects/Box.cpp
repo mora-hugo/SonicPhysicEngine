@@ -131,6 +131,7 @@ bool Box::IsCollidingWithRectangle(Box& p2, CollisionData & data1)
         if(collision)
             return true;
     }
+    
     return false;
 }
 

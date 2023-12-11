@@ -44,8 +44,8 @@ private:
     
     
 public:
-    constexpr static int MAX_DEPTH = 10;
-    constexpr static int MAX_OBJECTS = 1;
+    constexpr static int MAX_DEPTH = 6;
+    constexpr static int MAX_OBJECTS = 2;
 
     
     

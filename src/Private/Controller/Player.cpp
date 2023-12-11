@@ -29,6 +29,9 @@ void Player::Draw()
     Camera.setPosition(GetPosition().Sub(CameraOffset));
     Weapon.drawFaces();
     GameObject::Draw();
+    ofSetColor(ofColor::orange);
+    ofDrawSphere(GetPosition(),GetRadius());
+    ofSetColor(ofColor::white);
 }
 
 void Player::Update(double f)
@@ -113,13 +116,12 @@ void Player::Fire(GameWorld * Context)
     //Call when the player fire
     if(ammo <= 0) return;
     
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(5,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 5, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(100,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 50, true));
+
     SetCameraTarget(gameobject);
     gameobject->AddForce(Force(Vector3D(0,0,0), 1, Constant));
     Force force = Force((-GetCamera()->getLookAtDir()*10), 1, Constant, Vector3D(0,1,0));
     gameobject->AddForce(force);
-    gameobject->SetCollision(false);
-    gameobject->AddTag("Bullet");
     TPSCamera.resetTransform();
     ammo--;
 }
