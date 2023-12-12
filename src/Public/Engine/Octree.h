@@ -26,7 +26,7 @@ struct OctreeNode
     OctreeNode(class Octree * parent, float penetration_depth, const Vector3D & center, float size, const std::vector<GameObject*>& objects);
 
     void Draw();
-    
+    void Destroy(); 
 };
 
 
@@ -63,7 +63,7 @@ public:
    
 private:
     
-    OctreeNode * rootNode;
+    OctreeNode * rootNode = nullptr;
     float Size = 0;
     Vector3D BasePosition = Vector3D::Zero();
     const std::vector<GameObject*>& objects;

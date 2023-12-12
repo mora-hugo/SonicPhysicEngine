@@ -83,9 +83,7 @@ OctreeNode::OctreeNode(class Octree * parent, float penetration_depth, const Vec
                     CollisionData collisionData;
                     CollisionData collisionData2;
 
-                    obj1->boxCollision.color = ofColor::orange;
-                    obj2->boxCollision.color = ofColor::orange;
-
+                
                     bool bIsCollindingP2 = obj2->boxCollision.IsCollidingWithRectangle(obj1->boxCollision,collisionData);
                     if(bIsCollindingP2)
                     {
@@ -203,6 +201,19 @@ void OctreeNode::Draw()
     }
 }
 
+void OctreeNode::Destroy()
+{
+    for(int i = 0; i < 8; i++)
+    {
+        if(children[i])
+        {
+            children[i]->Destroy();
+            delete children[i];
+            children[i] = nullptr;
+        }
+    }
+}
+
 Octree::Octree(const Vector3D & center, float size, const std::vector<GameObject*>& objects) : Size(size), BasePosition(center), objects(objects)
 {
     Build();
@@ -234,5 +245,7 @@ void Octree::Build()
 void Octree::Reset()
 {
     GameObjectsCollided.clear();
+    if(rootNode)
+        rootNode->Destroy();
     rootNode = nullptr;
 }
