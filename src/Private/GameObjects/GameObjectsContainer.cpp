@@ -47,17 +47,6 @@ void GameObjectsContainer::Update(double f)
     }
 }
 
-bool GameObjectsContainer::CheckCollision(const GameObject& p1, const GameObject& p2) {
-    //bool res = false;
-
-    const bool xCollision = std::abs(p1.GetPosition().X - p2.GetPosition().X) * 2 < (p1.boxCollision.Width + p2.boxCollision.Width);
-    const bool yCollision = std::abs(p1.GetPosition().Y - p2.GetPosition().Y) * 2 < (p1.boxCollision.Height + p2.boxCollision.Height);
-    const bool zCollision = std::abs(p1.GetPosition().Z - p2.GetPosition().Z) * 2 < (p1.boxCollision.Depth + p2.boxCollision.Depth);
-
-    //std::cout << xCollision << " / " << yCollision << " / " << zCollision << std::endl;
-    return xCollision || yCollision || zCollision;
-}
-
 void GameObjectsContainer::Draw()
 {
     for(GameObject * object: objects)

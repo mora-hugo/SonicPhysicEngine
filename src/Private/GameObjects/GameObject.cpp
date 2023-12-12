@@ -16,7 +16,15 @@ void GameObject::Setup()
 
 void GameObject::Draw()
 {
-    //boxCollision.Draw();    
+    // Draw box
+    boxCollision.Draw();
+
+    /* Uncomment to draw sphere
+    ofNoFill();
+    ofDrawSphere(GetPosition(),GetRadius());
+    ofFill();
+
+    */
 }
 
 void GameObject::Update(double f)

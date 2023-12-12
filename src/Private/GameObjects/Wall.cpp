@@ -24,7 +24,7 @@ void Wall::Draw()
     texture->getTexture().bind();
     draw();
     texture->getTexture().unbind();
-    boxCollision.Draw();
+
     
    
 

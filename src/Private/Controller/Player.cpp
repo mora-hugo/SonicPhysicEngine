@@ -119,7 +119,7 @@ void Player::Fire(GameWorld * Context)
     //Call when the player fire
     if(ammo <= 0) return;
     
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(100,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 200, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(20,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 200, true));
 
     SetCameraTarget(gameobject);
     gameobject->AddForce(Force(Vector3D(0,0,0), 1, Constant));
