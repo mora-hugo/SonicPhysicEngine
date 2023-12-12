@@ -32,7 +32,7 @@ void GameWorld::BeginPlay(ofApp * Context)
         OnKeyboardEvent(event);
     });
 
-    player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 10, Vector3D(0,0,-800), Vector3D::Zero(), 80)));
+    player = dynamic_cast<Player*>(objects.SpawnObject(new Player(Context, 1, Vector3D(0,0,-800), Vector3D::Zero(), 200)));
     rockTexture.load("rock_albedo.jpg");
     player->Setup();
     CreateMap(false);
@@ -50,6 +50,7 @@ void GameWorld::Update(double DeltaTimes)
     {
         obj->boxCollision.color = ofColor::white;
     }
+    
     octree->Build();
     
     for(auto spring : springs)

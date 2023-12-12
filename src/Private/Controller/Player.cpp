@@ -8,6 +8,10 @@
 Player::Player(ofApp * Context, const double& mass, const Vector3D& position, const Vector3D& velocity, int SphereRadius) :
     GameObject(mass, position, velocity, SphereRadius, false), Camera{Context}
 {
+    AddTag("Player");
+    boxCollision.Width = 200;
+    boxCollision.Height = 100;
+    boxCollision.Depth = 200;
 }
 
 void Player::Setup()
@@ -29,9 +33,8 @@ void Player::Draw()
     Camera.setPosition(GetPosition().Sub(CameraOffset));
     Weapon.drawFaces();
     GameObject::Draw();
-    ofSetColor(ofColor::orange);
-    ofDrawSphere(GetPosition(),GetRadius());
-    ofSetColor(ofColor::white);
+    boxCollision.Draw();
+
 }
 
 void Player::Update(double f)
@@ -116,7 +119,7 @@ void Player::Fire(GameWorld * Context)
     //Call when the player fire
     if(ammo <= 0) return;
     
-    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(100,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 50, true));
+    GameObject * gameobject = Context->GetObjectsArray()->SpawnObject(new Cube(100,ofColor::red,5, (GetLaunchPoint()-GetCamera()->getLookAtDir()*10), Vector3D((GetCamera()->getLookAtDir()*1000))+GetVelocity(), 200, true));
 
     SetCameraTarget(gameobject);
     gameobject->AddForce(Force(Vector3D(0,0,0), 1, Constant));

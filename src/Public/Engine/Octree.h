@@ -21,9 +21,9 @@ struct OctreeNode
     std::vector<GameObject*> GetObjectsInCube(const Vector3D& vector_3d, float new_size, const std::vector<GameObject*>& vector);
     bool IsSpherePartiallyInsideCube(const Vector3D& sphereCenter, float sphereRadius, const Vector3D& cubeCenter, float cubeHalfSize);
 
-    bool GameObjectAreEqual(GameObject * game_object);
     
-    OctreeNode(OctreeNode * parent, float penetration_depth, const Vector3D & center, float size, const std::vector<GameObject*>& objects);
+    
+    OctreeNode(class Octree * parent, float penetration_depth, const Vector3D & center, float size, const std::vector<GameObject*>& objects);
 
     void Draw();
     
@@ -35,7 +35,8 @@ class Octree
 public:
     Octree(const Vector3D & center, float size, const std::vector<GameObject*>& objects);
     ~Octree();
-
+    bool AreAlreadyCollided(GameObject* p1, GameObject* p2);
+    std::vector<std::pair<GameObject*, GameObject*>> GameObjectsCollided;
     void Draw();
     void Build();
 private:

@@ -2,7 +2,13 @@
 #include "ofxColorPicker.h"
 #include "../../Public/Math/Vector3D.h"
 #include "../../Public/Math/Plane.h"
-
+enum class CollisionType
+{
+    NONE,
+    FACE,
+    EDGE,
+    VERTEX
+};
 class Box
 {
 public:
@@ -17,7 +23,10 @@ public:
     std::vector<Plane> GetPlanes() const;
 
 
-    bool IsCollidingWithRectangle(Box &p2, class CollisionData & data1);
+    bool IsCollidingWithRectangle(Box &p2, class CollisionData& OutCollisionType);
+    void ResolveCollision(Box &p2, CollisionType CollisionType, class CollisionData &OutCollisionData);
+    // 1 - Forward | 2 - Up |3 - Right
+    void GetCollisionAtFace(Box &p2, int faceIndex, class CollisionData &OutCollisionData);
     //note perso:produit scalaire, method iscolliding with rectangle
     static Box InitBox();
     double Width = 200;

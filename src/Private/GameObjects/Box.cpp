@@ -46,7 +46,7 @@ void Box::Draw()
     for (size_t i = 0; i < vertices.size(); ++i)
     {
         ofSetColor(ofColor::orange);
-        ofDrawSphere(vertices[i], 20);
+        ofDrawSphere(vertices[i], 5);
     }
     // Draw the axes
    
@@ -117,36 +117,137 @@ void Box::Update(double f)
     
     
 }
-
-bool Box::IsCollidingWithRectangle(Box& p2, CollisionData& data1)
+void Box::GetCollisionAtFace(Box &p2, int faceIndex, CollisionData &OutCollisionData)
 {
-    /*if(collision && abs(data1.PenetrationDepth) < abs(interpenetration))
+    auto vertices_A = GetVertices();
+    for(const Vector3D& vertex : vertices_A)
     {
-        data1.PenetrationDepth = abs(interpenetration);
-        data1.CollisionNormal = plane.Normal;
-        data1.CollisionPoint = vertex - plane.Normal.Multiply(plane.Normal.DotProduct(vertex - plane.Point));
-    }*/
-    std::vector<CollisionData> collisions;
+        if(faceIndex == 1)
+        {
+            const Plane plane_forward = GetPlanes()[1];
+            const Plane plane_backward = GetPlanes()[2];
+
+            const double interpenetration_forward = plane_forward.Normal.DotProduct(vertex - plane_forward.Point);
+            const double interpenetration_backward = plane_backward.Normal.DotProduct(vertex - plane_backward.Point);
+            if(interpenetration_forward > 0 || interpenetration_backward > 0) continue;
+            if(abs(interpenetration_forward) < abs(interpenetration_backward))
+            {
+                if(abs(interpenetration_forward) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_forward.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_forward);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_forward.Normal.Multiply(plane_forward.Normal.DotProduct((vertex.Sub(plane_forward.Point)))));
+            }
+            else
+            {
+                if(abs(interpenetration_backward) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_backward.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_backward);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_backward.Normal.Multiply(plane_backward.Normal.DotProduct((vertex.Sub(plane_backward.Point)))));
+            }
+        }
+        else if(faceIndex == 2)
+        {
+            const Plane plane_up = GetPlanes()[0];
+            const Plane plane_down = GetPlanes()[5];
+
+            const double interpenetration_up = plane_up.Normal.DotProduct(vertex - plane_up.Point);
+            const double interpenetration_down = plane_down.Normal.DotProduct(vertex - plane_down.Point);
+            if(interpenetration_up > 0 || interpenetration_down > 0) continue;
+
+            if(abs(interpenetration_up) < abs(interpenetration_down))
+            {
+                if(abs(interpenetration_up) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_up.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_up);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_up.Normal.Multiply(plane_up.Normal.DotProduct((vertex.Sub(plane_up.Point)))));
+            }
+            else
+            {
+                if(abs(interpenetration_down) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_down.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_down);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_down.Normal.Multiply(plane_down.Normal.DotProduct((vertex.Sub(plane_down.Point)))));
+            }
+        }
+        else if(faceIndex == 3)
+        {
+            const Plane plane_right = GetPlanes()[4];
+            const Plane plane_left = GetPlanes()[3];
+
+            const double interpenetration_right = plane_right.Normal.DotProduct(vertex - plane_right.Point);
+            const double interpenetration_left = plane_left.Normal.DotProduct(vertex - plane_left.Point);
+            if(interpenetration_right > 0 || interpenetration_left > 0) continue;
+
+            if(abs(interpenetration_right) < abs(interpenetration_left))
+            {
+                if(abs(interpenetration_right) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_right.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_right);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_right.Normal.Multiply(plane_right.Normal.DotProduct((vertex.Sub(plane_right.Point)))));
+            }
+            else
+            {
+                if(abs(interpenetration_left) > OutCollisionData.PenetrationDepth) continue;
+                OutCollisionData.CollisionNormal = plane_left.Normal;
+                OutCollisionData.PenetrationDepth = abs(interpenetration_left);
+                OutCollisionData.CollisionPoint = vertex.Sub(plane_left.Normal.Multiply(plane_left.Normal.DotProduct((vertex.Sub(plane_left.Point)))));
+            }
+        }
+    }
+}
+void Box::ResolveCollision(Box &p2, CollisionType CollisionType, class CollisionData &OutCollisionData)
+{
+    auto vertices_A = GetVertices();
+    
+    auto planes_B = p2.GetPlanes();
+    if(CollisionType == CollisionType::FACE)
+    {
+        for(const Vector3D& vertex : vertices_A)
+        {
+            bool collision = true;
+            for(const Plane& plane : planes_B)
+            {
+                const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
+                collision = collision && interpenetration <= 0;
+            }
+
+        }
+    }
+}
+bool Box::IsCollidingWithRectangle(Box& p2, CollisionData& CollisionStruct)
+{
+    bool res = false;
     
     auto vertices_A = GetVertices();
     auto planes_B = p2.GetPlanes();
 
+
     for(const Vector3D& vertex : vertices_A)
     {
         bool collision = true;
+        
         for(const Plane& plane : planes_B)
         {
-            const double interpenetration = plane.Normal.DotProduct(vertex - plane.Point);
+            const double interpenetration = plane.Normal.DotProduct(vertex.Sub(plane.Point));
             collision = collision && interpenetration <= 0;
+            if(collision)
+            {
+                if(abs(interpenetration) < CollisionStruct.PenetrationDepth)
+                {
+                    CollisionStruct.PenetrationDepth = abs(interpenetration);
+                    CollisionStruct.CollisionNormal = plane.Normal;
+                    CollisionStruct.CollisionPoint = vertex.Sub(plane.Normal.Multiply(plane.Normal.DotProduct((vertex.Sub(plane.Point)))));
+                }
+            }
         }
         if(collision)
         {
-            CollisionData data = CollisionData();
-            
-            collisions.push_back(CollisionData());
+            res = true;
         }
     }
-    return collisions.size()>0;
+
+
+    return res;
 }
 
 Box Box::InitBox()

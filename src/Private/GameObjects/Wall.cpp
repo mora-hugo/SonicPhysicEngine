@@ -3,7 +3,7 @@
 #include "of3dGraphics.h"
 
 
-Wall::Wall(ofImage * image,float Width, float Height, float Depth, const Vector3D& position) : ofBoxPrimitive(Width,Height,Depth), GameObject(10000000, position, Vector3D(), 300, false), texture(image)
+Wall::Wall(ofImage * image,float Width, float Height, float Depth, const Vector3D& position) : ofBoxPrimitive(Width,Height,Depth), GameObject(std::numeric_limits<int>().max(), position, Vector3D(), 300, false), texture(image)
 {
     texture->getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     this->mapTexCoordsFromTexture(texture->getTexture());
@@ -24,9 +24,9 @@ void Wall::Draw()
     texture->getTexture().bind();
     draw();
     texture->getTexture().unbind();
-    ofSetColor(ofColor::orange);
-    ofDrawSphere(GetPosition(),GetRadius());
-    ofSetColor(ofColor::white);
+    boxCollision.Draw();
+    
+   
 
 }
 

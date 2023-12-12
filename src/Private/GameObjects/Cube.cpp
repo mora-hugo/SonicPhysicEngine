@@ -7,15 +7,17 @@ Cube::Cube(int size,const ofColor& color, const double& mass, const Vector3D& po
            const bool bIsUsingGravity) : RigidBody(mass, position, velocity, radius, bIsUsingGravity), ofBoxPrimitive(size,size,size), Cubecolor(color)
 {
     InertialTensor =  Matrix3::Identity().Multiply(GetMass()* (size*size)/6);
+    boxCollision.Width = 100;
+    boxCollision.Height = 100;
+    boxCollision.Depth = 100;
 
 }
 
 void Cube::Draw()
 {
     RigidBody::Draw();
-    ofSetColor(Cubecolor);
-    ofDrawSphere(GetPosition(),GetRadius());
-    ofSetColor(ofColor::white);
+
+    boxCollision.Draw();
 }
 
 void Cube::Update(double f)

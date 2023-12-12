@@ -20,7 +20,7 @@ void RigidBody::Draw()
 {
     if(NeedToBeDestroyed()) return;
     GameObject::Draw();
-    ofDrawSphere(position.X, position.Y, position.Z, GetRadius());
+   
 
     //Draw the axis
     ofSetColor(ofColor::red);
@@ -49,18 +49,11 @@ void RigidBody::Update(double f)
     // Normalization
     RotationQuat.normalize();
 
-    ForwardVector = RotationQuat.RotateVector(Vector3D::Forward());
-    RightVector = RotationQuat.RotateVector(Vector3D::Right());
-    UpVector = RotationQuat.RotateVector(Vector3D::Up());
+  
     
 
 
-    boxCollision.ForwardVector = ForwardVector;
-    boxCollision.RightVector = RightVector;
-    boxCollision.UpVector = UpVector;
-
-
-    boxCollision.rotation = RotationQuat;
+   
     
     GameObject::Update(f);
    
