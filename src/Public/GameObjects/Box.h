@@ -16,13 +16,12 @@ public:
     std::vector<Vector3D> GetVertices() const;
     std::vector<Plane> GetPlanes() const;
 
-
+    //Verify collision 
     bool IsCollidingWithRectangle(Box &p2, class CollisionData& OutCollisionType);
-   
     
-   
-    //note perso:produit scalaire, method iscolliding with rectangle
     static Box InitBox();
+    
+    //Params
     double Width = 200;
     double Height = 200;
     double Depth = 200;

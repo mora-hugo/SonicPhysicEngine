@@ -141,7 +141,7 @@ bool Box::IsCollidingWithRectangle(Box& p2, CollisionData& CollisionStruct)
             collision = collision && interpenetration <= 0;
             if(collision)
             {
-                if( abs(interpenetration) <CollisionStruct.PenetrationDepth)
+                if( abs(interpenetration) < CollisionStruct.PenetrationDepth)
                 {
                     CollisionStruct.PenetrationDepth = abs(interpenetration);
                     plane_colliding = &plane;
